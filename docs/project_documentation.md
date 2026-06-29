@@ -306,6 +306,7 @@ graph TD
 | 7b | `07b_spike.js` | 5→200→5 | 2.5m | ~6,000 | < 2s | < 5% | ✅ Pass |
 | 7c | `07c_breakpoint.js` | 50→600 | 10.5m | ~15,000 | varies | < 50% | ✅ Pass |
 | 7d | `07d_soak.js` | 20 | 37m | ~15,000 | < 500ms | < 1% | ✅ Pass |
+| 8 | `08_ci_pipeline.js` | 0→20→0 | 60s | ~600 | < 300ms | < 1% | ✅ Pass |
 
 ---
 
@@ -341,16 +342,27 @@ Load Profiles
   ├─ Spike     → test recovery from sudden surges
   ├─ Breakpoint → find capacity ceiling
   └─ Soak      → detect memory leaks over time
+
+Custom Metrics (k6/metrics)
+  ├─ Trend   → per-endpoint latency tracking (login_duration, profile_duration)
+  ├─ Rate    → end-to-end flow success rate (auth_flow_success)
+  ├─ Counter → total completed flows (total_auth_flows)
+  └─ handleSummary → structured JSON output for CI artifacts
+
+CI/CD Integration
+  └─ GitHub Actions workflow with k6 threshold gating
+  └─ Exit code 99 → blocks PR merge on performance regression
 ```
 
 ---
 
 ## Next Steps
 
-- [ ] **Connect MCP to Antigravity** — Enable AI-assisted test generation and analysis
+- [x] **CI/CD Integration** — GitHub Actions pipeline with k6 threshold gating ✅
 - [ ] **Grafana Dashboard** — Visualize metrics in real-time with InfluxDB + Grafana
-- [ ] **CI/CD Integration** — Add k6 tests to GitHub Actions pipeline with threshold gating
+- [ ] **Production Testing** — Apply these patterns to a real production API
+- [ ] **Custom Dashboards** — Build team-facing performance dashboards
 
 ---
 
-> **Built with** k6 + Node.js + Express | **Author**: Rahul
+> **Built with** k6 + Node.js + Express + GitHub Actions | **Author**: Rahul

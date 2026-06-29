@@ -1,3 +1,5 @@
+[![Performance Gate](https://github.com/Rahul83100/k6-load-testing-lab/actions/workflows/performance.yml/badge.svg)](https://github.com/Rahul83100/k6-load-testing-lab/actions/workflows/performance.yml)
+
 # k6 Load Testing — Performance Testing Lab
 
 A hands-on project to learn **k6 load testing** from zero to advanced. Includes a Node.js/Express target API and 10 progressive test scripts covering every core k6 concept.
@@ -8,6 +10,9 @@ A hands-on project to learn **k6 load testing** from zero to advanced. Includes 
 
 ```
 k6_learning/
+├── .github/
+│   └── workflows/
+│       └── performance.yml  # CI/CD performance gate
 ├── server/
 │   ├── index.js            # Express API (target app)
 │   └── package.json
@@ -23,7 +28,10 @@ k6_learning/
 │   ├── 07a_baseline.js     # Baseline — normal load
 │   ├── 07b_spike.js        # Spike — sudden traffic surge
 │   ├── 07c_breakpoint.js   # Breakpoint — find system limits
-│   └── 07d_soak.js         # Soak — memory leak detection
+│   ├── 07d_soak.js         # Soak — memory leak detection
+│   └── 08_ci_pipeline.js   # CI/CD performance gate script
+├── docs/
+│   └── PERFORMANCE_INSIGHTS.md  # PM performance testing guide
 └── docker-compose.yml      # Grafana + InfluxDB (optional)
 ```
 
@@ -59,6 +67,7 @@ k6 run tests/07a_baseline.js      # Task 7a – Baseline profile
 k6 run tests/07b_spike.js         # Task 7b – Spike profile
 k6 run tests/07c_breakpoint.js    # Task 7c – Stress to failure
 k6 run tests/07d_soak.js          # Task 7d – Endurance (30 min)
+k6 run tests/08_ci_pipeline.js    # Task 8  – CI/CD gate (strict)
 ```
 
 ---
@@ -89,6 +98,33 @@ k6 run tests/07d_soak.js          # Task 7d – Endurance (30 min)
 | 07b | **Spike** | Test sudden traffic surges — does the system recover after the spike drops? |
 | 07c | **Breakpoint** | Ramp until failure — find the exact VU count where SLAs break |
 | 07d | **Soak** | Run for 30+ minutes at steady load — detect memory leaks and latency drift |
+| 08 | **CI/CD Gate** | Automate pass/fail in GitHub Actions — exit code 99 blocks deploys |
+
+---
+
+## CI/CD Performance Gate
+
+Every push to `main` runs an automated performance gate via GitHub Actions:
+
+- ✅ Starts the Express server
+- ✅ Runs `08_ci_pipeline.js` with strict SLA thresholds
+- ✅ Blocks the merge if p95 > 300ms or error rate > 1%
+- ✅ Tracks custom metrics: `login_duration`, `profile_duration`, `auth_flow_success`
+
+The pipeline uses k6's exit code 99 behavior — if any threshold fails, the workflow fails, and the PR cannot merge.
+
+See [Performance Insights](docs/PERFORMANCE_INSIGHTS.md) for the full analysis of all 4 load test profiles.
+
+---
+
+## Performance Budget
+
+| Metric | Budget | Business Reason |
+|--------|--------|------------------|
+| p(95) response time | < 300ms | Users abandon pages after 3s; API calls chain 3-5 deep |
+| p(99) response time | < 500ms | Tail latency affects your most engaged users |
+| Error rate | < 1% | Each error = potential data loss or broken user flow |
+| Auth flow success | > 99% | Login failures = immediate churn |
 
 ---
 
@@ -135,3 +171,4 @@ k6 run --out influxdb=http://localhost:8086/k6 tests/05_auth_flow.js
 - **Target App**: Node.js + Express
 - **Load Testing**: [k6](https://k6.io/) by Grafana Labs
 - **Visualization**: Grafana + InfluxDB (optional)
+- **CI/CD**: GitHub Actions with k6 threshold gating
