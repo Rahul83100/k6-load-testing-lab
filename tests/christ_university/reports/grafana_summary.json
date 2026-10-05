@@ -1,262 +1,4 @@
 {
-  "metrics": {
-    "vus_max": {
-      "type": "gauge",
-      "contains": "default",
-      "values": {
-        "value": 15,
-        "min": 15,
-        "max": 15
-      }
-    },
-    "data_sent": {
-      "type": "counter",
-      "contains": "data",
-      "values": {
-        "count": 1535551,
-        "rate": 25591.27288815218
-      }
-    },
-    "data_received": {
-      "values": {
-        "count": 17686806,
-        "rate": 294765.77389211254
-      },
-      "type": "counter",
-      "contains": "data"
-    },
-    "api_success_rate": {
-      "type": "rate",
-      "contains": "default",
-      "values": {
-        "fails": 135,
-        "rate": 0.8415492957746479,
-        "passes": 717
-      },
-      "thresholds": {
-        "rate>0.80": {
-          "ok": true
-        }
-      }
-    },
-    "http_req_connecting": {
-      "type": "trend",
-      "contains": "time",
-      "values": {
-        "med": 0,
-        "max": 26.5176,
-        "p(90)": 0,
-        "p(95)": 19.550355,
-        "avg": 1.612333568075117,
-        "min": 0
-      }
-    },
-    "rate_status_timeout": {
-      "type": "rate",
-      "contains": "default",
-      "values": {
-        "rate": 0.0035211267605633804,
-        "passes": 3,
-        "fails": 849
-      }
-    },
-    "api_failures_total": {
-      "contains": "default",
-      "values": {
-        "count": 135,
-        "rate": 2.2498906515645163
-      },
-      "type": "counter"
-    },
-    "rate_status_5xx": {
-      "values": {
-        "rate": 0,
-        "passes": 0,
-        "fails": 852
-      },
-      "type": "rate",
-      "contains": "default"
-    },
-    "http_req_duration{expected_response:true}": {
-      "type": "trend",
-      "contains": "time",
-      "values": {
-        "avg": 411.9403702928865,
-        "min": 18.3629,
-        "med": 32.6781,
-        "max": 13775.356,
-        "p(90)": 809.1323999999988,
-        "p(95)": 1733.8211199999992
-      }
-    },
-    "api_response_duration": {
-      "type": "trend",
-      "contains": "time",
-      "values": {
-        "avg": 423.6221537558691,
-        "min": 18.3629,
-        "med": 33.619299999999996,
-        "max": 15000.4055,
-        "p(90)": 772.46331,
-        "p(95)": 1693.796754999999
-      }
-    },
-    "vus": {
-      "type": "gauge",
-      "contains": "default",
-      "values": {
-        "min": 15,
-        "max": 15,
-        "value": 15
-      }
-    },
-    "checks": {
-      "values": {
-        "rate": 0.8415492957746479,
-        "passes": 717,
-        "fails": 135
-      },
-      "type": "rate",
-      "contains": "default"
-    },
-    "http_req_duration": {
-      "contains": "time",
-      "values": {
-        "avg": 423.6221537558691,
-        "min": 18.3629,
-        "med": 33.619299999999996,
-        "max": 15000.4055,
-        "p(90)": 772.46331,
-        "p(95)": 1693.796754999999
-      },
-      "thresholds": {
-        "p(95)<5000": {
-          "ok": true
-        }
-      },
-      "type": "trend"
-    },
-    "http_reqs": {
-      "type": "counter",
-      "contains": "default",
-      "values": {
-        "count": 852,
-        "rate": 14.199309889873836
-      }
-    },
-    "api_hits_total": {
-      "type": "counter",
-      "contains": "default",
-      "values": {
-        "count": 852,
-        "rate": 14.199309889873836
-      }
-    },
-    "rate_status_2xx": {
-      "type": "rate",
-      "contains": "default",
-      "values": {
-        "fails": 135,
-        "rate": 0.8415492957746479,
-        "passes": 717
-      }
-    },
-    "http_req_failed": {
-      "type": "rate",
-      "contains": "default",
-      "values": {
-        "rate": 0.15845070422535212,
-        "passes": 135,
-        "fails": 717
-      }
-    },
-    "api_users_triggered": {
-      "type": "counter",
-      "contains": "default",
-      "values": {
-        "count": 852,
-        "rate": 14.199309889873836
-      }
-    },
-    "http_req_tls_handshaking": {
-      "type": "trend",
-      "contains": "time",
-      "values": {
-        "avg": 3.4509685446009386,
-        "min": 0,
-        "med": 0,
-        "max": 76.5404,
-        "p(90)": 0,
-        "p(95)": 34.800355
-      }
-    },
-    "http_req_waiting": {
-      "type": "trend",
-      "contains": "time",
-      "values": {
-        "avg": 408.7970259389673,
-        "min": 18.3629,
-        "med": 33.4596,
-        "max": 15000.4055,
-        "p(90)": 600.70716,
-        "p(95)": 1411.8039899999956
-      }
-    },
-    "rate_status_4xx": {
-      "type": "rate",
-      "contains": "default",
-      "values": {
-        "rate": 0.15492957746478872,
-        "passes": 132,
-        "fails": 720
-      }
-    },
-    "http_req_sending": {
-      "type": "trend",
-      "contains": "time",
-      "values": {
-        "p(95)": 0.5305249999999998,
-        "avg": 0.05830234741784041,
-        "min": 0,
-        "med": 0,
-        "max": 1.9604,
-        "p(90)": 0.08906999999999991
-      }
-    },
-    "http_req_blocked": {
-      "type": "trend",
-      "contains": "time",
-      "values": {
-        "max": 87.8686,
-        "p(90)": 0,
-        "p(95)": 53.559149999999974,
-        "avg": 5.103460446009393,
-        "min": 0,
-        "med": 0
-      }
-    },
-    "http_req_receiving": {
-      "type": "trend",
-      "contains": "time",
-      "values": {
-        "avg": 14.76682546948359,
-        "min": 0,
-        "med": 0.24630000000000002,
-        "max": 1559.9033,
-        "p(90)": 0.9615,
-        "p(95)": 56.494935
-      }
-    },
-    "api_failure_rate": {
-      "contains": "default",
-      "values": {
-        "rate": 0.15845070422535212,
-        "passes": 135,
-        "fails": 717
-      },
-      "type": "rate"
-    }
-  },
   "root_group": {
     "checks": [],
     "name": "",
@@ -264,3235 +6,421 @@
     "id": "d41d8cd98f00b204e9800998ecf8427e",
     "groups": [
         {
-          "name": "HAR_User_Journey",
-          "path": "::HAR_User_Journey",
-          "id": "39a85b74e503cbb640c3d6a1d2ef07b1",
+          "name": "Student_Journey",
+          "path": "::Student_Journey",
+          "id": "438425337825d97aa93e585d620e6421",
           "groups": [],
           "checks": [
               {
+                "path": "::Student_Journey::01_config.json -> 200 OK (80ms)",
+                "id": "075b110da4084771573822ca8e0177b4",
                 "passes": 1,
                 "fails": 0,
-                "name": "01_config.json -> 200 OK (66ms)",
-                "path": "::HAR_User_Journey::01_config.json -> 200 OK (66ms)",
-                "id": "f53d2e0a44fbfbe2219ed25013f69442"
+                "name": "01_config.json -> 200 OK (80ms)"
               },
               {
-                "id": "1f46f6f7166f6e91f303f4235ae4d6aa",
-                "passes": 1,
-                "fails": 0,
-                "name": "01_config.json -> 200 OK (70ms)",
-                "path": "::HAR_User_Journey::01_config.json -> 200 OK (70ms)"
-              },
-              {
-                "id": "5911e47db870840f399da786eeca06bb",
-                "passes": 3,
-                "fails": 0,
-                "name": "01_config.json -> 200 OK (80ms)",
-                "path": "::HAR_User_Journey::01_config.json -> 200 OK (80ms)"
-              },
-              {
-                "passes": 3,
-                "fails": 0,
-                "name": "01_config.json -> 200 OK (81ms)",
-                "path": "::HAR_User_Journey::01_config.json -> 200 OK (81ms)",
-                "id": "55b001e2a270fb89b6566c65622d3202"
-              },
-              {
-                "path": "::HAR_User_Journey::01_config.json -> 200 OK (82ms)",
-                "id": "54bac382ac6dc977e2a20c61bb49125f",
-                "passes": 4,
-                "fails": 0,
-                "name": "01_config.json -> 200 OK (82ms)"
-              },
-              {
-                "id": "8a0730910960124fa24f5fa5c75d21da",
-                "passes": 1,
-                "fails": 0,
-                "name": "01_config.json -> 200 OK (83ms)",
-                "path": "::HAR_User_Journey::01_config.json -> 200 OK (83ms)"
-              },
-              {
-                "path": "::HAR_User_Journey::01_config.json -> 200 OK (84ms)",
-                "id": "c4cddbddc72592b72567bfba23205087",
-                "passes": 1,
-                "fails": 0,
-                "name": "01_config.json -> 200 OK (84ms)"
-              },
-              {
-                "name": "01_config.json -> 200 OK (95ms)",
-                "path": "::HAR_User_Journey::01_config.json -> 200 OK (95ms)",
-                "id": "4336a8570ba22c89ab28420f5c3c6f28",
+                "name": "02_Auth -> 200 OK (132ms)",
+                "path": "::Student_Journey::02_Auth -> 200 OK (132ms)",
+                "id": "f71eae9eaa5877360beb25f79be36599",
                 "passes": 1,
                 "fails": 0
               },
               {
-                "name": "02_reload -> 200 OK (111ms)",
-                "path": "::HAR_User_Journey::02_reload -> 200 OK (111ms)",
-                "id": "4d86b0b91fbc8488da13633a806a8ce8",
-                "passes": 3,
-                "fails": 0
-              },
-              {
+                "id": "c3c208fa9c8d253414c19a0c5c0cf308",
                 "passes": 1,
                 "fails": 0,
-                "name": "02_reload -> 200 OK (98ms)",
-                "path": "::HAR_User_Journey::02_reload -> 200 OK (98ms)",
-                "id": "5b16eda78276cfb36f1b072a11fbec37"
+                "name": "02_Auth -> Student Authenticated (200 OK)",
+                "path": "::Student_Journey::02_Auth -> Student Authenticated (200 OK)"
               },
               {
-                "name": "02_reload -> 200 OK (101ms)",
-                "path": "::HAR_User_Journey::02_reload -> 200 OK (101ms)",
-                "id": "7f6ffbea761b0ce1984d79fca7c51042",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "02_reload -> 200 OK (105ms)",
-                "path": "::HAR_User_Journey::02_reload -> 200 OK (105ms)",
-                "id": "9dfc5aba7e3398fb5fd8e932ec565557",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "02_reload -> 200 OK (107ms)",
-                "path": "::HAR_User_Journey::02_reload -> 200 OK (107ms)",
-                "id": "b332544785e7574f38e6ecf7ad94f54a",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "name": "02_reload -> 200 OK (109ms)",
-                "path": "::HAR_User_Journey::02_reload -> 200 OK (109ms)",
-                "id": "88bc6e8f71861399dbac31acf6ca3e47",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "02_reload -> 200 OK (123ms)",
-                "path": "::HAR_User_Journey::02_reload -> 200 OK (123ms)",
-                "id": "5cdb4d754ebb5939e9fe82085a52e228"
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "02_reload -> 200 OK (113ms)",
-                "path": "::HAR_User_Journey::02_reload -> 200 OK (113ms)",
-                "id": "e7bf58649a00b5a475044fa2fdb1f52c"
-              },
-              {
-                "name": "02_reload -> 200 OK (127ms)",
-                "path": "::HAR_User_Journey::02_reload -> 200 OK (127ms)",
-                "id": "ad4d28498e7c1a47a5386b9bfa629e21",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "02_reload -> 200 OK (131ms)",
-                "path": "::HAR_User_Journey::02_reload -> 200 OK (131ms)",
-                "id": "dcc326a9b36b75aea7c2def3265de258",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "02_reload -> 200 OK (135ms)",
-                "path": "::HAR_User_Journey::02_reload -> 200 OK (135ms)",
-                "id": "fbee4713b359d396b1b79f93adba3d42",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "02_reload -> 200 OK (153ms)",
-                "path": "::HAR_User_Journey::02_reload -> 200 OK (153ms)",
-                "id": "5d9e15aa28e16f683a1fc05882b32320",
-                "passes": 1
-              },
-              {
-                "id": "3466a7a0b96e3320f2e389f837402fa6",
+                "path": "::Student_Journey::03_status.json -> FAILED [Status: 400, Reason: HTTP 400]",
+                "id": "ae4e730eca0caed779deff28317a87aa",
                 "passes": 0,
-                "fails": 12,
-                "name": "03_Auth -> FAILED [Status: 404, Reason: HTTP 404]",
-                "path": "::HAR_User_Journey::03_Auth -> FAILED [Status: 404, Reason: HTTP 404]"
-              },
-              {
-                "name": "03_Auth -> 200 OK (170ms)",
-                "path": "::HAR_User_Journey::03_Auth -> 200 OK (170ms)",
-                "id": "c409fd82bfc67b791e2f03d00bf9d4ef",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "03_Auth -> 200 OK (171ms)",
-                "path": "::HAR_User_Journey::03_Auth -> 200 OK (171ms)",
-                "id": "9a16fd198b278cd0dbf67010dcaf9568",
-                "passes": 1,
-                "fails": 0
+                "fails": 1,
+                "name": "03_status.json -> FAILED [Status: 400, Reason: HTTP 400]"
               },
               {
                 "passes": 1,
                 "fails": 0,
-                "name": "03_Auth -> 200 OK (182ms)",
-                "path": "::HAR_User_Journey::03_Auth -> 200 OK (182ms)",
-                "id": "d24b31acfb7365176ec7717db87faae9"
+                "name": "04_checkUserRegisterOrNot -> 200 OK (37ms)",
+                "path": "::Student_Journey::04_checkUserRegisterOrNot -> 200 OK (37ms)",
+                "id": "bbd3751576aeae3840706e32ed9ade65"
               },
               {
-                "id": "0423bd4387413a18e83eba47ec87d4d7",
+                "path": "::Student_Journey::05_getLatestReleasePoster -> 200 OK (71ms)",
+                "id": "9262c3d0b6c5ce53b9969f0b19ee83a9",
                 "passes": 1,
                 "fails": 0,
-                "name": "03_Auth_Fallback -> 200 OK (140ms)",
-                "path": "::HAR_User_Journey::03_Auth_Fallback -> 200 OK (140ms)"
+                "name": "05_getLatestReleasePoster -> 200 OK (71ms)"
               },
               {
-                "id": "404bc2d99380db35b6a6c601b5dd52f7",
-                "passes": 1,
-                "fails": 0,
-                "name": "03_Auth_Fallback -> 200 OK (144ms)",
-                "path": "::HAR_User_Journey::03_Auth_Fallback -> 200 OK (144ms)"
-              },
-              {
-                "name": "03_Auth_Fallback -> 200 OK (143ms)",
-                "path": "::HAR_User_Journey::03_Auth_Fallback -> 200 OK (143ms)",
-                "id": "3daaade6848aff9cc3fcc1dc0c41c3f3",
+                "name": "06_getSystemMenus -> 200 OK (1466ms)",
+                "path": "::Student_Journey::06_getSystemMenus -> 200 OK (1466ms)",
+                "id": "38b0f973291ab7b8a86ad2780594eb5b",
                 "passes": 1,
                 "fails": 0
               },
               {
-                "id": "7d844dc1e2c4be263f176da7fe72ea02",
-                "passes": 1,
-                "fails": 0,
-                "name": "03_Auth_Fallback -> 200 OK (154ms)",
-                "path": "::HAR_User_Journey::03_Auth_Fallback -> 200 OK (154ms)"
-              },
-              {
-                "name": "03_Auth_Fallback -> 200 OK (148ms)",
-                "path": "::HAR_User_Journey::03_Auth_Fallback -> 200 OK (148ms)",
-                "id": "ae035bce7def35e697af1acac0243dc4",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "03_Auth_Fallback -> 200 OK (187ms)",
-                "path": "::HAR_User_Journey::03_Auth_Fallback -> 200 OK (187ms)",
-                "id": "08adec70ba3c9570c760ffac62b87a31",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "03_Auth_Fallback -> 200 OK (172ms)",
-                "path": "::HAR_User_Journey::03_Auth_Fallback -> 200 OK (172ms)",
-                "id": "929554acb3ae723081e42f14a651ad21"
-              },
-              {
-                "name": "03_Auth_Fallback -> 200 OK (192ms)",
-                "path": "::HAR_User_Journey::03_Auth_Fallback -> 200 OK (192ms)",
-                "id": "1d4ce0249b2af23abd29dc3b390d37c1",
+                "name": "07_GetScreens -> 200 OK (47ms)",
+                "path": "::Student_Journey::07_GetScreens -> 200 OK (47ms)",
+                "id": "b1b8940d083ce7b9c21e9c549e33af37",
                 "passes": 1,
                 "fails": 0
               },
               {
                 "fails": 0,
-                "name": "03_Auth_Fallback -> 200 OK (228ms)",
-                "path": "::HAR_User_Journey::03_Auth_Fallback -> 200 OK (228ms)",
-                "id": "23f2ecd3358f4d6aff32a8ce2e0cec67",
+                "name": "08_getFontByErpUserId -> 200 OK (36ms)",
+                "path": "::Student_Journey::08_getFontByErpUserId -> 200 OK (36ms)",
+                "id": "587b33f31877b38e762bb6e878913820",
                 "passes": 1
               },
               {
+                "name": "09_getErpNotifications -> 200 OK (82ms)",
+                "path": "::Student_Journey::09_getErpNotifications -> 200 OK (82ms)",
+                "id": "2d543dc1bbb64106905a5dacc03a39a5",
+                "passes": 1,
+                "fails": 0
+              },
+              {
+                "name": "10_getUserCampus -> 200 OK (33ms)",
+                "path": "::Student_Journey::10_getUserCampus -> 200 OK (33ms)",
+                "id": "fae2062385446683e928b2d78ee8d41a",
+                "passes": 1,
+                "fails": 0
+              },
+              {
+                "id": "a3d0146cddb7ad13d498d5757d5b9cab",
+                "passes": 1,
                 "fails": 0,
-                "name": "03_Auth_Fallback -> 200 OK (240ms)",
-                "path": "::HAR_User_Journey::03_Auth_Fallback -> 200 OK (240ms)",
-                "id": "2e4141e0d5b3bed9762af8161df7fb67",
+                "name": "11_getIsAiEnabled -> 200 OK (31ms)",
+                "path": "::Student_Journey::11_getIsAiEnabled -> 200 OK (31ms)"
+              },
+              {
+                "name": "12_getFavouriteAndRecentList -> 200 OK (33ms)",
+                "path": "::Student_Journey::12_getFavouriteAndRecentList -> 200 OK (33ms)",
+                "id": "3277eda73d28df11ceb41fbde0640ff6",
+                "passes": 1,
+                "fails": 0
+              },
+              {
+                "fails": 0,
+                "name": "13_saveOrDeleteFavouriteAndRecent -> 200 OK (56ms)",
+                "path": "::Student_Journey::13_saveOrDeleteFavouriteAndRecent -> 200 OK (56ms)",
+                "id": "a8eb70d05429301082d6444395c62de5",
                 "passes": 1
               },
               {
-                "name": "03_Auth_Fallback -> 200 OK (305ms)",
-                "path": "::HAR_User_Journey::03_Auth_Fallback -> 200 OK (305ms)",
-                "id": "b242280d4a39c34146e41b360a2b7c84",
+                "name": "14_getFavouriteAndRecentList -> 200 OK (33ms)",
+                "path": "::Student_Journey::14_getFavouriteAndRecentList -> 200 OK (33ms)",
+                "id": "9260112ddb31fb6e4516faa563beec27",
                 "passes": 1,
                 "fails": 0
               },
               {
-                "name": "03_Auth_Fallback -> 200 OK (359ms)",
-                "path": "::HAR_User_Journey::03_Auth_Fallback -> 200 OK (359ms)",
-                "id": "718cae2ceb4c4a290d298cf1d0fd25f8",
+                "path": "::Student_Journey::15_getAcademicYearNew -> 200 OK (37ms)",
+                "id": "1e8cccbb732d91d02f7663fb753ad4fd",
+                "passes": 1,
+                "fails": 0,
+                "name": "15_getAcademicYearNew -> 200 OK (37ms)"
+              },
+              {
+                "name": "16_getCampusesByUserPrivilegeNew -> 200 OK (61ms)",
+                "path": "::Student_Journey::16_getCampusesByUserPrivilegeNew -> 200 OK (61ms)",
+                "id": "3389d83588941130e8c53e8bb8dc4ff2",
                 "passes": 1,
                 "fails": 0
               },
               {
-                "name": "04_clr -> FAILED [Status: 400, Reason: HTTP 400]",
-                "path": "::HAR_User_Journey::04_clr -> FAILED [Status: 400, Reason: HTTP 400]",
-                "id": "b6670e28aeac36104dac735225ece7f6",
+                "fails": 0,
+                "name": "17_getEmpIdByUserId -> 200 OK (34ms)",
+                "path": "::Student_Journey::17_getEmpIdByUserId -> 200 OK (34ms)",
+                "id": "eaf3d77b82629cab50dcb4fa342f3978",
+                "passes": 1
+              },
+              {
+                "id": "d061f51c7ca87a8a2202aef15cd885d6",
+                "passes": 1,
+                "fails": 0,
+                "name": "18_privilegeEnabledForIPMStaff -> 200 OK (31ms)",
+                "path": "::Student_Journey::18_privilegeEnabledForIPMStaff -> 200 OK (31ms)"
+              },
+              {
+                "name": "19_privilegeEnabledForHOD -> 200 OK (37ms)",
+                "path": "::Student_Journey::19_privilegeEnabledForHOD -> 200 OK (37ms)",
+                "id": "b5470ef4b53622a3cd91e3cb29e96bad",
+                "passes": 1,
+                "fails": 0
+              },
+              {
+                "fails": 0,
+                "name": "20_privilegeEnabledForFaculty -> 200 OK (32ms)",
+                "path": "::Student_Journey::20_privilegeEnabledForFaculty -> 200 OK (32ms)",
+                "id": "44426209b6d4473adce3a7056325015e",
+                "passes": 1
+              },
+              {
+                "name": "21_getDepartmentByUser -> 200 OK (34ms)",
+                "path": "::Student_Journey::21_getDepartmentByUser -> 200 OK (34ms)",
+                "id": "277a74a5c258c33e1767fe6390629365",
+                "passes": 1,
+                "fails": 0
+              },
+              {
+                "passes": 1,
+                "fails": 0,
+                "name": "22_getSessionType -> 200 OK (34ms)",
+                "path": "::Student_Journey::22_getSessionType -> 200 OK (34ms)",
+                "id": "47a5099a6c9c314fe1eff62f06f1bcfc"
+              },
+              {
+                "name": "23_getEmpsByDepartment -> FAILED [Status: 404, Reason: HTTP 404]",
+                "path": "::Student_Journey::23_getEmpsByDepartment -> FAILED [Status: 404, Reason: HTTP 404]",
+                "id": "abc2d6e2e7cf8a15169f6199a2c391db",
                 "passes": 0,
-                "fails": 15
+                "fails": 1
               },
               {
-                "fails": 15,
-                "name": "05_status.json -> FAILED [Status: 400, Reason: HTTP 400]",
-                "path": "::HAR_User_Journey::05_status.json -> FAILED [Status: 400, Reason: HTTP 400]",
-                "id": "45892c4274c86b8ff21f6f7d79f085cd",
-                "passes": 0
-              },
-              {
-                "path": "::HAR_User_Journey::06_checkUserRegisterOrNot -> 200 OK (32ms)",
-                "id": "21f8c526eecfd4991e37c527d17ccb82",
-                "passes": 2,
-                "fails": 0,
-                "name": "06_checkUserRegisterOrNot -> 200 OK (32ms)"
-              },
-              {
-                "name": "06_checkUserRegisterOrNot -> 200 OK (30ms)",
-                "path": "::HAR_User_Journey::06_checkUserRegisterOrNot -> 200 OK (30ms)",
-                "id": "96a9f35205cc06afae30b640cfc70c29",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "id": "3095887f1c636924b4b2d498fad1cd39",
-                "passes": 1,
-                "fails": 0,
-                "name": "06_checkUserRegisterOrNot -> 200 OK (26ms)",
-                "path": "::HAR_User_Journey::06_checkUserRegisterOrNot -> 200 OK (26ms)"
-              },
-              {
-                "name": "06_checkUserRegisterOrNot -> 200 OK (29ms)",
-                "path": "::HAR_User_Journey::06_checkUserRegisterOrNot -> 200 OK (29ms)",
-                "id": "78bc28a91e321dab9c49633df662cd8a",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "name": "06_checkUserRegisterOrNot -> 200 OK (25ms)",
-                "path": "::HAR_User_Journey::06_checkUserRegisterOrNot -> 200 OK (25ms)",
-                "id": "0244b1cdfd0ac163b53a5b3e1002a062",
+                "name": "24_getAllTeachingAndNonTeachingEmployee -> 200 OK (278ms)",
+                "path": "::Student_Journey::24_getAllTeachingAndNonTeachingEmployee -> 200 OK (278ms)",
+                "id": "89c5c947f2eb432c63ce904c10041573",
                 "passes": 1,
                 "fails": 0
               },
               {
-                "path": "::HAR_User_Journey::06_checkUserRegisterOrNot -> 200 OK (27ms)",
-                "id": "f54b74e1bb145fc05e2591f94db71495",
-                "passes": 3,
-                "fails": 0,
-                "name": "06_checkUserRegisterOrNot -> 200 OK (27ms)"
-              },
-              {
-                "id": "9bb8f894974b93c69aeeb076421ae2ed",
-                "passes": 1,
-                "fails": 0,
-                "name": "06_checkUserRegisterOrNot -> 200 OK (37ms)",
-                "path": "::HAR_User_Journey::06_checkUserRegisterOrNot -> 200 OK (37ms)"
-              },
-              {
-                "id": "b190ffc6d20391a717522863cc291ac4",
-                "passes": 2,
-                "fails": 0,
-                "name": "06_checkUserRegisterOrNot -> 200 OK (28ms)",
-                "path": "::HAR_User_Journey::06_checkUserRegisterOrNot -> 200 OK (28ms)"
-              },
-              {
-                "name": "06_checkUserRegisterOrNot -> 200 OK (49ms)",
-                "path": "::HAR_User_Journey::06_checkUserRegisterOrNot -> 200 OK (49ms)",
-                "id": "a4bdfa7b5ffab1a54ef7c98a82440535",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::07_getLatestReleasePoster -> 200 OK (106ms)",
-                "id": "f13ae4a44a49aba984a195afee129303",
-                "passes": 1,
-                "fails": 0,
-                "name": "07_getLatestReleasePoster -> 200 OK (106ms)"
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "07_getLatestReleasePoster -> 200 OK (184ms)",
-                "path": "::HAR_User_Journey::07_getLatestReleasePoster -> 200 OK (184ms)",
-                "id": "d5126d09f55127e502dfaee6642e6831"
-              },
-              {
-                "path": "::HAR_User_Journey::07_getLatestReleasePoster -> 200 OK (198ms)",
-                "id": "11f65fe979f6a25dc3d0a0fa05a0f473",
-                "passes": 1,
-                "fails": 0,
-                "name": "07_getLatestReleasePoster -> 200 OK (198ms)"
-              },
-              {
-                "name": "07_getLatestReleasePoster -> 200 OK (119ms)",
-                "path": "::HAR_User_Journey::07_getLatestReleasePoster -> 200 OK (119ms)",
-                "id": "939e1310eb0d7c1969dbe6c68e667479",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "07_getLatestReleasePoster -> 200 OK (69ms)",
-                "path": "::HAR_User_Journey::07_getLatestReleasePoster -> 200 OK (69ms)",
-                "id": "0ecda0fac8a615c6b66bd3b8bc6bbed9"
-              },
-              {
-                "name": "07_getLatestReleasePoster -> 200 OK (222ms)",
-                "path": "::HAR_User_Journey::07_getLatestReleasePoster -> 200 OK (222ms)",
-                "id": "8aa11d4c30ab032604f8e887daea9c14",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "07_getLatestReleasePoster -> 200 OK (128ms)",
-                "path": "::HAR_User_Journey::07_getLatestReleasePoster -> 200 OK (128ms)",
-                "id": "acbb5124b684520d4a29a904c2ec77d6",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "325dcc6baaa439bec643060cb3de6898",
-                "passes": 1,
-                "fails": 0,
-                "name": "07_getLatestReleasePoster -> 200 OK (93ms)",
-                "path": "::HAR_User_Journey::07_getLatestReleasePoster -> 200 OK (93ms)"
-              },
-              {
-                "name": "07_getLatestReleasePoster -> 200 OK (65ms)",
-                "path": "::HAR_User_Journey::07_getLatestReleasePoster -> 200 OK (65ms)",
-                "id": "8c291aa336936e6962eeed07139ddbcb",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "c0491e7862573fc6ec2e0f51bbc300e9",
-                "passes": 1,
-                "fails": 0,
-                "name": "07_getLatestReleasePoster -> 200 OK (212ms)",
-                "path": "::HAR_User_Journey::07_getLatestReleasePoster -> 200 OK (212ms)"
-              },
-              {
-                "name": "07_getLatestReleasePoster -> 200 OK (90ms)",
-                "path": "::HAR_User_Journey::07_getLatestReleasePoster -> 200 OK (90ms)",
-                "id": "b8db82516a06a504a588c2f13986909e",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::07_getLatestReleasePoster -> 200 OK (45ms)",
-                "id": "bc53a42a5178287137292bfc93fdfee5",
-                "passes": 1,
-                "fails": 0,
-                "name": "07_getLatestReleasePoster -> 200 OK (45ms)"
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "07_getLatestReleasePoster -> 200 OK (35ms)",
-                "path": "::HAR_User_Journey::07_getLatestReleasePoster -> 200 OK (35ms)",
-                "id": "b678d37c82fe9a708c5685a3394733db"
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "07_getLatestReleasePoster -> 200 OK (37ms)",
-                "path": "::HAR_User_Journey::07_getLatestReleasePoster -> 200 OK (37ms)",
-                "id": "6afc7ffbc344f8b2e34d2a17464ad137"
-              },
-              {
-                "path": "::HAR_User_Journey::07_getLatestReleasePoster -> 200 OK (282ms)",
-                "id": "bcdc1970ba30f8c379f90e88a5c49e45",
-                "passes": 1,
-                "fails": 0,
-                "name": "07_getLatestReleasePoster -> 200 OK (282ms)"
-              },
-              {
-                "name": "08_getSystemMenus -> 200 OK (7389ms)",
-                "path": "::HAR_User_Journey::08_getSystemMenus -> 200 OK (7389ms)",
-                "id": "b8e11952369d34d2ee86754baa41f703",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "09_GetScreens -> 200 OK (540ms)",
-                "path": "::HAR_User_Journey::09_GetScreens -> 200 OK (540ms)",
-                "id": "8a9a643426e46d45be1ea739484f17ee",
-                "passes": 1
-              },
-              {
-                "name": "08_getSystemMenus -> 200 OK (8490ms)",
-                "path": "::HAR_User_Journey::08_getSystemMenus -> 200 OK (8490ms)",
-                "id": "b186f880b8f0494b5a26f5fd2392fbce",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "08_getSystemMenus -> 200 OK (8777ms)",
-                "path": "::HAR_User_Journey::08_getSystemMenus -> 200 OK (8777ms)",
-                "id": "93903cff12e3050afc0c0906d3830bb1",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "09_GetScreens -> 200 OK (129ms)",
-                "path": "::HAR_User_Journey::09_GetScreens -> 200 OK (129ms)",
-                "id": "ab6cba15c2757e2140fd1ff7f82695eb",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "09_GetScreens -> 200 OK (44ms)",
-                "path": "::HAR_User_Journey::09_GetScreens -> 200 OK (44ms)",
-                "id": "6b21ba2e08fd3d0f369f9d7427814fd4"
-              },
-              {
-                "name": "08_getSystemMenus -> 200 OK (9457ms)",
-                "path": "::HAR_User_Journey::08_getSystemMenus -> 200 OK (9457ms)",
-                "id": "5ac539c85aeee2db039460d7e45ceb86",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "09_GetScreens -> 200 OK (45ms)",
-                "path": "::HAR_User_Journey::09_GetScreens -> 200 OK (45ms)",
-                "id": "2a99475a51db48c7bf18caa4e48b39b0",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::08_getSystemMenus -> 200 OK (10584ms)",
-                "id": "d3c1a7386a1d99bc493f52631e010302",
-                "passes": 1,
-                "fails": 0,
-                "name": "08_getSystemMenus -> 200 OK (10584ms)"
-              },
-              {
-                "name": "08_getSystemMenus -> 200 OK (10679ms)",
-                "path": "::HAR_User_Journey::08_getSystemMenus -> 200 OK (10679ms)",
-                "id": "9148e2ca2687360d8cb8e53d6c270639",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "09_GetScreens -> 200 OK (322ms)",
-                "path": "::HAR_User_Journey::09_GetScreens -> 200 OK (322ms)",
-                "id": "26d17a34788b0d224cd86e71f7bd5d74",
-                "passes": 1
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "09_GetScreens -> 200 OK (450ms)",
-                "path": "::HAR_User_Journey::09_GetScreens -> 200 OK (450ms)",
-                "id": "e492217548c6672ed5fa09abc61dde25"
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "08_getSystemMenus -> 200 OK (11736ms)",
-                "path": "::HAR_User_Journey::08_getSystemMenus -> 200 OK (11736ms)",
-                "id": "ef6d7a8e809490db390181148b870e1d"
-              },
-              {
-                "name": "08_getSystemMenus -> 200 OK (11961ms)",
-                "path": "::HAR_User_Journey::08_getSystemMenus -> 200 OK (11961ms)",
-                "id": "03547d489be7a7ffb5b57377be6856c5",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "08_getSystemMenus -> 200 OK (13116ms)",
-                "path": "::HAR_User_Journey::08_getSystemMenus -> 200 OK (13116ms)",
-                "id": "7743fadb3d5b8f51289e72d4be30eb01",
-                "passes": 1
-              },
-              {
-                "id": "97eda1d153036a20fc161dce078de337",
-                "passes": 1,
-                "fails": 0,
-                "name": "08_getSystemMenus -> 200 OK (13224ms)",
-                "path": "::HAR_User_Journey::08_getSystemMenus -> 200 OK (13224ms)"
-              },
-              {
-                "path": "::HAR_User_Journey::08_getSystemMenus -> 200 OK (13209ms)",
-                "id": "ca5ee0fd4903b827080af99c06c03847",
-                "passes": 1,
-                "fails": 0,
-                "name": "08_getSystemMenus -> 200 OK (13209ms)"
-              },
-              {
-                "fails": 0,
-                "name": "09_GetScreens -> 200 OK (1382ms)",
-                "path": "::HAR_User_Journey::09_GetScreens -> 200 OK (1382ms)",
-                "id": "17c03ced632dd8005f316880325f2d02",
-                "passes": 1
-              },
-              {
-                "fails": 0,
-                "name": "09_GetScreens -> 200 OK (1230ms)",
-                "path": "::HAR_User_Journey::09_GetScreens -> 200 OK (1230ms)",
-                "id": "9a60d98a7c9769a859be0a9175037563",
-                "passes": 1
-              },
-              {
-                "name": "09_GetScreens -> 200 OK (89ms)",
-                "path": "::HAR_User_Journey::09_GetScreens -> 200 OK (89ms)",
-                "id": "4cc92d2ba34ff5a1baa1a36693189b25",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "09_GetScreens -> 200 OK (48ms)",
-                "path": "::HAR_User_Journey::09_GetScreens -> 200 OK (48ms)",
-                "id": "340648c14e7ee8f7fc630c42caed08d9",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "08_getSystemMenus -> 200 OK (13775ms)",
-                "path": "::HAR_User_Journey::08_getSystemMenus -> 200 OK (13775ms)",
-                "id": "773f84baf69f9ce48772e002b586755e"
-              },
-              {
-                "path": "::HAR_User_Journey::09_GetScreens -> 200 OK (98ms)",
-                "id": "47d900c66111162ca1a10da7adcc0ae1",
-                "passes": 1,
-                "fails": 0,
-                "name": "09_GetScreens -> 200 OK (98ms)"
-              },
-              {
-                "name": "08_getSystemMenus -> FAILED [Status: 0, Reason: Timeout]",
-                "path": "::HAR_User_Journey::08_getSystemMenus -> FAILED [Status: 0, Reason: Timeout]",
-                "id": "cefc9da6efb176fb14349650cd38c833",
+                "name": "25_getClassOrCourseView -> FAILED [Status: 404, Reason: HTTP 404]",
+                "path": "::Student_Journey::25_getClassOrCourseView -> FAILED [Status: 404, Reason: HTTP 404]",
+                "id": "51d913469d42339f9b7d151932811cb9",
                 "passes": 0,
-                "fails": 3
+                "fails": 1
               },
               {
-                "name": "09_GetScreens -> 200 OK (1239ms)",
-                "path": "::HAR_User_Journey::09_GetScreens -> 200 OK (1239ms)",
-                "id": "18bff98b089080368c738c791b39fefe",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "09_GetScreens -> 200 OK (125ms)",
-                "path": "::HAR_User_Journey::09_GetScreens -> 200 OK (125ms)",
-                "id": "54b6029921ffad2a6f384bb29cfa47a5"
-              },
-              {
-                "name": "09_GetScreens -> 200 OK (116ms)",
-                "path": "::HAR_User_Journey::09_GetScreens -> 200 OK (116ms)",
-                "id": "0339c9fb01cdfae77e1de037f4f4d29f",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "09_GetScreens -> 200 OK (215ms)",
-                "path": "::HAR_User_Journey::09_GetScreens -> 200 OK (215ms)",
-                "id": "b75854bd2be2e2f571a707d77e248bde",
-                "passes": 1
-              },
-              {
-                "name": "10_getFontByErpUserId -> 200 OK (7368ms)",
-                "path": "::HAR_User_Journey::10_getFontByErpUserId -> 200 OK (7368ms)",
-                "id": "84dfbab57a1136f05d33ffd6f379c735",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "10_getFontByErpUserId -> 200 OK (6692ms)",
-                "path": "::HAR_User_Journey::10_getFontByErpUserId -> 200 OK (6692ms)",
-                "id": "c3310ecef9c75d3f9149adbffd7046b4"
-              },
-              {
-                "name": "10_getFontByErpUserId -> 200 OK (6484ms)",
-                "path": "::HAR_User_Journey::10_getFontByErpUserId -> 200 OK (6484ms)",
-                "id": "1ddb804ec90c8669ffec243643b5499e",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "ee52949aceb691b3644d441217561108",
-                "passes": 1,
-                "fails": 0,
-                "name": "10_getFontByErpUserId -> 200 OK (5793ms)",
-                "path": "::HAR_User_Journey::10_getFontByErpUserId -> 200 OK (5793ms)"
-              },
-              {
-                "path": "::HAR_User_Journey::10_getFontByErpUserId -> 200 OK (2080ms)",
-                "id": "9b08c9bee5512108d1c11bff5ff133af",
-                "passes": 1,
-                "fails": 0,
-                "name": "10_getFontByErpUserId -> 200 OK (2080ms)"
-              },
-              {
-                "name": "10_getFontByErpUserId -> 200 OK (2211ms)",
-                "path": "::HAR_User_Journey::10_getFontByErpUserId -> 200 OK (2211ms)",
-                "id": "5e273e02d0e5285e6777b12fa0c1e805",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "56bdc0a3df4adf4b160a8f1b8709ad9d",
-                "passes": 1,
-                "fails": 0,
-                "name": "10_getFontByErpUserId -> 200 OK (490ms)",
-                "path": "::HAR_User_Journey::10_getFontByErpUserId -> 200 OK (490ms)"
-              },
-              {
-                "name": "10_getFontByErpUserId -> 200 OK (390ms)",
-                "path": "::HAR_User_Journey::10_getFontByErpUserId -> 200 OK (390ms)",
-                "id": "23795014469fdc1b6b6f76f914ebf513",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "10_getFontByErpUserId -> 200 OK (2461ms)",
-                "path": "::HAR_User_Journey::10_getFontByErpUserId -> 200 OK (2461ms)",
-                "id": "ed5e0254d7b5dacf1504e3e0bedd5a7d",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "10_getFontByErpUserId -> 200 OK (2387ms)",
-                "path": "::HAR_User_Journey::10_getFontByErpUserId -> 200 OK (2387ms)",
-                "id": "9110cce70f948c6696a32cdd0b6dfcf6",
-                "passes": 1
-              },
-              {
-                "fails": 0,
-                "name": "10_getFontByErpUserId -> 200 OK (2310ms)",
-                "path": "::HAR_User_Journey::10_getFontByErpUserId -> 200 OK (2310ms)",
-                "id": "a4e152cd2621762408e153b320452c8d",
-                "passes": 1
-              },
-              {
-                "name": "10_getFontByErpUserId -> 200 OK (4609ms)",
-                "path": "::HAR_User_Journey::10_getFontByErpUserId -> 200 OK (4609ms)",
-                "id": "e3974d7d929f9f416747ee990d787d93",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "10_getFontByErpUserId -> 200 OK (361ms)",
-                "path": "::HAR_User_Journey::10_getFontByErpUserId -> 200 OK (361ms)",
-                "id": "eb80e4538be888443385168f092db85d",
-                "passes": 1
-              },
-              {
-                "name": "10_getFontByErpUserId -> 200 OK (4653ms)",
-                "path": "::HAR_User_Journey::10_getFontByErpUserId -> 200 OK (4653ms)",
-                "id": "70555875d47525368fbe238c0f171fe2",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "10_getFontByErpUserId -> 200 OK (30ms)",
-                "path": "::HAR_User_Journey::10_getFontByErpUserId -> 200 OK (30ms)",
-                "id": "7b56961c1496e5e1aa61859ea817e0da"
-              },
-              {
-                "name": "11_getErpNotifications -> 200 OK (30ms)",
-                "path": "::HAR_User_Journey::11_getErpNotifications -> 200 OK (30ms)",
-                "id": "ec756ab5bbb4c74741732e2d57f992eb",
-                "passes": 4,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "11_getErpNotifications -> 200 OK (34ms)",
-                "path": "::HAR_User_Journey::11_getErpNotifications -> 200 OK (34ms)",
-                "id": "f14c289e4f73a159b2bd6bb74792bf8f"
-              },
-              {
-                "id": "666629e14d9765ac98a46956d9075917",
-                "passes": 3,
-                "fails": 0,
-                "name": "11_getErpNotifications -> 200 OK (33ms)",
-                "path": "::HAR_User_Journey::11_getErpNotifications -> 200 OK (33ms)"
-              },
-              {
-                "name": "11_getErpNotifications -> 200 OK (29ms)",
-                "path": "::HAR_User_Journey::11_getErpNotifications -> 200 OK (29ms)",
-                "id": "880433b8fc93203f384facea1adf390e",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "name": "11_getErpNotifications -> 200 OK (27ms)",
-                "path": "::HAR_User_Journey::11_getErpNotifications -> 200 OK (27ms)",
-                "id": "38831dea7c1a79c6765e6c579a7c11a9",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "dd26b13cd7e83b9ee7fb661effeb58a0",
-                "passes": 2,
-                "fails": 0,
-                "name": "11_getErpNotifications -> 200 OK (28ms)",
-                "path": "::HAR_User_Journey::11_getErpNotifications -> 200 OK (28ms)"
-              },
-              {
-                "id": "9203239d2cc352d6ad704fdb0f98ebf1",
-                "passes": 1,
-                "fails": 0,
-                "name": "11_getErpNotifications -> 200 OK (31ms)",
-                "path": "::HAR_User_Journey::11_getErpNotifications -> 200 OK (31ms)"
-              },
-              {
-                "name": "11_getErpNotifications -> 200 OK (46ms)",
-                "path": "::HAR_User_Journey::11_getErpNotifications -> 200 OK (46ms)",
-                "id": "fd8eaf9771aa6382af5902e468e85234",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 7,
-                "fails": 0,
-                "name": "12_getUserCampus -> 200 OK (27ms)",
-                "path": "::HAR_User_Journey::12_getUserCampus -> 200 OK (27ms)",
-                "id": "ecd327f75c368018e2c33a7dff0ed92b"
-              },
-              {
-                "name": "12_getUserCampus -> 200 OK (28ms)",
-                "path": "::HAR_User_Journey::12_getUserCampus -> 200 OK (28ms)",
-                "id": "eb736606cd6e183083aedbdd20512560",
-                "passes": 3,
-                "fails": 0
-              },
-              {
-                "name": "12_getUserCampus -> 200 OK (29ms)",
-                "path": "::HAR_User_Journey::12_getUserCampus -> 200 OK (29ms)",
-                "id": "4f5dfd458355d500146127b276ce2269",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "a01943bae89d34ca9aae6f16c894d058",
-                "passes": 2,
-                "fails": 0,
-                "name": "12_getUserCampus -> 200 OK (26ms)",
-                "path": "::HAR_User_Journey::12_getUserCampus -> 200 OK (26ms)"
-              },
-              {
-                "name": "12_getUserCampus -> 200 OK (30ms)",
-                "path": "::HAR_User_Journey::12_getUserCampus -> 200 OK (30ms)",
-                "id": "7417e4f1162886433d5d3fd16938d54f",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "12_getUserCampus -> 200 OK (41ms)",
-                "path": "::HAR_User_Journey::12_getUserCampus -> 200 OK (41ms)",
-                "id": "5132b58fb827f6e9bbc6186e2df8a714",
-                "passes": 1
-              },
-              {
-                "name": "13_getIsAiEnabled -> 200 OK (25ms)",
-                "path": "::HAR_User_Journey::13_getIsAiEnabled -> 200 OK (25ms)",
-                "id": "19ac913f6158b400ec65e86a26ea06d5",
-                "passes": 5,
-                "fails": 0
-              },
-              {
-                "name": "13_getIsAiEnabled -> 200 OK (24ms)",
-                "path": "::HAR_User_Journey::13_getIsAiEnabled -> 200 OK (24ms)",
-                "id": "515b9d2742f9a0eb2e5667c043c2dcf2",
-                "passes": 4,
-                "fails": 0
-              },
-              {
-                "name": "13_getIsAiEnabled -> 200 OK (45ms)",
-                "path": "::HAR_User_Journey::13_getIsAiEnabled -> 200 OK (45ms)",
-                "id": "31b674994701c3c3543d43a0881a8f2a",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::13_getIsAiEnabled -> 200 OK (26ms)",
-                "id": "75c9e8e1afa03d915f705dbf9e48d2d1",
-                "passes": 3,
-                "fails": 0,
-                "name": "13_getIsAiEnabled -> 200 OK (26ms)"
-              },
-              {
-                "fails": 0,
-                "name": "13_getIsAiEnabled -> 200 OK (30ms)",
-                "path": "::HAR_User_Journey::13_getIsAiEnabled -> 200 OK (30ms)",
-                "id": "5cf405591ae5b78f83ffa886ed439ee1",
-                "passes": 1
-              },
-              {
-                "id": "b7dcb337e75402af741d511ce8854226",
-                "passes": 1,
-                "fails": 0,
-                "name": "14_getFavouriteAndRecentList -> 200 OK (590ms)",
-                "path": "::HAR_User_Journey::14_getFavouriteAndRecentList -> 200 OK (590ms)"
-              },
-              {
-                "path": "::HAR_User_Journey::14_getFavouriteAndRecentList -> 200 OK (599ms)",
-                "id": "22456441fc5dbb6eb0586f5082a6ff76",
-                "passes": 1,
-                "fails": 0,
-                "name": "14_getFavouriteAndRecentList -> 200 OK (599ms)"
-              },
-              {
-                "fails": 0,
-                "name": "14_getFavouriteAndRecentList -> 200 OK (601ms)",
-                "path": "::HAR_User_Journey::14_getFavouriteAndRecentList -> 200 OK (601ms)",
-                "id": "88177cda97a451e3125ba140856c8170",
-                "passes": 1
-              },
-              {
-                "name": "14_getFavouriteAndRecentList -> 200 OK (602ms)",
-                "path": "::HAR_User_Journey::14_getFavouriteAndRecentList -> 200 OK (602ms)",
-                "id": "112e1710d799af5923beda34e9cb2753",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "a3e8dfdeb79b0e146b15057b455e50cd",
-                "passes": 1,
-                "fails": 0,
-                "name": "14_getFavouriteAndRecentList -> 200 OK (1183ms)",
-                "path": "::HAR_User_Journey::14_getFavouriteAndRecentList -> 200 OK (1183ms)"
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "13_getIsAiEnabled -> 200 OK (1195ms)",
-                "path": "::HAR_User_Journey::13_getIsAiEnabled -> 200 OK (1195ms)",
-                "id": "324922b019d2cb472028edfa69619c63"
-              },
-              {
-                "fails": 0,
-                "name": "14_getFavouriteAndRecentList -> 200 OK (1194ms)",
-                "path": "::HAR_User_Journey::14_getFavouriteAndRecentList -> 200 OK (1194ms)",
-                "id": "374faf5c824dddfb1200645e46d69683",
-                "passes": 2
-              },
-              {
-                "name": "14_getFavouriteAndRecentList -> 200 OK (1189ms)",
-                "path": "::HAR_User_Journey::14_getFavouriteAndRecentList -> 200 OK (1189ms)",
-                "id": "ab57cb91d2ea41a2d82a3f2ed527e74d",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "14_getFavouriteAndRecentList -> 200 OK (1193ms)",
-                "path": "::HAR_User_Journey::14_getFavouriteAndRecentList -> 200 OK (1193ms)",
-                "id": "487a80a0c7f7aae2c628128bf4d8730b",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "15_saveOrDeleteFavouriteAndRecent -> 200 OK (48ms)",
-                "path": "::HAR_User_Journey::15_saveOrDeleteFavouriteAndRecent -> 200 OK (48ms)",
-                "id": "516a2687756b810a56961da1ec5d13de",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "9ac944970b99868ee5c2061f23942e1c",
-                "passes": 3,
-                "fails": 0,
-                "name": "14_getFavouriteAndRecentList -> 200 OK (1179ms)",
-                "path": "::HAR_User_Journey::14_getFavouriteAndRecentList -> 200 OK (1179ms)"
-              },
-              {
-                "path": "::HAR_User_Journey::14_getFavouriteAndRecentList -> 200 OK (1181ms)",
-                "id": "5820f01e6db0da03c3b21848d771e8a2",
-                "passes": 1,
-                "fails": 0,
-                "name": "14_getFavouriteAndRecentList -> 200 OK (1181ms)"
-              },
-              {
-                "name": "15_saveOrDeleteFavouriteAndRecent -> 200 OK (51ms)",
-                "path": "::HAR_User_Journey::15_saveOrDeleteFavouriteAndRecent -> 200 OK (51ms)",
-                "id": "3e87f1e89bbc05519f68a47250e403ea",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "name": "14_getFavouriteAndRecentList -> 200 OK (1196ms)",
-                "path": "::HAR_User_Journey::14_getFavouriteAndRecentList -> 200 OK (1196ms)",
-                "id": "32358bfc83ebae1b9dc1b321da3de0b7",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::15_saveOrDeleteFavouriteAndRecent -> 200 OK (49ms)",
-                "id": "22293a64fe209b1dd60a79faf49004c8",
-                "passes": 2,
-                "fails": 0,
-                "name": "15_saveOrDeleteFavouriteAndRecent -> 200 OK (49ms)"
-              },
-              {
-                "name": "15_saveOrDeleteFavouriteAndRecent -> 200 OK (77ms)",
-                "path": "::HAR_User_Journey::15_saveOrDeleteFavouriteAndRecent -> 200 OK (77ms)",
-                "id": "bd1165156711997e15d92566066e6571",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "14_getFavouriteAndRecentList -> 200 OK (29ms)",
-                "path": "::HAR_User_Journey::14_getFavouriteAndRecentList -> 200 OK (29ms)",
-                "id": "10e93fa7c3142ff019219a4c3f8ace63",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "15_saveOrDeleteFavouriteAndRecent -> 200 OK (54ms)",
-                "path": "::HAR_User_Journey::15_saveOrDeleteFavouriteAndRecent -> 200 OK (54ms)",
-                "id": "6701ab800065d3364946105cc0a2d5b4",
-                "passes": 2
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "15_saveOrDeleteFavouriteAndRecent -> 200 OK (53ms)",
-                "path": "::HAR_User_Journey::15_saveOrDeleteFavouriteAndRecent -> 200 OK (53ms)",
-                "id": "93db02aea5a01f2604b098791ca4e97f"
-              },
-              {
-                "name": "15_saveOrDeleteFavouriteAndRecent -> 200 OK (65ms)",
-                "path": "::HAR_User_Journey::15_saveOrDeleteFavouriteAndRecent -> 200 OK (65ms)",
-                "id": "0c006bd1fd076a88416fea21c2811936",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "bc066426bcd24727d301b646c55a40b7",
-                "passes": 5,
-                "fails": 0,
-                "name": "16_getFavouriteAndRecentList -> 200 OK (28ms)",
-                "path": "::HAR_User_Journey::16_getFavouriteAndRecentList -> 200 OK (28ms)"
-              },
-              {
-                "name": "15_saveOrDeleteFavouriteAndRecent -> 200 OK (62ms)",
-                "path": "::HAR_User_Journey::15_saveOrDeleteFavouriteAndRecent -> 200 OK (62ms)",
-                "id": "318bc060dd23674c1a3871cda5c7eea5",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "b547c2f00e5b0839639af85473ed37c8",
-                "passes": 1,
-                "fails": 0,
-                "name": "15_saveOrDeleteFavouriteAndRecent -> 200 OK (63ms)",
-                "path": "::HAR_User_Journey::15_saveOrDeleteFavouriteAndRecent -> 200 OK (63ms)"
-              },
-              {
-                "fails": 0,
-                "name": "15_saveOrDeleteFavouriteAndRecent -> 200 OK (102ms)",
-                "path": "::HAR_User_Journey::15_saveOrDeleteFavouriteAndRecent -> 200 OK (102ms)",
-                "id": "7c9c50c70c7203b9d79e7a1974c28fb4",
-                "passes": 1
-              },
-              {
-                "fails": 0,
-                "name": "15_saveOrDeleteFavouriteAndRecent -> 200 OK (100ms)",
-                "path": "::HAR_User_Journey::15_saveOrDeleteFavouriteAndRecent -> 200 OK (100ms)",
-                "id": "2c409c1c73b5ed0536d35774a5f87d97",
-                "passes": 1
-              },
-              {
-                "name": "16_getFavouriteAndRecentList -> 200 OK (94ms)",
-                "path": "::HAR_User_Journey::16_getFavouriteAndRecentList -> 200 OK (94ms)",
-                "id": "5791495faa118d8bc225397f2a9349f4",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "15_saveOrDeleteFavouriteAndRecent -> 200 OK (119ms)",
-                "path": "::HAR_User_Journey::15_saveOrDeleteFavouriteAndRecent -> 200 OK (119ms)",
-                "id": "9ddbd160c6078e8aa5c1a87f2907e412",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "16_getFavouriteAndRecentList -> 200 OK (34ms)",
-                "path": "::HAR_User_Journey::16_getFavouriteAndRecentList -> 200 OK (34ms)",
-                "id": "d28c01a9d8c0821acd340b66a12f4d3b",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "df2d6da38b9f8669a1640c54ee269cfd",
-                "passes": 3,
-                "fails": 0,
-                "name": "16_getFavouriteAndRecentList -> 200 OK (25ms)",
-                "path": "::HAR_User_Journey::16_getFavouriteAndRecentList -> 200 OK (25ms)"
-              },
-              {
-                "name": "16_getFavouriteAndRecentList -> 200 OK (36ms)",
-                "path": "::HAR_User_Journey::16_getFavouriteAndRecentList -> 200 OK (36ms)",
-                "id": "6982bf13b61012cc095f9e05d3f578fc",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "16_getFavouriteAndRecentList -> 200 OK (30ms)",
-                "path": "::HAR_User_Journey::16_getFavouriteAndRecentList -> 200 OK (30ms)",
-                "id": "4660b3f63a9626fc130d037888e074f0",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "17_getAcademicYearNew -> 200 OK (30ms)",
-                "path": "::HAR_User_Journey::17_getAcademicYearNew -> 200 OK (30ms)",
-                "id": "99ab1a569cb5467885749c6b7d5d83c4",
-                "passes": 2
-              },
-              {
-                "path": "::HAR_User_Journey::16_getFavouriteAndRecentList -> 200 OK (29ms)",
-                "id": "bb0ae87e673a572df86677a6dafc3355",
-                "passes": 1,
-                "fails": 0,
-                "name": "16_getFavouriteAndRecentList -> 200 OK (29ms)"
-              },
-              {
-                "name": "17_getAcademicYearNew -> 200 OK (26ms)",
-                "path": "::HAR_User_Journey::17_getAcademicYearNew -> 200 OK (26ms)",
-                "id": "5b4946a4ef104cb55690eddb81c687c0",
-                "passes": 4,
-                "fails": 0
-              },
-              {
-                "name": "16_getFavouriteAndRecentList -> 200 OK (26ms)",
-                "path": "::HAR_User_Journey::16_getFavouriteAndRecentList -> 200 OK (26ms)",
-                "id": "0a3a61729ceb13cd6057443f33426550",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 2,
-                "fails": 0,
-                "name": "17_getAcademicYearNew -> 200 OK (23ms)",
-                "path": "::HAR_User_Journey::17_getAcademicYearNew -> 200 OK (23ms)",
-                "id": "2c15eb6f96960aabf2340a5b5e5771ec"
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "17_getAcademicYearNew -> 200 OK (28ms)",
-                "path": "::HAR_User_Journey::17_getAcademicYearNew -> 200 OK (28ms)",
-                "id": "f652a3a37024d9279e71a027c0e5db30"
-              },
-              {
-                "name": "16_getFavouriteAndRecentList -> 200 OK (41ms)",
-                "path": "::HAR_User_Journey::16_getFavouriteAndRecentList -> 200 OK (41ms)",
-                "id": "e8e277e12a98a8de48f33ff1c8bcea95",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "39daaded42b30b2ede513bd4e2ce2a24",
-                "passes": 3,
-                "fails": 0,
-                "name": "17_getAcademicYearNew -> 200 OK (25ms)",
-                "path": "::HAR_User_Journey::17_getAcademicYearNew -> 200 OK (25ms)"
-              },
-              {
-                "name": "17_getAcademicYearNew -> 200 OK (32ms)",
-                "path": "::HAR_User_Journey::17_getAcademicYearNew -> 200 OK (32ms)",
-                "id": "4d1abe518845fad196edb0d9a107d564",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::18_getCampusesByUserPrivilegeNew -> 200 OK (46ms)",
-                "id": "e3c7e8fcbc61cdbddc97127528345f4a",
-                "passes": 1,
-                "fails": 0,
-                "name": "18_getCampusesByUserPrivilegeNew -> 200 OK (46ms)"
-              },
-              {
-                "fails": 0,
-                "name": "18_getCampusesByUserPrivilegeNew -> 200 OK (45ms)",
-                "path": "::HAR_User_Journey::18_getCampusesByUserPrivilegeNew -> 200 OK (45ms)",
-                "id": "4f00cc836dbb12179bc3dc6f95b37777",
-                "passes": 2
-              },
-              {
-                "name": "17_getAcademicYearNew -> 200 OK (24ms)",
-                "path": "::HAR_User_Journey::17_getAcademicYearNew -> 200 OK (24ms)",
-                "id": "b578eb8292eceff4ad9bddb514e34995",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "18_getCampusesByUserPrivilegeNew -> 200 OK (49ms)",
-                "path": "::HAR_User_Journey::18_getCampusesByUserPrivilegeNew -> 200 OK (49ms)",
-                "id": "ac7d9372466ae7578f0663a0343718d5",
-                "passes": 4,
-                "fails": 0
-              },
-              {
-                "id": "8aef1c0057d464bd59f1cf8ef7b20180",
-                "passes": 1,
-                "fails": 0,
-                "name": "18_getCampusesByUserPrivilegeNew -> 200 OK (47ms)",
-                "path": "::HAR_User_Journey::18_getCampusesByUserPrivilegeNew -> 200 OK (47ms)"
-              },
-              {
-                "path": "::HAR_User_Journey::17_getAcademicYearNew -> 200 OK (44ms)",
-                "id": "1e35d257e46504214a4c32d0c1784939",
-                "passes": 1,
-                "fails": 0,
-                "name": "17_getAcademicYearNew -> 200 OK (44ms)"
-              },
-              {
-                "name": "18_getCampusesByUserPrivilegeNew -> 200 OK (53ms)",
-                "path": "::HAR_User_Journey::18_getCampusesByUserPrivilegeNew -> 200 OK (53ms)",
-                "id": "dd482801808319b7ebc206eb6ae8ee76",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "18_getCampusesByUserPrivilegeNew -> 200 OK (43ms)",
-                "path": "::HAR_User_Journey::18_getCampusesByUserPrivilegeNew -> 200 OK (43ms)",
-                "id": "0015d3d40b2808d1e03e03087ff37df2",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "19_getEmpIdByUserId -> 200 OK (26ms)",
-                "path": "::HAR_User_Journey::19_getEmpIdByUserId -> 200 OK (26ms)",
-                "id": "3f1f3e558579e0c1e03f5efa8d7510c9",
-                "passes": 6,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::19_getEmpIdByUserId -> 200 OK (27ms)",
-                "id": "82c99264ee76263dffeff8183bfaedea",
-                "passes": 1,
-                "fails": 0,
-                "name": "19_getEmpIdByUserId -> 200 OK (27ms)"
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "18_getCampusesByUserPrivilegeNew -> 200 OK (51ms)",
-                "path": "::HAR_User_Journey::18_getCampusesByUserPrivilegeNew -> 200 OK (51ms)",
-                "id": "ce522d1528516104ac5a1ef12b88b7b0"
-              },
-              {
-                "fails": 0,
-                "name": "18_getCampusesByUserPrivilegeNew -> 200 OK (48ms)",
-                "path": "::HAR_User_Journey::18_getCampusesByUserPrivilegeNew -> 200 OK (48ms)",
-                "id": "d5577430c926efb38b016216e80e400a",
-                "passes": 1
-              },
-              {
-                "name": "19_getEmpIdByUserId -> 200 OK (28ms)",
-                "path": "::HAR_User_Journey::19_getEmpIdByUserId -> 200 OK (28ms)",
-                "id": "d293dbdf59c35cbecd38b33b43500985",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "19_getEmpIdByUserId -> 200 OK (25ms)",
-                "path": "::HAR_User_Journey::19_getEmpIdByUserId -> 200 OK (25ms)",
-                "id": "dc1282883a636e9e2b31c05253a12a20",
-                "passes": 4,
-                "fails": 0
-              },
-              {
-                "name": "18_getCampusesByUserPrivilegeNew -> 200 OK (52ms)",
-                "path": "::HAR_User_Journey::18_getCampusesByUserPrivilegeNew -> 200 OK (52ms)",
-                "id": "2693c983ce892348f52b4ce0be8f9269",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::18_getCampusesByUserPrivilegeNew -> 200 OK (44ms)",
-                "id": "a34ddee3414084bf36c5100f72a0e1fd",
-                "passes": 1,
-                "fails": 0,
-                "name": "18_getCampusesByUserPrivilegeNew -> 200 OK (44ms)"
-              },
-              {
-                "id": "9ebae9062ffad4163d6db1adfc356b97",
-                "passes": 1,
-                "fails": 0,
-                "name": "19_getEmpIdByUserId -> 200 OK (24ms)",
-                "path": "::HAR_User_Journey::19_getEmpIdByUserId -> 200 OK (24ms)"
-              },
-              {
-                "fails": 0,
-                "name": "18_getCampusesByUserPrivilegeNew -> 200 OK (60ms)",
-                "path": "::HAR_User_Journey::18_getCampusesByUserPrivilegeNew -> 200 OK (60ms)",
-                "id": "732ba9db4d24cd13428516a26f1b149c",
-                "passes": 1
-              },
-              {
-                "name": "20_privilegeEnabledForIPMStaff -> 200 OK (27ms)",
-                "path": "::HAR_User_Journey::20_privilegeEnabledForIPMStaff -> 200 OK (27ms)",
-                "id": "98cfef88e425a8740ac1c9f143170f9c",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "20_privilegeEnabledForIPMStaff -> 200 OK (26ms)",
-                "path": "::HAR_User_Journey::20_privilegeEnabledForIPMStaff -> 200 OK (26ms)",
-                "id": "af0e642d949c452868f22796a7ef9f62",
-                "passes": 3
-              },
-              {
-                "name": "20_privilegeEnabledForIPMStaff -> 200 OK (24ms)",
-                "path": "::HAR_User_Journey::20_privilegeEnabledForIPMStaff -> 200 OK (24ms)",
-                "id": "f64da1cab8d19f570d8a1e74dc0140ea",
-                "passes": 5,
-                "fails": 0
-              },
-              {
-                "name": "19_getEmpIdByUserId -> 200 OK (23ms)",
-                "path": "::HAR_User_Journey::19_getEmpIdByUserId -> 200 OK (23ms)",
-                "id": "27d07a292d7787b82fc8ce4318e07f87",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "20_privilegeEnabledForIPMStaff -> 200 OK (31ms)",
-                "path": "::HAR_User_Journey::20_privilegeEnabledForIPMStaff -> 200 OK (31ms)",
-                "id": "5fda0b95c71c41d593bc184d4183b6ef",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "name": "19_getEmpIdByUserId -> 200 OK (29ms)",
-                "path": "::HAR_User_Journey::19_getEmpIdByUserId -> 200 OK (29ms)",
-                "id": "7ebaed343a957c877f4b045ef6f5c309",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "20_privilegeEnabledForIPMStaff -> 200 OK (25ms)",
-                "path": "::HAR_User_Journey::20_privilegeEnabledForIPMStaff -> 200 OK (25ms)",
-                "id": "fe20f52cc4fe40772634b4355d306a64",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "name": "21_privilegeEnabledForHOD -> 200 OK (26ms)",
-                "path": "::HAR_User_Journey::21_privilegeEnabledForHOD -> 200 OK (26ms)",
-                "id": "168e26639493862ec7d0adb063542d0a",
-                "passes": 5,
-                "fails": 0
-              },
-              {
-                "name": "21_privilegeEnabledForHOD -> 200 OK (32ms)",
-                "path": "::HAR_User_Journey::21_privilegeEnabledForHOD -> 200 OK (32ms)",
-                "id": "f3478138693f4a0f9274bc1fc0533c15",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "21_privilegeEnabledForHOD -> 200 OK (30ms)",
-                "path": "::HAR_User_Journey::21_privilegeEnabledForHOD -> 200 OK (30ms)",
-                "id": "36fbe531fc7e895cf1f8529bc26c6ad9",
-                "passes": 1
-              },
-              {
-                "id": "9a83d889a0e9b7dae797db5ee1ff76c9",
-                "passes": 1,
-                "fails": 0,
-                "name": "20_privilegeEnabledForIPMStaff -> 200 OK (36ms)",
-                "path": "::HAR_User_Journey::20_privilegeEnabledForIPMStaff -> 200 OK (36ms)"
-              },
-              {
-                "name": "21_privilegeEnabledForHOD -> 200 OK (24ms)",
-                "path": "::HAR_User_Journey::21_privilegeEnabledForHOD -> 200 OK (24ms)",
-                "id": "9b6ca9e7a8ebb9dd6d1d9497eb8e663f",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "name": "21_privilegeEnabledForHOD -> 200 OK (25ms)",
-                "path": "::HAR_User_Journey::21_privilegeEnabledForHOD -> 200 OK (25ms)",
-                "id": "6e65f91e34b5eb8de162bf5c3d74d0ab",
-                "passes": 4,
-                "fails": 0
-              },
-              {
-                "id": "15fe6e84c592194964901e3848d23d31",
-                "passes": 2,
-                "fails": 0,
-                "name": "22_privilegeEnabledForFaculty -> 200 OK (28ms)",
-                "path": "::HAR_User_Journey::22_privilegeEnabledForFaculty -> 200 OK (28ms)"
-              },
-              {
-                "name": "22_privilegeEnabledForFaculty -> 200 OK (27ms)",
-                "path": "::HAR_User_Journey::22_privilegeEnabledForFaculty -> 200 OK (27ms)",
-                "id": "5109f2777cd62f95f6630ee2eb62ef2e",
-                "passes": 3,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::21_privilegeEnabledForHOD -> 200 OK (27ms)",
-                "id": "c8a1436e80a3dd2911cc467bd2691da9",
-                "passes": 2,
-                "fails": 0,
-                "name": "21_privilegeEnabledForHOD -> 200 OK (27ms)"
-              },
-              {
-                "id": "1c5c015a269e54028cdc6f2da04a1249",
-                "passes": 5,
-                "fails": 0,
-                "name": "22_privilegeEnabledForFaculty -> 200 OK (26ms)",
-                "path": "::HAR_User_Journey::22_privilegeEnabledForFaculty -> 200 OK (26ms)"
-              },
-              {
-                "path": "::HAR_User_Journey::22_privilegeEnabledForFaculty -> 200 OK (24ms)",
-                "id": "081188966dca63fd94b17f1071e3f922",
-                "passes": 2,
-                "fails": 0,
-                "name": "22_privilegeEnabledForFaculty -> 200 OK (24ms)"
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "22_privilegeEnabledForFaculty -> 200 OK (23ms)",
-                "path": "::HAR_User_Journey::22_privilegeEnabledForFaculty -> 200 OK (23ms)",
-                "id": "7d69ed8821ade370082be5d8f312f9a5"
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "23_getDepartmentByUser -> 200 OK (28ms)",
-                "path": "::HAR_User_Journey::23_getDepartmentByUser -> 200 OK (28ms)",
-                "id": "b40e324baf9492d9561e402717702274"
-              },
-              {
-                "fails": 0,
-                "name": "22_privilegeEnabledForFaculty -> 200 OK (25ms)",
-                "path": "::HAR_User_Journey::22_privilegeEnabledForFaculty -> 200 OK (25ms)",
-                "id": "c95f2f54d524bd807ccf5662b68e687f",
-                "passes": 2
-              },
-              {
-                "name": "23_getDepartmentByUser -> 200 OK (27ms)",
-                "path": "::HAR_User_Journey::23_getDepartmentByUser -> 200 OK (27ms)",
-                "id": "dacdee5fd8a25096a9e9e65601fa4d2f",
-                "passes": 4,
-                "fails": 0
-              },
-              {
-                "passes": 2,
-                "fails": 0,
-                "name": "23_getDepartmentByUser -> 200 OK (25ms)",
-                "path": "::HAR_User_Journey::23_getDepartmentByUser -> 200 OK (25ms)",
-                "id": "8198d398df876cc9ae3f7edb2fc4bbc2"
-              },
-              {
-                "path": "::HAR_User_Journey::23_getDepartmentByUser -> 200 OK (30ms)",
-                "id": "3bd1a2a983a6610cc57fe914adf6dddb",
-                "passes": 2,
-                "fails": 0,
-                "name": "23_getDepartmentByUser -> 200 OK (30ms)"
-              },
-              {
-                "passes": 3,
-                "fails": 0,
-                "name": "23_getDepartmentByUser -> 200 OK (26ms)",
-                "path": "::HAR_User_Journey::23_getDepartmentByUser -> 200 OK (26ms)",
-                "id": "c2e585658ea05958d274f6a354183a9e"
-              },
-              {
-                "id": "bc9f69a3006f6ba08cf5c67542056d77",
-                "passes": 3,
-                "fails": 0,
-                "name": "24_getSessionType -> 200 OK (27ms)",
-                "path": "::HAR_User_Journey::24_getSessionType -> 200 OK (27ms)"
-              },
-              {
-                "passes": 5,
-                "fails": 0,
-                "name": "24_getSessionType -> 200 OK (25ms)",
-                "path": "::HAR_User_Journey::24_getSessionType -> 200 OK (25ms)",
-                "id": "49479d727d3440ec70f90dc2b437abbd"
-              },
-              {
-                "name": "24_getSessionType -> 200 OK (34ms)",
-                "path": "::HAR_User_Journey::24_getSessionType -> 200 OK (34ms)",
-                "id": "39b3ffc16153ee5dfd3ad643f0979bf1",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "23_getDepartmentByUser -> 200 OK (37ms)",
-                "path": "::HAR_User_Journey::23_getDepartmentByUser -> 200 OK (37ms)",
-                "id": "9b31a269ea0de815ad5ebfd2c8564843",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::24_getSessionType -> 200 OK (26ms)",
-                "id": "6076e9de9d50154f7172cc7f6c213343",
-                "passes": 2,
-                "fails": 0,
-                "name": "24_getSessionType -> 200 OK (26ms)"
-              },
-              {
-                "name": "23_getDepartmentByUser -> 200 OK (33ms)",
-                "path": "::HAR_User_Journey::23_getDepartmentByUser -> 200 OK (33ms)",
-                "id": "838b75f8d5a7109b5ad3b439b56dc993",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::24_getSessionType -> 200 OK (56ms)",
-                "id": "5fe43044e49d62cf6e2682919a5ee4a0",
-                "passes": 1,
-                "fails": 0,
-                "name": "24_getSessionType -> 200 OK (56ms)"
-              },
-              {
-                "name": "24_getSessionType -> 200 OK (28ms)",
-                "path": "::HAR_User_Journey::24_getSessionType -> 200 OK (28ms)",
-                "id": "28cfabab3afecdac16c0bc433a74e6bb",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "ab1b422af7cbb77ca38eca899f65a39a",
+                "name": "26_getViewTimeTableData -> FAILED [Status: 404, Reason: HTTP 404]",
+                "path": "::Student_Journey::26_getViewTimeTableData -> FAILED [Status: 404, Reason: HTTP 404]",
+                "id": "3c97fd6e05be582252394ca653b8efa1",
                 "passes": 0,
-                "fails": 15,
-                "name": "25_getEmpsByDepartment -> FAILED [Status: 404, Reason: HTTP 404]",
-                "path": "::HAR_User_Journey::25_getEmpsByDepartment -> FAILED [Status: 404, Reason: HTTP 404]"
+                "fails": 1
               },
               {
-                "passes": 1,
-                "fails": 0,
-                "name": "24_getSessionType -> 200 OK (29ms)",
-                "path": "::HAR_User_Journey::24_getSessionType -> 200 OK (29ms)",
-                "id": "9fe2373e89b537fc5db678045333bb43"
-              },
-              {
-                "name": "24_getSessionType -> 200 OK (24ms)",
-                "path": "::HAR_User_Journey::24_getSessionType -> 200 OK (24ms)",
-                "id": "1ebca9e74396e3ef618c334ca6634874",
+                "name": "27_getAllTeachingAndNonTeachingEmployee -> 200 OK (198ms)",
+                "path": "::Student_Journey::27_getAllTeachingAndNonTeachingEmployee -> 200 OK (198ms)",
+                "id": "eb0c7058d8d9c6eae6b5d1f541905e54",
                 "passes": 1,
                 "fails": 0
               },
               {
-                "id": "328f33c9a4f720f4ed41454882fb129d",
-                "passes": 1,
-                "fails": 0,
-                "name": "26_getAllTeachingAndNonTeachingEmployee -> 200 OK (485ms)",
-                "path": "::HAR_User_Journey::26_getAllTeachingAndNonTeachingEmployee -> 200 OK (485ms)"
-              },
-              {
-                "name": "26_getAllTeachingAndNonTeachingEmployee -> 200 OK (470ms)",
-                "path": "::HAR_User_Journey::26_getAllTeachingAndNonTeachingEmployee -> 200 OK (470ms)",
-                "id": "dedfba696bf131a7fdb3bc28177ba6ac",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "34703f6aa532cd6d0785cc8967f5c29a",
-                "passes": 1,
-                "fails": 0,
-                "name": "26_getAllTeachingAndNonTeachingEmployee -> 200 OK (697ms)",
-                "path": "::HAR_User_Journey::26_getAllTeachingAndNonTeachingEmployee -> 200 OK (697ms)"
-              },
-              {
-                "name": "26_getAllTeachingAndNonTeachingEmployee -> 200 OK (589ms)",
-                "path": "::HAR_User_Journey::26_getAllTeachingAndNonTeachingEmployee -> 200 OK (589ms)",
-                "id": "5ad6c01dfed50442430f2600f9ee1c53",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "26_getAllTeachingAndNonTeachingEmployee -> 200 OK (839ms)",
-                "path": "::HAR_User_Journey::26_getAllTeachingAndNonTeachingEmployee -> 200 OK (839ms)",
-                "id": "a5193207762070755fc5176263e5a855",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::26_getAllTeachingAndNonTeachingEmployee -> 200 OK (1525ms)",
-                "id": "b5c7bca21b716c1638ce7154cb70b5aa",
-                "passes": 1,
-                "fails": 0,
-                "name": "26_getAllTeachingAndNonTeachingEmployee -> 200 OK (1525ms)"
-              },
-              {
-                "fails": 0,
-                "name": "26_getAllTeachingAndNonTeachingEmployee -> 200 OK (1487ms)",
-                "path": "::HAR_User_Journey::26_getAllTeachingAndNonTeachingEmployee -> 200 OK (1487ms)",
-                "id": "9821ad43381d1dc0bde4a23cb80842ed",
-                "passes": 1
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "26_getAllTeachingAndNonTeachingEmployee -> 200 OK (1216ms)",
-                "path": "::HAR_User_Journey::26_getAllTeachingAndNonTeachingEmployee -> 200 OK (1216ms)",
-                "id": "db2e42b1241c80706e96523904cf2c1f"
-              },
-              {
-                "id": "34b29ae426aad18029c35e001ac63d52",
-                "passes": 1,
-                "fails": 0,
-                "name": "26_getAllTeachingAndNonTeachingEmployee -> 200 OK (1534ms)",
-                "path": "::HAR_User_Journey::26_getAllTeachingAndNonTeachingEmployee -> 200 OK (1534ms)"
-              },
-              {
-                "name": "26_getAllTeachingAndNonTeachingEmployee -> 200 OK (1875ms)",
-                "path": "::HAR_User_Journey::26_getAllTeachingAndNonTeachingEmployee -> 200 OK (1875ms)",
-                "id": "f321cdcc210afbddf608dd10112b0131",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "27_getClassOrCourseView -> FAILED [Status: 404, Reason: HTTP 404]",
-                "path": "::HAR_User_Journey::27_getClassOrCourseView -> FAILED [Status: 404, Reason: HTTP 404]",
-                "id": "5772d918710fa8b9e899cca28fc140cb",
+                "id": "9e156cb957f38b258edeed2f49cbf235",
                 "passes": 0,
-                "fails": 15
+                "fails": 1,
+                "name": "28_getClassOrCourseView -> FAILED [Status: 404, Reason: HTTP 404]",
+                "path": "::Student_Journey::28_getClassOrCourseView -> FAILED [Status: 404, Reason: HTTP 404]"
               },
               {
-                "name": "26_getAllTeachingAndNonTeachingEmployee -> 200 OK (1352ms)",
-                "path": "::HAR_User_Journey::26_getAllTeachingAndNonTeachingEmployee -> 200 OK (1352ms)",
-                "id": "9fc897c85a759dac4d65664758fc57f7",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "d767f48e749bdc4398e61c4394f9cf10",
-                "passes": 1,
-                "fails": 0,
-                "name": "26_getAllTeachingAndNonTeachingEmployee -> 200 OK (1719ms)",
-                "path": "::HAR_User_Journey::26_getAllTeachingAndNonTeachingEmployee -> 200 OK (1719ms)"
-              },
-              {
-                "name": "26_getAllTeachingAndNonTeachingEmployee -> 200 OK (1887ms)",
-                "path": "::HAR_User_Journey::26_getAllTeachingAndNonTeachingEmployee -> 200 OK (1887ms)",
-                "id": "a0532af11e64ba3ae4e66fc7b0e2bd38",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "26_getAllTeachingAndNonTeachingEmployee -> 200 OK (1702ms)",
-                "path": "::HAR_User_Journey::26_getAllTeachingAndNonTeachingEmployee -> 200 OK (1702ms)",
-                "id": "fe8037e35685e6ac4c87a69d87bf95a5"
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "26_getAllTeachingAndNonTeachingEmployee -> 200 OK (2301ms)",
-                "path": "::HAR_User_Journey::26_getAllTeachingAndNonTeachingEmployee -> 200 OK (2301ms)",
-                "id": "82c90080bc92eb47b08dcbe32c31bdda"
-              },
-              {
-                "path": "::HAR_User_Journey::28_getViewTimeTableData -> FAILED [Status: 404, Reason: HTTP 404]",
-                "id": "3887ef5954addf850b8a91a23a4eb905",
                 "passes": 0,
-                "fails": 15,
-                "name": "28_getViewTimeTableData -> FAILED [Status: 404, Reason: HTTP 404]"
+                "fails": 1,
+                "name": "29_getViewTimeTableData -> FAILED [Status: 404, Reason: HTTP 404]",
+                "path": "::Student_Journey::29_getViewTimeTableData -> FAILED [Status: 404, Reason: HTTP 404]",
+                "id": "b8b4d572c8a9040511f58466bb6d3563"
+              },
+              {
+                "id": "86c4ccee43609f230308c4336c7ac3e1",
+                "passes": 1,
+                "fails": 0,
+                "name": "30_saveOrDeleteFavouriteAndRecent -> 200 OK (55ms)",
+                "path": "::Student_Journey::30_saveOrDeleteFavouriteAndRecent -> 200 OK (55ms)"
+              },
+              {
+                "fails": 0,
+                "name": "31_getFavouriteAndRecentList -> 200 OK (34ms)",
+                "path": "::Student_Journey::31_getFavouriteAndRecentList -> 200 OK (34ms)",
+                "id": "67a5db4bbdf9e0f6811e7b3179228d0d",
+                "passes": 1
               },
               {
                 "passes": 1,
                 "fails": 0,
-                "name": "29_getAllTeachingAndNonTeachingEmployee -> 200 OK (230ms)",
-                "path": "::HAR_User_Journey::29_getAllTeachingAndNonTeachingEmployee -> 200 OK (230ms)",
-                "id": "94aa75d4dba0d786399b5d5df8e7db9c"
+                "name": "32_isHighPrivilege -> 200 OK (33ms)",
+                "path": "::Student_Journey::32_isHighPrivilege -> 200 OK (33ms)",
+                "id": "22ee92c5b5d58f5f5fd878d71fe209bb"
               },
               {
-                "name": "29_getAllTeachingAndNonTeachingEmployee -> 200 OK (408ms)",
-                "path": "::HAR_User_Journey::29_getAllTeachingAndNonTeachingEmployee -> 200 OK (408ms)",
-                "id": "1f49b6687ed7b96345fe8314de53bf14",
+                "fails": 0,
+                "name": "33_getAcademicYear -> 200 OK (111ms)",
+                "path": "::Student_Journey::33_getAcademicYear -> 200 OK (111ms)",
+                "id": "fadf633ad08d987100a7c0abd1e58a43",
+                "passes": 1
+              },
+              {
+                "name": "34_getHostel -> 200 OK (209ms)",
+                "path": "::Student_Journey::34_getHostel -> 200 OK (209ms)",
+                "id": "d5a68f96e856699e78c455bf392ab28a",
                 "passes": 1,
                 "fails": 0
               },
               {
-                "id": "77bea8f2429531a8e70c9cdf4de06a62",
+                "name": "35_saveOrDeleteFavouriteAndRecent -> 200 OK (57ms)",
+                "path": "::Student_Journey::35_saveOrDeleteFavouriteAndRecent -> 200 OK (57ms)",
+                "id": "1274bc3f1193fe71b699122979ba0b0e",
+                "passes": 1,
+                "fails": 0
+              },
+              {
                 "passes": 1,
                 "fails": 0,
-                "name": "29_getAllTeachingAndNonTeachingEmployee -> 200 OK (789ms)",
-                "path": "::HAR_User_Journey::29_getAllTeachingAndNonTeachingEmployee -> 200 OK (789ms)"
+                "name": "36_getDataByUserId -> 200 OK (64ms)",
+                "path": "::Student_Journey::36_getDataByUserId -> 200 OK (64ms)",
+                "id": "01bc1cdbc495736f75eb1f2b60fabc63"
               },
               {
-                "name": "29_getAllTeachingAndNonTeachingEmployee -> 200 OK (889ms)",
-                "path": "::HAR_User_Journey::29_getAllTeachingAndNonTeachingEmployee -> 200 OK (889ms)",
-                "id": "3de2fec2ed01baa66d87e74f62c33cdc",
+                "id": "176e94e84796f898177aa39bebbfe7a5",
+                "passes": 1,
+                "fails": 0,
+                "name": "37_getFavouriteAndRecentList -> 200 OK (35ms)",
+                "path": "::Student_Journey::37_getFavouriteAndRecentList -> 200 OK (35ms)"
+              },
+              {
+                "name": "38_saveOrDeleteFavouriteAndRecent -> 200 OK (56ms)",
+                "path": "::Student_Journey::38_saveOrDeleteFavouriteAndRecent -> 200 OK (56ms)",
+                "id": "3c7ce459609121bf42e3ba86baffe227",
                 "passes": 1,
                 "fails": 0
               },
               {
-                "name": "29_getAllTeachingAndNonTeachingEmployee -> 200 OK (929ms)",
-                "path": "::HAR_User_Journey::29_getAllTeachingAndNonTeachingEmployee -> 200 OK (929ms)",
-                "id": "ef0a2454f89f19b4f7a98f764528611e",
+                "passes": 1,
+                "fails": 0,
+                "name": "39_getBatchYear -> 200 OK (40ms)",
+                "path": "::Student_Journey::39_getBatchYear -> 200 OK (40ms)",
+                "id": "ed88077da20d38eb8da95c391e5d13f2"
+              },
+              {
+                "name": "40_getCampus -> 200 OK (53ms)",
+                "path": "::Student_Journey::40_getCampus -> 200 OK (53ms)",
+                "id": "7c9c2080c8f88f6ee24c34f13b7e1af7",
                 "passes": 1,
                 "fails": 0
               },
               {
-                "name": "30_getClassOrCourseView -> FAILED [Status: 404, Reason: HTTP 404]",
-                "path": "::HAR_User_Journey::30_getClassOrCourseView -> FAILED [Status: 404, Reason: HTTP 404]",
-                "id": "ebdac3f5b78b359a17fde9525b257afa",
+                "name": "41_getFavouriteAndRecentList -> 200 OK (37ms)",
+                "path": "::Student_Journey::41_getFavouriteAndRecentList -> 200 OK (37ms)",
+                "id": "cc9d17f1cbb3356a6cb9d873a7cb6832",
+                "passes": 1,
+                "fails": 0
+              },
+              {
+                "name": "42_getBatchYear -> 200 OK (41ms)",
+                "path": "::Student_Journey::42_getBatchYear -> 200 OK (41ms)",
+                "id": "bb7b2520007394a7dde04d73e53e41bc",
+                "passes": 1,
+                "fails": 0
+              },
+              {
+                "passes": 1,
+                "fails": 0,
+                "name": "43_getCampus -> 200 OK (50ms)",
+                "path": "::Student_Journey::43_getCampus -> 200 OK (50ms)",
+                "id": "ea61422b3257cddb111ae630b970ba65"
+              },
+              {
+                "name": "44_getBatchYear -> 200 OK (37ms)",
+                "path": "::Student_Journey::44_getBatchYear -> 200 OK (37ms)",
+                "id": "8671da1726e88e59d69adb1881dc4ee7",
+                "passes": 1,
+                "fails": 0
+              },
+              {
+                "path": "::Student_Journey::45_getCampus -> 200 OK (51ms)",
+                "id": "6374bd8806809d0e7d8cbc5ec2ea5d72",
+                "passes": 1,
+                "fails": 0,
+                "name": "45_getCampus -> 200 OK (51ms)"
+              },
+              {
+                "name": "46_status.json -> FAILED [Status: 400, Reason: HTTP 400]",
+                "path": "::Student_Journey::46_status.json -> FAILED [Status: 400, Reason: HTTP 400]",
+                "id": "e2b11e8e5a14d034c15efc3ee4eb9f09",
                 "passes": 0,
-                "fails": 15
-              },
-              {
-                "id": "3bed1ffbb865fb53b6816508194c9d7f",
-                "passes": 1,
-                "fails": 0,
-                "name": "29_getAllTeachingAndNonTeachingEmployee -> 200 OK (1081ms)",
-                "path": "::HAR_User_Journey::29_getAllTeachingAndNonTeachingEmployee -> 200 OK (1081ms)"
+                "fails": 1
               },
               {
                 "passes": 1,
                 "fails": 0,
-                "name": "29_getAllTeachingAndNonTeachingEmployee -> 200 OK (1543ms)",
-                "path": "::HAR_User_Journey::29_getAllTeachingAndNonTeachingEmployee -> 200 OK (1543ms)",
-                "id": "2264dd7b22bb4c7edd655c8495e8e9be"
+                "name": "47_getBatchYear -> 200 OK (38ms)",
+                "path": "::Student_Journey::47_getBatchYear -> 200 OK (38ms)",
+                "id": "b7b4e8a8497b056fe255843a7bad4217"
               },
               {
-                "path": "::HAR_User_Journey::29_getAllTeachingAndNonTeachingEmployee -> 200 OK (1732ms)",
-                "id": "28ada3e5ebc321dde83d0e9fab12cd60",
-                "passes": 1,
-                "fails": 0,
-                "name": "29_getAllTeachingAndNonTeachingEmployee -> 200 OK (1732ms)"
-              },
-              {
-                "name": "29_getAllTeachingAndNonTeachingEmployee -> 200 OK (1688ms)",
-                "path": "::HAR_User_Journey::29_getAllTeachingAndNonTeachingEmployee -> 200 OK (1688ms)",
-                "id": "ea98e1db68a181b550bbbe135f090be4",
+                "name": "48_getCampus -> 200 OK (51ms)",
+                "path": "::Student_Journey::48_getCampus -> 200 OK (51ms)",
+                "id": "534f2766fdeb69be6e1d881d3f93136b",
                 "passes": 1,
                 "fails": 0
               },
               {
-                "path": "::HAR_User_Journey::29_getAllTeachingAndNonTeachingEmployee -> 200 OK (1869ms)",
-                "id": "2996c76f0b3dc6a5260ea27bf3b2b425",
+                "path": "::Student_Journey::49_saveOrDeleteFavouriteAndRecent -> 200 OK (67ms)",
+                "id": "144b4248a805f865088770313a503025",
                 "passes": 1,
                 "fails": 0,
-                "name": "29_getAllTeachingAndNonTeachingEmployee -> 200 OK (1869ms)"
-              },
-              {
-                "name": "29_getAllTeachingAndNonTeachingEmployee -> 200 OK (1898ms)",
-                "path": "::HAR_User_Journey::29_getAllTeachingAndNonTeachingEmployee -> 200 OK (1898ms)",
-                "id": "d962496572755cfcdb1d79d6f42e8bef",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::31_getViewTimeTableData -> FAILED [Status: 404, Reason: HTTP 404]",
-                "id": "bd027d92c184050266effed57a4d885e",
-                "passes": 0,
-                "fails": 15,
-                "name": "31_getViewTimeTableData -> FAILED [Status: 404, Reason: HTTP 404]"
-              },
-              {
-                "id": "3d81a9884c105f0f90a5e3ee506b3ee0",
-                "passes": 1,
-                "fails": 0,
-                "name": "29_getAllTeachingAndNonTeachingEmployee -> 200 OK (1776ms)",
-                "path": "::HAR_User_Journey::29_getAllTeachingAndNonTeachingEmployee -> 200 OK (1776ms)"
+                "name": "49_saveOrDeleteFavouriteAndRecent -> 200 OK (67ms)"
               },
               {
                 "passes": 1,
                 "fails": 0,
-                "name": "29_getAllTeachingAndNonTeachingEmployee -> 200 OK (1258ms)",
-                "path": "::HAR_User_Journey::29_getAllTeachingAndNonTeachingEmployee -> 200 OK (1258ms)",
-                "id": "2c7058f963c47305dfd7f350123e3f8a"
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "29_getAllTeachingAndNonTeachingEmployee -> 200 OK (1361ms)",
-                "path": "::HAR_User_Journey::29_getAllTeachingAndNonTeachingEmployee -> 200 OK (1361ms)",
-                "id": "11b1eb27759d5baba62cb01738c4c891"
-              },
-              {
-                "id": "78c5d121641f18854fff4cabf4c7647a",
-                "passes": 1,
-                "fails": 0,
-                "name": "29_getAllTeachingAndNonTeachingEmployee -> 200 OK (180ms)",
-                "path": "::HAR_User_Journey::29_getAllTeachingAndNonTeachingEmployee -> 200 OK (180ms)"
-              },
-              {
-                "name": "32_saveOrDeleteFavouriteAndRecent -> 200 OK (50ms)",
-                "path": "::HAR_User_Journey::32_saveOrDeleteFavouriteAndRecent -> 200 OK (50ms)",
-                "id": "7ebe9de1c0b8d1646256fc2a89dfb33d",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "555f91270b28c6cd344b958f03b6b44b",
-                "passes": 1,
-                "fails": 0,
-                "name": "32_saveOrDeleteFavouriteAndRecent -> 200 OK (46ms)",
-                "path": "::HAR_User_Journey::32_saveOrDeleteFavouriteAndRecent -> 200 OK (46ms)"
+                "name": "50_privilegeEnabledForAdmin -> 200 OK (35ms)",
+                "path": "::Student_Journey::50_privilegeEnabledForAdmin -> 200 OK (35ms)",
+                "id": "dec081026c43b4f12c4f1a3b9093c824"
               },
               {
                 "fails": 0,
-                "name": "32_saveOrDeleteFavouriteAndRecent -> 200 OK (47ms)",
-                "path": "::HAR_User_Journey::32_saveOrDeleteFavouriteAndRecent -> 200 OK (47ms)",
-                "id": "d440018e3060ace78cdee88b4ac319d9",
+                "name": "51_getFavouriteAndRecentList -> 200 OK (34ms)",
+                "path": "::Student_Journey::51_getFavouriteAndRecentList -> 200 OK (34ms)",
+                "id": "fdcb5173a6897c709e94e9671ebce9e0",
                 "passes": 1
               },
               {
-                "id": "307af11fc6899b71595968b2f29706e2",
                 "passes": 1,
                 "fails": 0,
-                "name": "32_saveOrDeleteFavouriteAndRecent -> 200 OK (60ms)",
-                "path": "::HAR_User_Journey::32_saveOrDeleteFavouriteAndRecent -> 200 OK (60ms)"
+                "name": "52_getAcademicYearNew -> 200 OK (35ms)",
+                "path": "::Student_Journey::52_getAcademicYearNew -> 200 OK (35ms)",
+                "id": "39a7d6a050309a79589d449f78517491"
               },
               {
-                "path": "::HAR_User_Journey::32_saveOrDeleteFavouriteAndRecent -> 200 OK (62ms)",
-                "id": "7ab9d5fd15aa966df5545c81fd525c9c",
+                "name": "53_getUserLocation -> 200 OK (35ms)",
+                "path": "::Student_Journey::53_getUserLocation -> 200 OK (35ms)",
+                "id": "799ba780843be55104c82b655f80cda6",
                 "passes": 1,
-                "fails": 0,
-                "name": "32_saveOrDeleteFavouriteAndRecent -> 200 OK (62ms)"
-              },
-              {
-                "fails": 0,
-                "name": "33_getFavouriteAndRecentList -> 200 OK (27ms)",
-                "path": "::HAR_User_Journey::33_getFavouriteAndRecentList -> 200 OK (27ms)",
-                "id": "7c232b5f63f729312f6a4d31e659fbb7",
-                "passes": 4
-              },
-              {
-                "name": "32_saveOrDeleteFavouriteAndRecent -> 200 OK (49ms)",
-                "path": "::HAR_User_Journey::32_saveOrDeleteFavouriteAndRecent -> 200 OK (49ms)",
-                "id": "858a82eba919dd5ec47f299b868169c4",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "name": "32_saveOrDeleteFavouriteAndRecent -> 200 OK (52ms)",
-                "path": "::HAR_User_Journey::32_saveOrDeleteFavouriteAndRecent -> 200 OK (52ms)",
-                "id": "ddda9b5af0106595c1bf0445eff5e79e",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "passes": 2,
-                "fails": 0,
-                "name": "32_saveOrDeleteFavouriteAndRecent -> 200 OK (51ms)",
-                "path": "::HAR_User_Journey::32_saveOrDeleteFavouriteAndRecent -> 200 OK (51ms)",
-                "id": "60e49940581e53c743deb1ba806db32d"
-              },
-              {
-                "id": "37f72b63aafcdc5769696282ecae4cfc",
-                "passes": 2,
-                "fails": 0,
-                "name": "32_saveOrDeleteFavouriteAndRecent -> 200 OK (54ms)",
-                "path": "::HAR_User_Journey::32_saveOrDeleteFavouriteAndRecent -> 200 OK (54ms)"
-              },
-              {
-                "name": "33_getFavouriteAndRecentList -> 200 OK (26ms)",
-                "path": "::HAR_User_Journey::33_getFavouriteAndRecentList -> 200 OK (26ms)",
-                "id": "06785ac70fb812918014230d456d6248",
-                "passes": 3,
-                "fails": 0
-              },
-              {
-                "name": "33_getFavouriteAndRecentList -> 200 OK (49ms)",
-                "path": "::HAR_User_Journey::33_getFavouriteAndRecentList -> 200 OK (49ms)",
-                "id": "38d982df6629eeecd35ab78815104243",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "34_isHighPrivilege -> 200 OK (25ms)",
-                "path": "::HAR_User_Journey::34_isHighPrivilege -> 200 OK (25ms)",
-                "id": "3599df42f9af5a77f034da95ff354d8b",
-                "passes": 4,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::33_getFavouriteAndRecentList -> 200 OK (25ms)",
-                "id": "3c28890116a2ff13c2d4b93d1c800f7a",
-                "passes": 1,
-                "fails": 0,
-                "name": "33_getFavouriteAndRecentList -> 200 OK (25ms)"
-              },
-              {
-                "id": "3b5da18ba6ac38c3f6f13ccee76c72f2",
-                "passes": 1,
-                "fails": 0,
-                "name": "33_getFavouriteAndRecentList -> 200 OK (45ms)",
-                "path": "::HAR_User_Journey::33_getFavouriteAndRecentList -> 200 OK (45ms)"
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "32_saveOrDeleteFavouriteAndRecent -> 200 OK (57ms)",
-                "path": "::HAR_User_Journey::32_saveOrDeleteFavouriteAndRecent -> 200 OK (57ms)",
-                "id": "85097815e1dc89cc1a6875939a878e4a"
-              },
-              {
-                "name": "33_getFavouriteAndRecentList -> 200 OK (28ms)",
-                "path": "::HAR_User_Journey::33_getFavouriteAndRecentList -> 200 OK (28ms)",
-                "id": "1b7523ec74f5e3180df88657f377ba14",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "34_isHighPrivilege -> 200 OK (26ms)",
-                "path": "::HAR_User_Journey::34_isHighPrivilege -> 200 OK (26ms)",
-                "id": "d538c388d85d57ca8d494c818d6a1961",
-                "passes": 5,
-                "fails": 0
-              },
-              {
-                "name": "34_isHighPrivilege -> 200 OK (24ms)",
-                "path": "::HAR_User_Journey::34_isHighPrivilege -> 200 OK (24ms)",
-                "id": "62c00e6745c1c8f961bafd04b60f99b4",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "33_getFavouriteAndRecentList -> 200 OK (38ms)",
-                "path": "::HAR_User_Journey::33_getFavouriteAndRecentList -> 200 OK (38ms)",
-                "id": "0dc8eaaa03ea8b89de2ba876df94a248",
-                "passes": 1
-              },
-              {
-                "path": "::HAR_User_Journey::33_getFavouriteAndRecentList -> 200 OK (29ms)",
-                "id": "063d98d8361e3f65746da466e407438f",
-                "passes": 2,
-                "fails": 0,
-                "name": "33_getFavouriteAndRecentList -> 200 OK (29ms)"
-              },
-              {
-                "id": "f545b9f78517e061e5ec361a2d50b03c",
-                "passes": 3,
-                "fails": 0,
-                "name": "35_getAcademicYear -> 200 OK (28ms)",
-                "path": "::HAR_User_Journey::35_getAcademicYear -> 200 OK (28ms)"
-              },
-              {
-                "id": "2c25e6487d3a5f933ec135ba6eca7607",
-                "passes": 1,
-                "fails": 0,
-                "name": "32_saveOrDeleteFavouriteAndRecent -> 200 OK (53ms)",
-                "path": "::HAR_User_Journey::32_saveOrDeleteFavouriteAndRecent -> 200 OK (53ms)"
-              },
-              {
-                "fails": 0,
-                "name": "34_isHighPrivilege -> 200 OK (27ms)",
-                "path": "::HAR_User_Journey::34_isHighPrivilege -> 200 OK (27ms)",
-                "id": "9b3b27ee3c97acd4fe337a926d657053",
-                "passes": 1
-              },
-              {
-                "name": "35_getAcademicYear -> 200 OK (29ms)",
-                "path": "::HAR_User_Journey::35_getAcademicYear -> 200 OK (29ms)",
-                "id": "6f8e039dfdc70d1730e1546808cc99ed",
-                "passes": 4,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "33_getFavouriteAndRecentList -> 200 OK (30ms)",
-                "path": "::HAR_User_Journey::33_getFavouriteAndRecentList -> 200 OK (30ms)",
-                "id": "59aa1bbcd4839f03fc31366130b8462c",
-                "passes": 1
-              },
-              {
-                "name": "36_getHostel -> 200 OK (26ms)",
-                "path": "::HAR_User_Journey::36_getHostel -> 200 OK (26ms)",
-                "id": "b038468f233ce306bb42848453c16b48",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "34_isHighPrivilege -> 200 OK (31ms)",
-                "path": "::HAR_User_Journey::34_isHighPrivilege -> 200 OK (31ms)",
-                "id": "09c44b32ee0e8992935d1bc033ccd940",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "name": "35_getAcademicYear -> 200 OK (27ms)",
-                "path": "::HAR_User_Journey::35_getAcademicYear -> 200 OK (27ms)",
-                "id": "df83f828c207fedc8abcc04fb83bcdef",
-                "passes": 5,
-                "fails": 0
-              },
-              {
-                "id": "93b2855ce5f981b62357a3a63641903f",
-                "passes": 1,
-                "fails": 0,
-                "name": "35_getAcademicYear -> 200 OK (30ms)",
-                "path": "::HAR_User_Journey::35_getAcademicYear -> 200 OK (30ms)"
-              },
-              {
-                "name": "36_getHostel -> 200 OK (34ms)",
-                "path": "::HAR_User_Journey::36_getHostel -> 200 OK (34ms)",
-                "id": "3d9c3e3e1f99c649e02699695483bf52",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "id": "17f0482ec91c7def1169ec2ac3dbada1",
-                "passes": 1,
-                "fails": 0,
-                "name": "36_getHostel -> 200 OK (38ms)",
-                "path": "::HAR_User_Journey::36_getHostel -> 200 OK (38ms)"
-              },
-              {
-                "path": "::HAR_User_Journey::37_saveOrDeleteFavouriteAndRecent -> 200 OK (50ms)",
-                "id": "d59502a3611a76cc96667cb33d16572d",
-                "passes": 1,
-                "fails": 0,
-                "name": "37_saveOrDeleteFavouriteAndRecent -> 200 OK (50ms)"
-              },
-              {
-                "name": "34_isHighPrivilege -> 200 OK (42ms)",
-                "path": "::HAR_User_Journey::34_isHighPrivilege -> 200 OK (42ms)",
-                "id": "670a8c483b89c22025b1040c118c139a",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "36_getHostel -> 200 OK (68ms)",
-                "path": "::HAR_User_Journey::36_getHostel -> 200 OK (68ms)",
-                "id": "22deec73e5a8c9f60d325da749c44540",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "36_getHostel -> 200 OK (70ms)",
-                "path": "::HAR_User_Journey::36_getHostel -> 200 OK (70ms)",
-                "id": "114bd7eb0cf1ed5d0d72a9b600976f54"
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "36_getHostel -> 200 OK (57ms)",
-                "path": "::HAR_User_Journey::36_getHostel -> 200 OK (57ms)",
-                "id": "0bb34a3acbb0448279891d3709b1efc3"
-              },
-              {
-                "fails": 0,
-                "name": "35_getAcademicYear -> 200 OK (40ms)",
-                "path": "::HAR_User_Journey::35_getAcademicYear -> 200 OK (40ms)",
-                "id": "e03ba530a495ff9c62d898bd520088df",
-                "passes": 1
-              },
-              {
-                "id": "eadecd1d1c3b580322440f7b4459e9f7",
-                "passes": 1,
-                "fails": 0,
-                "name": "36_getHostel -> 200 OK (46ms)",
-                "path": "::HAR_User_Journey::36_getHostel -> 200 OK (46ms)"
-              },
-              {
-                "name": "36_getHostel -> 200 OK (67ms)",
-                "path": "::HAR_User_Journey::36_getHostel -> 200 OK (67ms)",
-                "id": "736bbbd5d4d1fec6d7f5295b587621ef",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "36_getHostel -> 200 OK (32ms)",
-                "path": "::HAR_User_Journey::36_getHostel -> 200 OK (32ms)",
-                "id": "a03f6d3f4c53c5aeffb69afca4d640e6",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "36_getHostel -> 200 OK (27ms)",
-                "path": "::HAR_User_Journey::36_getHostel -> 200 OK (27ms)",
-                "id": "70883af0f0e2fb59f21ccd22f7e21163",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::37_saveOrDeleteFavouriteAndRecent -> 200 OK (49ms)",
-                "id": "8ee742605e998ba5a78f5537ec91bfa1",
-                "passes": 1,
-                "fails": 0,
-                "name": "37_saveOrDeleteFavouriteAndRecent -> 200 OK (49ms)"
-              },
-              {
-                "fails": 0,
-                "name": "37_saveOrDeleteFavouriteAndRecent -> 200 OK (76ms)",
-                "path": "::HAR_User_Journey::37_saveOrDeleteFavouriteAndRecent -> 200 OK (76ms)",
-                "id": "4d9f5947ab6c2ae5cb29bf545f086076",
-                "passes": 1
-              },
-              {
-                "name": "36_getHostel -> 200 OK (102ms)",
-                "path": "::HAR_User_Journey::36_getHostel -> 200 OK (102ms)",
-                "id": "57e62f6a698ad8b2aa0e3c236d0b1d1e",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "35_getAcademicYear -> 200 OK (26ms)",
-                "path": "::HAR_User_Journey::35_getAcademicYear -> 200 OK (26ms)",
-                "id": "57ac61506779ee37d6c59836ecbee993",
-                "passes": 1
-              },
-              {
-                "id": "6eb19091c1e14e4be764ee862977042b",
-                "passes": 1,
-                "fails": 0,
-                "name": "37_saveOrDeleteFavouriteAndRecent -> 200 OK (52ms)",
-                "path": "::HAR_User_Journey::37_saveOrDeleteFavouriteAndRecent -> 200 OK (52ms)"
-              },
-              {
-                "id": "75c08fe0c788d7e236d582cc05b4eed7",
-                "passes": 3,
-                "fails": 0,
-                "name": "37_saveOrDeleteFavouriteAndRecent -> 200 OK (51ms)",
-                "path": "::HAR_User_Journey::37_saveOrDeleteFavouriteAndRecent -> 200 OK (51ms)"
-              },
-              {
-                "id": "f3744e8fa757b3c75a95f889cdc67a2d",
-                "passes": 1,
-                "fails": 0,
-                "name": "38_getDataByUserId -> 200 OK (65ms)",
-                "path": "::HAR_User_Journey::38_getDataByUserId -> 200 OK (65ms)"
-              },
-              {
-                "name": "36_getHostel -> 200 OK (94ms)",
-                "path": "::HAR_User_Journey::36_getHostel -> 200 OK (94ms)",
-                "id": "85d1cf1a35cd3ec6db8d4330210564fa",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "36_getHostel -> 200 OK (29ms)",
-                "path": "::HAR_User_Journey::36_getHostel -> 200 OK (29ms)",
-                "id": "9e09421ce3e0c660aa893b12e24cf984",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "37_saveOrDeleteFavouriteAndRecent -> 200 OK (56ms)",
-                "path": "::HAR_User_Journey::37_saveOrDeleteFavouriteAndRecent -> 200 OK (56ms)",
-                "id": "778c91a0013ff08ac8a5bb4551c4ac7c",
-                "passes": 2
-              },
-              {
-                "name": "37_saveOrDeleteFavouriteAndRecent -> 200 OK (48ms)",
-                "path": "::HAR_User_Journey::37_saveOrDeleteFavouriteAndRecent -> 200 OK (48ms)",
-                "id": "e2cac2aa7dc1819d787abdf87836e0cc",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "37_saveOrDeleteFavouriteAndRecent -> 200 OK (79ms)",
-                "path": "::HAR_User_Journey::37_saveOrDeleteFavouriteAndRecent -> 200 OK (79ms)",
-                "id": "429fb65d455a91ecaa0aa954e43a0d3b",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "38_getDataByUserId -> 200 OK (108ms)",
-                "path": "::HAR_User_Journey::38_getDataByUserId -> 200 OK (108ms)",
-                "id": "876e4859e0b75ff8b68e9aaeed8862bd",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::37_saveOrDeleteFavouriteAndRecent -> 200 OK (151ms)",
-                "id": "afb908fffbd1a2805c46cb5c6ae59898",
-                "passes": 1,
-                "fails": 0,
-                "name": "37_saveOrDeleteFavouriteAndRecent -> 200 OK (151ms)"
-              },
-              {
-                "name": "37_saveOrDeleteFavouriteAndRecent -> 200 OK (154ms)",
-                "path": "::HAR_User_Journey::37_saveOrDeleteFavouriteAndRecent -> 200 OK (154ms)",
-                "id": "9da34802dcc4f7104315f2ef137f39f3",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "38_getDataByUserId -> 200 OK (125ms)",
-                "path": "::HAR_User_Journey::38_getDataByUserId -> 200 OK (125ms)",
-                "id": "ae51604ead9d2fe441ffaf779c31f504",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "39_getFavouriteAndRecentList -> 200 OK (35ms)",
-                "path": "::HAR_User_Journey::39_getFavouriteAndRecentList -> 200 OK (35ms)",
-                "id": "555bcb5fe0e5b9f2b673da59703ed8f8"
-              },
-              {
-                "name": "37_saveOrDeleteFavouriteAndRecent -> 200 OK (116ms)",
-                "path": "::HAR_User_Journey::37_saveOrDeleteFavouriteAndRecent -> 200 OK (116ms)",
-                "id": "73dafa31f855f28d62b8f9c4f1237383",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "38_getDataByUserId -> 200 OK (85ms)",
-                "path": "::HAR_User_Journey::38_getDataByUserId -> 200 OK (85ms)",
-                "id": "cc16401ffecb7eab0d6a7480f950f6a6",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "38_getDataByUserId -> 200 OK (96ms)",
-                "path": "::HAR_User_Journey::38_getDataByUserId -> 200 OK (96ms)",
-                "id": "094eb85df31cda43e31d61fc84d8a075",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::37_saveOrDeleteFavouriteAndRecent -> 200 OK (62ms)",
-                "id": "64d53a3036f8331f8824e8b5f99e93a7",
-                "passes": 1,
-                "fails": 0,
-                "name": "37_saveOrDeleteFavouriteAndRecent -> 200 OK (62ms)"
-              },
-              {
-                "name": "38_getDataByUserId -> 200 OK (37ms)",
-                "path": "::HAR_User_Journey::38_getDataByUserId -> 200 OK (37ms)",
-                "id": "2dff9f45aeec8b19f5033187142ef198",
-                "passes": 5,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "38_getDataByUserId -> 200 OK (36ms)",
-                "path": "::HAR_User_Journey::38_getDataByUserId -> 200 OK (36ms)",
-                "id": "db42c64db37a9339dcd5ef3cc492ad88",
-                "passes": 2
-              },
-              {
-                "name": "39_getFavouriteAndRecentList -> 200 OK (28ms)",
-                "path": "::HAR_User_Journey::39_getFavouriteAndRecentList -> 200 OK (28ms)",
-                "id": "710571d289d93b0317f325b9190b866c",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "edc19d8e26fc106487de740689daae02",
-                "passes": 1,
-                "fails": 0,
-                "name": "39_getFavouriteAndRecentList -> 200 OK (26ms)",
-                "path": "::HAR_User_Journey::39_getFavouriteAndRecentList -> 200 OK (26ms)"
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "40_saveOrDeleteFavouriteAndRecent -> 200 OK (51ms)",
-                "path": "::HAR_User_Journey::40_saveOrDeleteFavouriteAndRecent -> 200 OK (51ms)",
-                "id": "f6bdb6831565ea4839fcf16e6354c451"
-              },
-              {
-                "fails": 0,
-                "name": "38_getDataByUserId -> 200 OK (33ms)",
-                "path": "::HAR_User_Journey::38_getDataByUserId -> 200 OK (33ms)",
-                "id": "21002c9ee76df0e79f86bc56e209accd",
-                "passes": 1
-              },
-              {
-                "fails": 0,
-                "name": "39_getFavouriteAndRecentList -> 200 OK (27ms)",
-                "path": "::HAR_User_Journey::39_getFavouriteAndRecentList -> 200 OK (27ms)",
-                "id": "064c013b2fe373c4556e7cd6266413d0",
-                "passes": 2
-              },
-              {
-                "name": "38_getDataByUserId -> 200 OK (38ms)",
-                "path": "::HAR_User_Journey::38_getDataByUserId -> 200 OK (38ms)",
-                "id": "b697fae7d7f3b4eaf11cdb52958fa610",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "39_getFavouriteAndRecentList -> 200 OK (31ms)",
-                "path": "::HAR_User_Journey::39_getFavouriteAndRecentList -> 200 OK (31ms)",
-                "id": "b6e3f75036979d194de860d467141a5a",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "name": "39_getFavouriteAndRecentList -> 200 OK (33ms)",
-                "path": "::HAR_User_Journey::39_getFavouriteAndRecentList -> 200 OK (33ms)",
-                "id": "3e84206e9874ba019cde002b519ca75d",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "name": "39_getFavouriteAndRecentList -> 200 OK (25ms)",
-                "path": "::HAR_User_Journey::39_getFavouriteAndRecentList -> 200 OK (25ms)",
-                "id": "a6d0894167dce48927491d4ccfcb90ca",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "39_getFavouriteAndRecentList -> 200 OK (30ms)",
-                "path": "::HAR_User_Journey::39_getFavouriteAndRecentList -> 200 OK (30ms)",
-                "id": "1b00974bbdd55f0337f1d2b86edb952f",
-                "passes": 3
-              },
-              {
-                "name": "40_saveOrDeleteFavouriteAndRecent -> 200 OK (63ms)",
-                "path": "::HAR_User_Journey::40_saveOrDeleteFavouriteAndRecent -> 200 OK (63ms)",
-                "id": "7f0481d7b8ceca5ac3d072865822a0d3",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "38_getDataByUserId -> 200 OK (44ms)",
-                "path": "::HAR_User_Journey::38_getDataByUserId -> 200 OK (44ms)",
-                "id": "e52a948ca30c4e13edb0f37050dc63ec",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "40_saveOrDeleteFavouriteAndRecent -> 200 OK (60ms)",
-                "path": "::HAR_User_Journey::40_saveOrDeleteFavouriteAndRecent -> 200 OK (60ms)",
-                "id": "a5804ba9ccff69e56ac2403b9945e961",
-                "passes": 1
-              },
-              {
-                "id": "cc975e9db2d209406fbaa70a15414b8b",
-                "passes": 4,
-                "fails": 0,
-                "name": "41_getBatchYear -> 200 OK (30ms)",
-                "path": "::HAR_User_Journey::41_getBatchYear -> 200 OK (30ms)"
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "40_saveOrDeleteFavouriteAndRecent -> 200 OK (56ms)",
-                "path": "::HAR_User_Journey::40_saveOrDeleteFavouriteAndRecent -> 200 OK (56ms)",
-                "id": "1bb5ed46868af19b2c06edea6a0f12aa"
-              },
-              {
-                "name": "40_saveOrDeleteFavouriteAndRecent -> 200 OK (47ms)",
-                "path": "::HAR_User_Journey::40_saveOrDeleteFavouriteAndRecent -> 200 OK (47ms)",
-                "id": "f99377f185aee4ec0a22e0408d6d8a3c",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::40_saveOrDeleteFavouriteAndRecent -> 200 OK (80ms)",
-                "id": "41cc027d5b7055571f084ee9b98c9aeb",
-                "passes": 1,
-                "fails": 0,
-                "name": "40_saveOrDeleteFavouriteAndRecent -> 200 OK (80ms)"
-              },
-              {
-                "id": "1302ef6e6dad88714e83023221d2e79c",
-                "passes": 1,
-                "fails": 0,
-                "name": "40_saveOrDeleteFavouriteAndRecent -> 200 OK (81ms)",
-                "path": "::HAR_User_Journey::40_saveOrDeleteFavouriteAndRecent -> 200 OK (81ms)"
-              },
-              {
-                "id": "c62efd2c80cf04fb19a5bacde0da93ed",
-                "passes": 1,
-                "fails": 0,
-                "name": "40_saveOrDeleteFavouriteAndRecent -> 200 OK (114ms)",
-                "path": "::HAR_User_Journey::40_saveOrDeleteFavouriteAndRecent -> 200 OK (114ms)"
-              },
-              {
-                "path": "::HAR_User_Journey::39_getFavouriteAndRecentList -> 200 OK (54ms)",
-                "id": "57aa5a855a372712203146128c4f8ba2",
-                "passes": 1,
-                "fails": 0,
-                "name": "39_getFavouriteAndRecentList -> 200 OK (54ms)"
-              },
-              {
-                "id": "3607820478941976a423e2778c613b53",
-                "passes": 2,
-                "fails": 0,
-                "name": "41_getBatchYear -> 200 OK (34ms)",
-                "path": "::HAR_User_Journey::41_getBatchYear -> 200 OK (34ms)"
-              },
-              {
-                "fails": 0,
-                "name": "39_getFavouriteAndRecentList -> 200 OK (40ms)",
-                "path": "::HAR_User_Journey::39_getFavouriteAndRecentList -> 200 OK (40ms)",
-                "id": "dce0090abc189dc2544f6084f74a7e47",
-                "passes": 1
-              },
-              {
-                "name": "41_getBatchYear -> 200 OK (31ms)",
-                "path": "::HAR_User_Journey::41_getBatchYear -> 200 OK (31ms)",
-                "id": "cc301154fde5eec8999b3bead3ccc513",
-                "passes": 4,
-                "fails": 0
-              },
-              {
-                "name": "40_saveOrDeleteFavouriteAndRecent -> 200 OK (96ms)",
-                "path": "::HAR_User_Journey::40_saveOrDeleteFavouriteAndRecent -> 200 OK (96ms)",
-                "id": "a54797b25f8563250d2d8889952af0e9",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "40_saveOrDeleteFavouriteAndRecent -> 200 OK (104ms)",
-                "path": "::HAR_User_Journey::40_saveOrDeleteFavouriteAndRecent -> 200 OK (104ms)",
-                "id": "7db0c12015c891f7f0fb47737bbe6b5c"
-              },
-              {
-                "name": "41_getBatchYear -> 200 OK (38ms)",
-                "path": "::HAR_User_Journey::41_getBatchYear -> 200 OK (38ms)",
-                "id": "4b91ac519430362e9e0e7fcda0187667",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::40_saveOrDeleteFavouriteAndRecent -> 200 OK (93ms)",
-                "id": "cfbf5891fd8e54cfa6fcefccde5e8f41",
-                "passes": 1,
-                "fails": 0,
-                "name": "40_saveOrDeleteFavouriteAndRecent -> 200 OK (93ms)"
-              },
-              {
-                "id": "d00b6c8cd0e2b017352f03a42a9fbe9d",
-                "passes": 1,
-                "fails": 0,
-                "name": "42_getCampus -> 200 OK (103ms)",
-                "path": "::HAR_User_Journey::42_getCampus -> 200 OK (103ms)"
-              },
-              {
-                "fails": 0,
-                "name": "40_saveOrDeleteFavouriteAndRecent -> 200 OK (86ms)",
-                "path": "::HAR_User_Journey::40_saveOrDeleteFavouriteAndRecent -> 200 OK (86ms)",
-                "id": "1e838d2ce44a02f2d41ea8626ac688db",
-                "passes": 1
-              },
-              {
-                "name": "40_saveOrDeleteFavouriteAndRecent -> 200 OK (65ms)",
-                "path": "::HAR_User_Journey::40_saveOrDeleteFavouriteAndRecent -> 200 OK (65ms)",
-                "id": "bacc5855d0a16b75367c6abc53f39384",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "41_getBatchYear -> 200 OK (33ms)",
-                "path": "::HAR_User_Journey::41_getBatchYear -> 200 OK (33ms)",
-                "id": "d93acf0e3314c8252fa75e7eb402767c",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "41_getBatchYear -> 200 OK (32ms)",
-                "path": "::HAR_User_Journey::41_getBatchYear -> 200 OK (32ms)",
-                "id": "00bd408ce2c6e0137b7c5e3f77cdc383",
-                "passes": 1
-              },
-              {
-                "name": "40_saveOrDeleteFavouriteAndRecent -> 200 OK (70ms)",
-                "path": "::HAR_User_Journey::40_saveOrDeleteFavouriteAndRecent -> 200 OK (70ms)",
-                "id": "b1736f5085dceabc315c5c163a1aa853",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::42_getCampus -> 200 OK (49ms)",
-                "id": "ae665cae43f6bbab3e0dc5e8c42749fd",
-                "passes": 1,
-                "fails": 0,
-                "name": "42_getCampus -> 200 OK (49ms)"
-              },
-              {
-                "id": "fd40ab69fedb067a101265f000e0f9b5",
-                "passes": 1,
-                "fails": 0,
-                "name": "41_getBatchYear -> 200 OK (35ms)",
-                "path": "::HAR_User_Journey::41_getBatchYear -> 200 OK (35ms)"
-              },
-              {
-                "name": "43_getFavouriteAndRecentList -> 200 OK (28ms)",
-                "path": "::HAR_User_Journey::43_getFavouriteAndRecentList -> 200 OK (28ms)",
-                "id": "9c3c453c935647a3b2418ff394eef1be",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "42_getCampus -> 200 OK (89ms)",
-                "path": "::HAR_User_Journey::42_getCampus -> 200 OK (89ms)",
-                "id": "87d1f4a0ad14385513a09fb98ea66b89",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "42_getCampus -> 200 OK (150ms)",
-                "path": "::HAR_User_Journey::42_getCampus -> 200 OK (150ms)",
-                "id": "1dff9d1f4262d019dad9f94b47ed43be",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "42_getCampus -> 200 OK (112ms)",
-                "path": "::HAR_User_Journey::42_getCampus -> 200 OK (112ms)",
-                "id": "d2d961ccf51338f6c46cafa2f7d4945e",
-                "passes": 1
-              },
-              {
-                "name": "42_getCampus -> 200 OK (57ms)",
-                "path": "::HAR_User_Journey::42_getCampus -> 200 OK (57ms)",
-                "id": "09e60adce2f9cb0b50a9b7912daee88a",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "42_getCampus -> 200 OK (65ms)",
-                "path": "::HAR_User_Journey::42_getCampus -> 200 OK (65ms)",
-                "id": "583f725f082e8f0eda4965e76fa9b0c7",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "42_getCampus -> 200 OK (51ms)",
-                "path": "::HAR_User_Journey::42_getCampus -> 200 OK (51ms)",
-                "id": "939a7d5d67c4591e42785ab0d55689e0",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::43_getFavouriteAndRecentList -> 200 OK (32ms)",
-                "id": "7935919e60b3c2e90736f22ded01af73",
-                "passes": 1,
-                "fails": 0,
-                "name": "43_getFavouriteAndRecentList -> 200 OK (32ms)"
-              },
-              {
-                "id": "91878a257205df25182a8038feb9228b",
-                "passes": 1,
-                "fails": 0,
-                "name": "42_getCampus -> 200 OK (46ms)",
-                "path": "::HAR_User_Journey::42_getCampus -> 200 OK (46ms)"
-              },
-              {
-                "name": "42_getCampus -> 200 OK (40ms)",
-                "path": "::HAR_User_Journey::42_getCampus -> 200 OK (40ms)",
-                "id": "988ef01ad384d6221f02042551f7a9c4",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "name": "44_getBatchYear -> 200 OK (31ms)",
-                "path": "::HAR_User_Journey::44_getBatchYear -> 200 OK (31ms)",
-                "id": "f0b30a16bc80dcf2b20dbc00cd1e95a4",
-                "passes": 3,
-                "fails": 0
-              },
-              {
-                "passes": 3,
-                "fails": 0,
-                "name": "42_getCampus -> 200 OK (41ms)",
-                "path": "::HAR_User_Journey::42_getCampus -> 200 OK (41ms)",
-                "id": "a01873d8db3b7aaa2488aa04c41c831d"
-              },
-              {
-                "name": "43_getFavouriteAndRecentList -> 200 OK (27ms)",
-                "path": "::HAR_User_Journey::43_getFavouriteAndRecentList -> 200 OK (27ms)",
-                "id": "63ecd5781c31f8b9d48ab319d9ddb257",
-                "passes": 5,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::43_getFavouriteAndRecentList -> 200 OK (29ms)",
-                "id": "416f99e3afcd181faaf34b418766ffac",
-                "passes": 1,
-                "fails": 0,
-                "name": "43_getFavouriteAndRecentList -> 200 OK (29ms)"
-              },
-              {
-                "path": "::HAR_User_Journey::43_getFavouriteAndRecentList -> 200 OK (26ms)",
-                "id": "75e1a6b719c88b5733af590f86ef477b",
-                "passes": 3,
-                "fails": 0,
-                "name": "43_getFavouriteAndRecentList -> 200 OK (26ms)"
-              },
-              {
-                "name": "44_getBatchYear -> 200 OK (32ms)",
-                "path": "::HAR_User_Journey::44_getBatchYear -> 200 OK (32ms)",
-                "id": "11384c9665f33e03b3c718d0a1eb94ea",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "94b446b7aa4061d62c4ba87f4b3d29b6",
-                "passes": 1,
-                "fails": 0,
-                "name": "42_getCampus -> 200 OK (39ms)",
-                "path": "::HAR_User_Journey::42_getCampus -> 200 OK (39ms)"
-              },
-              {
-                "path": "::HAR_User_Journey::43_getFavouriteAndRecentList -> 200 OK (31ms)",
-                "id": "b37a250eee2055f52d617d505f9899a5",
-                "passes": 1,
-                "fails": 0,
-                "name": "43_getFavouriteAndRecentList -> 200 OK (31ms)"
-              },
-              {
-                "name": "45_getCampus -> 200 OK (59ms)",
-                "path": "::HAR_User_Journey::45_getCampus -> 200 OK (59ms)",
-                "id": "bef22049b8bac6eed5fbf7936ecfefae",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "44_getBatchYear -> 200 OK (29ms)",
-                "path": "::HAR_User_Journey::44_getBatchYear -> 200 OK (29ms)",
-                "id": "4a2729d631fbe081c19bd676553a3e42",
-                "passes": 5,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "44_getBatchYear -> 200 OK (30ms)",
-                "path": "::HAR_User_Journey::44_getBatchYear -> 200 OK (30ms)",
-                "id": "4d66c180a24c85c6a60aa8295edf08ef",
-                "passes": 4
-              },
-              {
-                "name": "43_getFavouriteAndRecentList -> 200 OK (25ms)",
-                "path": "::HAR_User_Journey::43_getFavouriteAndRecentList -> 200 OK (25ms)",
-                "id": "039f5bac22e5989ec0b6df6a0227620a",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "name": "45_getCampus -> 200 OK (41ms)",
-                "path": "::HAR_User_Journey::45_getCampus -> 200 OK (41ms)",
-                "id": "86d27e4e37a2633e615f7e957cad02dc",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "43_getFavouriteAndRecentList -> 200 OK (24ms)",
-                "path": "::HAR_User_Journey::43_getFavouriteAndRecentList -> 200 OK (24ms)",
-                "id": "ac0f0ec2f90d12d4ceb3b11e85a3905b"
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "44_getBatchYear -> 200 OK (28ms)",
-                "path": "::HAR_User_Journey::44_getBatchYear -> 200 OK (28ms)",
-                "id": "9f96fcf7286d50c03cb1d6d3be6fb8df"
-              },
-              {
-                "name": "46_getBatchYear -> 200 OK (36ms)",
-                "path": "::HAR_User_Journey::46_getBatchYear -> 200 OK (36ms)",
-                "id": "79bed98f11475127e73939a27b1c316e",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "44_getBatchYear -> 200 OK (52ms)",
-                "path": "::HAR_User_Journey::44_getBatchYear -> 200 OK (52ms)",
-                "id": "8aabd3c6b40e8a7ea290a610d616827a"
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "45_getCampus -> 200 OK (46ms)",
-                "path": "::HAR_User_Journey::45_getCampus -> 200 OK (46ms)",
-                "id": "e26505cba9836c6c70c4873d61f09b02"
-              },
-              {
-                "name": "45_getCampus -> 200 OK (50ms)",
-                "path": "::HAR_User_Journey::45_getCampus -> 200 OK (50ms)",
-                "id": "12b1a1a97e052896bfcde8349fb2bd8d",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "id": "de8367d91dab7da983114595689ecf61",
-                "passes": 1,
-                "fails": 0,
-                "name": "45_getCampus -> 200 OK (65ms)",
-                "path": "::HAR_User_Journey::45_getCampus -> 200 OK (65ms)"
-              },
-              {
-                "fails": 0,
-                "name": "45_getCampus -> 200 OK (38ms)",
-                "path": "::HAR_User_Journey::45_getCampus -> 200 OK (38ms)",
-                "id": "ceb049b207697564f8421dee0d63a8ab",
-                "passes": 2
-              },
-              {
-                "name": "45_getCampus -> 200 OK (42ms)",
-                "path": "::HAR_User_Journey::45_getCampus -> 200 OK (42ms)",
-                "id": "71886e6e6cbd27d4963af4410293dbaa",
-                "passes": 3,
-                "fails": 0
-              },
-              {
-                "name": "46_getBatchYear -> 200 OK (31ms)",
-                "path": "::HAR_User_Journey::46_getBatchYear -> 200 OK (31ms)",
-                "id": "321c75929c9f12dba4d6f2873e7db62a",
-                "passes": 3,
-                "fails": 0
-              },
-              {
-                "name": "45_getCampus -> 200 OK (43ms)",
-                "path": "::HAR_User_Journey::45_getCampus -> 200 OK (43ms)",
-                "id": "c61de0f468c4aebff9bf5b5643696517",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "45_getCampus -> 200 OK (54ms)",
-                "path": "::HAR_User_Journey::45_getCampus -> 200 OK (54ms)",
-                "id": "6194f72886e1499b60a5f1042b597551"
-              },
-              {
-                "name": "45_getCampus -> 200 OK (44ms)",
-                "path": "::HAR_User_Journey::45_getCampus -> 200 OK (44ms)",
-                "id": "fd140e99c7fadf7a4b4e717ae07a09d5",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "47_getCampus -> 200 OK (46ms)",
-                "path": "::HAR_User_Journey::47_getCampus -> 200 OK (46ms)",
-                "id": "055bbaada3ee9f49fa43a9f03a030b16",
-                "passes": 1
-              },
-              {
-                "name": "46_getBatchYear -> 200 OK (30ms)",
-                "path": "::HAR_User_Journey::46_getBatchYear -> 200 OK (30ms)",
-                "id": "5038a64077a4c3148e65a056cc7c883f",
-                "passes": 7,
-                "fails": 0
-              },
-              {
-                "id": "8e95194cfabfbb837bd6e9c2a691412d",
-                "passes": 1,
-                "fails": 0,
-                "name": "46_getBatchYear -> 200 OK (28ms)",
-                "path": "::HAR_User_Journey::46_getBatchYear -> 200 OK (28ms)"
-              },
-              {
-                "fails": 0,
-                "name": "46_getBatchYear -> 200 OK (29ms)",
-                "path": "::HAR_User_Journey::46_getBatchYear -> 200 OK (29ms)",
-                "id": "ff3f94023f1e782c59a935009171f696",
-                "passes": 2
-              },
-              {
-                "name": "47_getCampus -> 200 OK (41ms)",
-                "path": "::HAR_User_Journey::47_getCampus -> 200 OK (41ms)",
-                "id": "8212144fda07a5ddf00776331d15e6c4",
-                "passes": 3,
-                "fails": 0
-              },
-              {
-                "name": "46_getBatchYear -> 200 OK (33ms)",
-                "path": "::HAR_User_Journey::46_getBatchYear -> 200 OK (33ms)",
-                "id": "8ad79734f7820cc92842b236847284bd",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "a64576c0c0523b14be5977f18f78451c",
-                "passes": 0,
-                "fails": 15,
-                "name": "48_status.json -> FAILED [Status: 400, Reason: HTTP 400]",
-                "path": "::HAR_User_Journey::48_status.json -> FAILED [Status: 400, Reason: HTTP 400]"
-              },
-              {
-                "name": "47_getCampus -> 200 OK (43ms)",
-                "path": "::HAR_User_Journey::47_getCampus -> 200 OK (43ms)",
-                "id": "fe15dfd83dca2e4225a78b43cae8311d",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "47_getCampus -> 200 OK (42ms)",
-                "path": "::HAR_User_Journey::47_getCampus -> 200 OK (42ms)",
-                "id": "25dbc12fa5d3d11484e40ff3a134b026",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "47_getCampus -> 200 OK (49ms)",
-                "path": "::HAR_User_Journey::47_getCampus -> 200 OK (49ms)",
-                "id": "9c56ca547b0c61ec8c7d4bae72b83709",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "47_getCampus -> 200 OK (40ms)",
-                "path": "::HAR_User_Journey::47_getCampus -> 200 OK (40ms)",
-                "id": "8b847a54709f50d9e6533266248c0417"
-              },
-              {
-                "name": "47_getCampus -> 200 OK (44ms)",
-                "path": "::HAR_User_Journey::47_getCampus -> 200 OK (44ms)",
-                "id": "57b2cf2f96c89a86da8970e14f5eafb4",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "47_getCampus -> 200 OK (38ms)",
-                "path": "::HAR_User_Journey::47_getCampus -> 200 OK (38ms)",
-                "id": "2d989ca91021ac1d27ab918fb2519340",
-                "passes": 3,
-                "fails": 0
-              },
-              {
-                "id": "c08b806fd8bd58a3b4ea73f72654066d",
-                "passes": 1,
-                "fails": 0,
-                "name": "47_getCampus -> 200 OK (71ms)",
-                "path": "::HAR_User_Journey::47_getCampus -> 200 OK (71ms)"
-              },
-              {
-                "name": "49_getBatchYear -> 200 OK (31ms)",
-                "path": "::HAR_User_Journey::49_getBatchYear -> 200 OK (31ms)",
-                "id": "b5e2153d64e3f93815adabae5523c67c",
-                "passes": 7,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "47_getCampus -> 200 OK (37ms)",
-                "path": "::HAR_User_Journey::47_getCampus -> 200 OK (37ms)",
-                "id": "2a7a521f1dbd693634109ac83e32026b"
-              },
-              {
-                "fails": 0,
-                "name": "49_getBatchYear -> 200 OK (30ms)",
-                "path": "::HAR_User_Journey::49_getBatchYear -> 200 OK (30ms)",
-                "id": "213d4078cff6827eb60a39eff06714a1",
-                "passes": 4
-              },
-              {
-                "path": "::HAR_User_Journey::47_getCampus -> 200 OK (39ms)",
-                "id": "25baa64b0c9fc639efc8414056434dce",
-                "passes": 1,
-                "fails": 0,
-                "name": "47_getCampus -> 200 OK (39ms)"
-              },
-              {
-                "name": "50_getCampus -> 200 OK (39ms)",
-                "path": "::HAR_User_Journey::50_getCampus -> 200 OK (39ms)",
-                "id": "ff669a46aa8bf3486f57d5762671ed2b",
-                "passes": 3,
-                "fails": 0
-              },
-              {
-                "name": "49_getBatchYear -> 200 OK (32ms)",
-                "path": "::HAR_User_Journey::49_getBatchYear -> 200 OK (32ms)",
-                "id": "7daee31c6d3d0590c092523c69d9e444",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "name": "49_getBatchYear -> 200 OK (28ms)",
-                "path": "::HAR_User_Journey::49_getBatchYear -> 200 OK (28ms)",
-                "id": "86474ceb6dd9817f087c4a82e0cbcb76",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "49_getBatchYear -> 200 OK (33ms)",
-                "path": "::HAR_User_Journey::49_getBatchYear -> 200 OK (33ms)",
-                "id": "461bf0792e1f259aba956c192ed24044",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "51_saveOrDeleteFavouriteAndRecent -> 200 OK (48ms)",
-                "path": "::HAR_User_Journey::51_saveOrDeleteFavouriteAndRecent -> 200 OK (48ms)",
-                "id": "9f79f91de99f8ac6422e60285eb28fd8",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "name": "50_getCampus -> 200 OK (38ms)",
-                "path": "::HAR_User_Journey::50_getCampus -> 200 OK (38ms)",
-                "id": "a860a3098cd5a72bf29ddd47133a3789",
-                "passes": 6,
-                "fails": 0
-              },
-              {
-                "name": "50_getCampus -> 200 OK (51ms)",
-                "path": "::HAR_User_Journey::50_getCampus -> 200 OK (51ms)",
-                "id": "d187f09c3610e3539fb89b240ff37f37",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "c2d81f5854fd7ed0cf982f6bf0d1427d",
-                "passes": 2,
-                "fails": 0,
-                "name": "50_getCampus -> 200 OK (43ms)",
-                "path": "::HAR_User_Journey::50_getCampus -> 200 OK (43ms)"
-              },
-              {
-                "name": "50_getCampus -> 200 OK (40ms)",
-                "path": "::HAR_User_Journey::50_getCampus -> 200 OK (40ms)",
-                "id": "b66adeed14162af41b03e5ad00281834",
-                "passes": 3,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "51_saveOrDeleteFavouriteAndRecent -> 200 OK (47ms)",
-                "path": "::HAR_User_Journey::51_saveOrDeleteFavouriteAndRecent -> 200 OK (47ms)",
-                "id": "aa956a2cdba3074d91e3575dbe8dce4d"
-              },
-              {
-                "fails": 0,
-                "name": "52_privilegeEnabledForAdmin -> 200 OK (28ms)",
-                "path": "::HAR_User_Journey::52_privilegeEnabledForAdmin -> 200 OK (28ms)",
-                "id": "9aea4d244bf1240f13634027e886e7f6",
-                "passes": 4
-              },
-              {
-                "id": "cf651c83c8c1a74b2bd5227478f095df",
-                "passes": 5,
-                "fails": 0,
-                "name": "51_saveOrDeleteFavouriteAndRecent -> 200 OK (49ms)",
-                "path": "::HAR_User_Journey::51_saveOrDeleteFavouriteAndRecent -> 200 OK (49ms)"
-              },
-              {
-                "name": "51_saveOrDeleteFavouriteAndRecent -> 200 OK (53ms)",
-                "path": "::HAR_User_Journey::51_saveOrDeleteFavouriteAndRecent -> 200 OK (53ms)",
-                "id": "f606135840621ef11ff66eb397586316",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "passes": 4,
-                "fails": 0,
-                "name": "52_privilegeEnabledForAdmin -> 200 OK (27ms)",
-                "path": "::HAR_User_Journey::52_privilegeEnabledForAdmin -> 200 OK (27ms)",
-                "id": "8f62f7d1dcab1b67b2f3bda42335eead"
-              },
-              {
-                "name": "51_saveOrDeleteFavouriteAndRecent -> 200 OK (50ms)",
-                "path": "::HAR_User_Journey::51_saveOrDeleteFavouriteAndRecent -> 200 OK (50ms)",
-                "id": "7ce76d616eb2ae291885ddd81f6721a6",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "name": "51_saveOrDeleteFavouriteAndRecent -> 200 OK (42ms)",
-                "path": "::HAR_User_Journey::51_saveOrDeleteFavouriteAndRecent -> 200 OK (42ms)",
-                "id": "4a85ad56b0ed513203b21659ad6351e1",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "ff554c1294cc17109e11e308847ca02d",
-                "passes": 1,
-                "fails": 0,
-                "name": "53_getFavouriteAndRecentList -> 200 OK (30ms)",
-                "path": "::HAR_User_Journey::53_getFavouriteAndRecentList -> 200 OK (30ms)"
-              },
-              {
-                "name": "51_saveOrDeleteFavouriteAndRecent -> 200 OK (52ms)",
-                "path": "::HAR_User_Journey::51_saveOrDeleteFavouriteAndRecent -> 200 OK (52ms)",
-                "id": "42e9609c9e290b06bf1d6a072ba5f057",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "id": "5b8a334a07dc7cb72e9e0230971211ae",
-                "passes": 2,
-                "fails": 0,
-                "name": "52_privilegeEnabledForAdmin -> 200 OK (25ms)",
-                "path": "::HAR_User_Journey::52_privilegeEnabledForAdmin -> 200 OK (25ms)"
-              },
-              {
-                "fails": 0,
-                "name": "53_getFavouriteAndRecentList -> 200 OK (27ms)",
-                "path": "::HAR_User_Journey::53_getFavouriteAndRecentList -> 200 OK (27ms)",
-                "id": "4adcfd52a74adc83ce9f43395f0f8124",
-                "passes": 3
-              },
-              {
-                "id": "33ec9292d5e82ef302e331f75e49b1db",
-                "passes": 3,
-                "fails": 0,
-                "name": "52_privilegeEnabledForAdmin -> 200 OK (26ms)",
-                "path": "::HAR_User_Journey::52_privilegeEnabledForAdmin -> 200 OK (26ms)"
-              },
-              {
-                "passes": 2,
-                "fails": 0,
-                "name": "52_privilegeEnabledForAdmin -> 200 OK (24ms)",
-                "path": "::HAR_User_Journey::52_privilegeEnabledForAdmin -> 200 OK (24ms)",
-                "id": "61a0f6e73e4889856be83d21d01fc924"
-              },
-              {
-                "fails": 0,
-                "name": "54_getAcademicYearNew -> 200 OK (31ms)",
-                "path": "::HAR_User_Journey::54_getAcademicYearNew -> 200 OK (31ms)",
-                "id": "6740d1c12d804c98cdb82564c55225d7",
-                "passes": 1
-              },
-              {
-                "id": "3ffb73388ec81f7bd58ff8abb0a9be42",
-                "passes": 5,
-                "fails": 0,
-                "name": "53_getFavouriteAndRecentList -> 200 OK (28ms)",
-                "path": "::HAR_User_Journey::53_getFavouriteAndRecentList -> 200 OK (28ms)"
-              },
-              {
-                "name": "53_getFavouriteAndRecentList -> 200 OK (29ms)",
-                "path": "::HAR_User_Journey::53_getFavouriteAndRecentList -> 200 OK (29ms)",
-                "id": "8c6c8c2038f63926528edb20122d86af",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "53_getFavouriteAndRecentList -> 200 OK (138ms)",
-                "path": "::HAR_User_Journey::53_getFavouriteAndRecentList -> 200 OK (138ms)",
-                "id": "800e638f547b5153cef29b963e917638"
-              },
-              {
-                "fails": 0,
-                "name": "54_getAcademicYearNew -> 200 OK (26ms)",
-                "path": "::HAR_User_Journey::54_getAcademicYearNew -> 200 OK (26ms)",
-                "id": "5217299ebce227b0320ad07b039549a6",
-                "passes": 2
-              },
-              {
-                "name": "53_getFavouriteAndRecentList -> 200 OK (26ms)",
-                "path": "::HAR_User_Journey::53_getFavouriteAndRecentList -> 200 OK (26ms)",
-                "id": "cd8f9ea58069c50a267ea5e65b99f756",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "53_getFavouriteAndRecentList -> 200 OK (25ms)",
-                "path": "::HAR_User_Journey::53_getFavouriteAndRecentList -> 200 OK (25ms)",
-                "id": "c22ed209d3db3082323707ca385a3441",
-                "passes": 3,
-                "fails": 0
-              },
-              {
-                "passes": 3,
-                "fails": 0,
-                "name": "55_getUserLocation -> 200 OK (27ms)",
-                "path": "::HAR_User_Journey::55_getUserLocation -> 200 OK (27ms)",
-                "id": "06453ed8ed41dc037f297e65521949f1"
-              },
-              {
-                "name": "54_getAcademicYearNew -> 200 OK (25ms)",
-                "path": "::HAR_User_Journey::54_getAcademicYearNew -> 200 OK (25ms)",
-                "id": "a8f9b2ed2a58df97135f0ba0b687b946",
-                "passes": 6,
-                "fails": 0
-              },
-              {
-                "name": "54_getAcademicYearNew -> 200 OK (33ms)",
-                "path": "::HAR_User_Journey::54_getAcademicYearNew -> 200 OK (33ms)",
-                "id": "8cc944e68d6707f42e2856b8b65c20dc",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "55_getUserLocation -> 200 OK (25ms)",
-                "path": "::HAR_User_Journey::55_getUserLocation -> 200 OK (25ms)",
-                "id": "f93348b1a3b7082e08459d767cf4b1f2",
-                "passes": 4
-              },
-              {
-                "name": "54_getAcademicYearNew -> 200 OK (24ms)",
-                "path": "::HAR_User_Journey::54_getAcademicYearNew -> 200 OK (24ms)",
-                "id": "842a30ec6eefaa77d9624a1e237d63f9",
-                "passes": 2,
-                "fails": 0
-              },
-              {
-                "name": "54_getAcademicYearNew -> 200 OK (23ms)",
-                "path": "::HAR_User_Journey::54_getAcademicYearNew -> 200 OK (23ms)",
-                "id": "773d3c0c74312abafab126e8182c7446",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "55_getUserLocation -> 200 OK (26ms)",
-                "path": "::HAR_User_Journey::55_getUserLocation -> 200 OK (26ms)",
-                "id": "c686b56b9785db39e10ef34b0bbf8fd6",
-                "passes": 4,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::55_getUserLocation -> 200 OK (24ms)",
-                "id": "56c92d0f2f1e4005ea6b6c73794e907e",
-                "passes": 2,
-                "fails": 0,
-                "name": "55_getUserLocation -> 200 OK (24ms)"
-              },
-              {
-                "name": "55_getUserLocation -> 200 OK (65ms)",
-                "path": "::HAR_User_Journey::55_getUserLocation -> 200 OK (65ms)",
-                "id": "55acc80107b56ed9fa14664bc3908461",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "56_getAllFacultyByYear -> 200 OK (583ms)",
-                "path": "::HAR_User_Journey::56_getAllFacultyByYear -> 200 OK (583ms)",
-                "id": "9b264ae33aacf584d098cf2fbe271479"
-              },
-              {
-                "name": "54_getAcademicYearNew -> 200 OK (398ms)",
-                "path": "::HAR_User_Journey::54_getAcademicYearNew -> 200 OK (398ms)",
-                "id": "d7ebc28129ce87df2d39b84622a81f4d",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::HAR_User_Journey::55_getUserLocation -> 200 OK (28ms)",
-                "id": "0db6eecdfe53783bb3e139504376ed2e",
-                "passes": 1,
-                "fails": 0,
-                "name": "55_getUserLocation -> 200 OK (28ms)"
-              },
-              {
-                "name": "56_getAllFacultyByYear -> 200 OK (774ms)",
-                "path": "::HAR_User_Journey::56_getAllFacultyByYear -> 200 OK (774ms)",
-                "id": "e2f23260bbd7f290daafa88b406a551e",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "56_getAllFacultyByYear -> 200 OK (953ms)",
-                "path": "::HAR_User_Journey::56_getAllFacultyByYear -> 200 OK (953ms)",
-                "id": "d30fccbecd0d0e68317178d35569b7b1"
-              },
-              {
-                "name": "56_getAllFacultyByYear -> 200 OK (1133ms)",
-                "path": "::HAR_User_Journey::56_getAllFacultyByYear -> 200 OK (1133ms)",
-                "id": "faa61b6409918624cdb1f5a428951d02",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "56_getAllFacultyByYear -> 200 OK (1118ms)",
-                "path": "::HAR_User_Journey::56_getAllFacultyByYear -> 200 OK (1118ms)",
-                "id": "e1b006d7085788134a6e69d3c5b293f5",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "56_getAllFacultyByYear -> 200 OK (1337ms)",
-                "path": "::HAR_User_Journey::56_getAllFacultyByYear -> 200 OK (1337ms)",
-                "id": "b9677b166889be7e2f1ff9ce794f9a76",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "56_getAllFacultyByYear -> 200 OK (1506ms)",
-                "path": "::HAR_User_Journey::56_getAllFacultyByYear -> 200 OK (1506ms)",
-                "id": "c407e134e6c501349a5032c52e009f53",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "56_getAllFacultyByYear -> 200 OK (1590ms)",
-                "path": "::HAR_User_Journey::56_getAllFacultyByYear -> 200 OK (1590ms)",
-                "id": "d6464c7b9dfea512c1a59e9a00a772af",
-                "passes": 1,
                 "fails": 0
               },
               {
-                "path": "::HAR_User_Journey::56_getAllFacultyByYear -> 200 OK (1744ms)",
-                "id": "1bc73a17217784f350e46ea3d2f76311",
+                "id": "c32125cf53f505e6bba39497a0cc4897",
                 "passes": 1,
                 "fails": 0,
-                "name": "56_getAllFacultyByYear -> 200 OK (1744ms)"
+                "name": "54_getAllFacultyByYear -> 200 OK (544ms)",
+                "path": "::Student_Journey::54_getAllFacultyByYear -> 200 OK (544ms)"
               },
               {
-                "path": "::HAR_User_Journey::56_getAllFacultyByYear -> 200 OK (1836ms)",
-                "id": "fc0fe0d0e3df28eec10815e91edde092",
+                "path": "::Student_Journey::55_getPublishedClassesByYear -> 200 OK (13028ms)",
+                "id": "0bfef442df1a61479f52f2cf3650684e",
                 "passes": 1,
                 "fails": 0,
-                "name": "56_getAllFacultyByYear -> 200 OK (1836ms)"
-              },
-              {
-                "name": "56_getAllFacultyByYear -> 200 OK (2896ms)",
-                "path": "::HAR_User_Journey::56_getAllFacultyByYear -> 200 OK (2896ms)",
-                "id": "eb095259ab601e7e34ba809429ea274f",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "56_getAllFacultyByYear -> 200 OK (3412ms)",
-                "path": "::HAR_User_Journey::56_getAllFacultyByYear -> 200 OK (3412ms)",
-                "id": "5b192c52150abaff5a5b4bd7443fcc8e",
-                "passes": 1,
-                "fails": 0
+                "name": "55_getPublishedClassesByYear -> 200 OK (13028ms)"
               },
               {
-                "name": "56_getAllFacultyByYear -> 200 OK (3370ms)",
-                "path": "::HAR_User_Journey::56_getAllFacultyByYear -> 200 OK (3370ms)",
-                "id": "631ee71f6cf3a732d90c8d60cf2d00cd",
+                "name": "56_getBatchYear -> 200 OK (40ms)",
+                "path": "::Student_Journey::56_getBatchYear -> 200 OK (40ms)",
+                "id": "4ffb813b0423cc8748679de29c9ca138",
                 "passes": 1,
                 "fails": 0
               },
               {
+                "path": "::Student_Journey::57_getCampus -> 200 OK (48ms)",
+                "id": "c2c6f00a538e3ecf0e3cbc399cbff911",
                 "passes": 1,
                 "fails": 0,
-                "name": "56_getAllFacultyByYear -> 200 OK (3609ms)",
-                "path": "::HAR_User_Journey::56_getAllFacultyByYear -> 200 OK (3609ms)",
-                "id": "2b657c650a55436bc8e8fa380bd03973"
+                "name": "57_getCampus -> 200 OK (48ms)"
               },
               {
-                "name": "56_getAllFacultyByYear -> 200 OK (3134ms)",
-                "path": "::HAR_User_Journey::56_getAllFacultyByYear -> 200 OK (3134ms)",
-                "id": "97263f1989f4bce3269a6ddc163c36c5",
+                "name": "58_getDepartmentByLocation -> 200 OK (47ms)",
+                "path": "::Student_Journey::58_getDepartmentByLocation -> 200 OK (47ms)",
+                "id": "6110cc4de3aa77e69acee38a1d483956",
                 "passes": 1,
                 "fails": 0
               }
@@ -3501,6 +429,7 @@
       ]
   },
   "options": {
+    "noColor": false,
     "summaryTrendStats": [
       "avg",
       "min",
@@ -3509,12 +438,301 @@
       "p(90)",
       "p(95)"
     ],
-    "summaryTimeUnit": "",
-    "noColor": false
+    "summaryTimeUnit": ""
   },
   "state": {
-    "isStdOutTTY": true,
-    "isStdErrTTY": true,
-    "testRunDurationMs": 60002.9161
+    "isStdOutTTY": false,
+    "isStdErrTTY": false,
+    "testRunDurationMs": 18588.0599
+  },
+  "metrics": {
+    "http_req_waiting": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "avg": 306.238925862069,
+        "min": 21.6417,
+        "med": 40.03905,
+        "max": 13024.9971,
+        "p(90)": 135.38598000000002,
+        "p(95)": 232.40622499999978
+      }
+    },
+    "http_req_sending": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "max": 1.6999,
+        "p(90)": 0.18982000000000007,
+        "p(95)": 0.53887,
+        "avg": 0.08404482758620689,
+        "min": 0,
+        "med": 0
+      }
+    },
+    "checks": {
+      "type": "rate",
+      "contains": "default",
+      "values": {
+        "rate": 0.8813559322033898,
+        "passes": 52,
+        "fails": 7
+      }
+    },
+    "rate_status_2xx": {
+      "type": "rate",
+      "contains": "default",
+      "values": {
+        "fails": 7,
+        "rate": 0.8793103448275862,
+        "passes": 51
+      }
+    },
+    "http_req_blocked": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "p(90)": 0,
+        "p(95)": 59.29143999999999,
+        "avg": 5.032731034482758,
+        "min": 0,
+        "med": 0,
+        "max": 91.048
+      }
+    },
+    "http_req_tls_handshaking": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "avg": 2.934237931034483,
+        "min": 0,
+        "med": 0,
+        "max": 52.9962,
+        "p(90)": 0,
+        "p(95)": 32.55545999999998
+      }
+    },
+    "http_req_duration": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "p(95)": 317.73573499999964,
+        "avg": 314.47003275862073,
+        "min": 21.6417,
+        "med": 40.391850000000005,
+        "max": 13026.5808,
+        "p(90)": 186.10855000000006
+      },
+      "thresholds": {
+        "p(95)<5000": {
+          "ok": true
+        }
+      }
+    },
+    "api_success_rate": {
+      "values": {
+        "rate": 0.8793103448275862,
+        "passes": 51,
+        "fails": 7
+      },
+      "thresholds": {
+        "rate>0.80": {
+          "ok": true
+        }
+      },
+      "type": "rate",
+      "contains": "default"
+    },
+    "http_req_receiving": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "min": 0,
+        "med": 0.29955,
+        "max": 173.0507,
+        "p(90)": 0.9160800000000001,
+        "p(95)": 62.61134499999998,
+        "avg": 8.147062068965518
+      }
+    },
+    "api_hits_total": {
+      "type": "counter",
+      "contains": "default",
+      "values": {
+        "count": 58,
+        "rate": 3.1202826067931917
+      }
+    },
+    "http_reqs": {
+      "type": "counter",
+      "contains": "default",
+      "values": {
+        "count": 58,
+        "rate": 3.1202826067931917
+      }
+    },
+    "rate_status_4xx": {
+      "values": {
+        "rate": 0.1206896551724138,
+        "passes": 7,
+        "fails": 51
+      },
+      "type": "rate",
+      "contains": "default"
+    },
+    "vus_max": {
+      "type": "gauge",
+      "contains": "default",
+      "values": {
+        "min": 1,
+        "max": 1,
+        "value": 1
+      }
+    },
+    "api_users_triggered": {
+      "type": "counter",
+      "contains": "default",
+      "values": {
+        "rate": 3.1202826067931917,
+        "count": 58
+      }
+    },
+    "group_duration": {
+      "contains": "time",
+      "values": {
+        "avg": 18587.2642,
+        "min": 18587.2642,
+        "med": 18587.2642,
+        "max": 18587.2642,
+        "p(90)": 18587.2642,
+        "p(95)": 18587.2642
+      },
+      "type": "trend"
+    },
+    "data_sent": {
+      "type": "counter",
+      "contains": "data",
+      "values": {
+        "count": 89174,
+        "rate": 4797.380709968554
+      }
+    },
+    "iteration_duration": {
+      "contains": "time",
+      "values": {
+        "min": 18587.3431,
+        "med": 18587.3431,
+        "max": 18587.3431,
+        "p(90)": 18587.3431,
+        "p(95)": 18587.3431,
+        "avg": 18587.3431
+      },
+      "type": "trend"
+    },
+    "rate_status_5xx": {
+      "type": "rate",
+      "contains": "default",
+      "values": {
+        "passes": 0,
+        "fails": 58,
+        "rate": 0
+      }
+    },
+    "vus": {
+      "values": {
+        "value": 1,
+        "min": 1,
+        "max": 1
+      },
+      "type": "gauge",
+      "contains": "default"
+    },
+    "api_response_duration": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "med": 40.391850000000005,
+        "max": 13026.5808,
+        "p(90)": 186.10855000000006,
+        "p(95)": 317.73573499999964,
+        "avg": 314.47003275862073,
+        "min": 21.6417
+      }
+    },
+    "http_req_connecting": {
+      "contains": "time",
+      "values": {
+        "avg": 1.9158931034482758,
+        "min": 0,
+        "med": 0,
+        "max": 38.0518,
+        "p(90)": 0,
+        "p(95)": 21.965899999999994
+      },
+      "type": "trend"
+    },
+    "http_req_failed": {
+      "type": "rate",
+      "contains": "default",
+      "values": {
+        "rate": 0.1206896551724138,
+        "passes": 7,
+        "fails": 51
+      }
+    },
+    "api_failure_rate": {
+      "type": "rate",
+      "contains": "default",
+      "values": {
+        "rate": 0.1206896551724138,
+        "passes": 7,
+        "fails": 51
+      }
+    },
+    "rate_status_timeout": {
+      "type": "rate",
+      "contains": "default",
+      "values": {
+        "fails": 58,
+        "rate": 0,
+        "passes": 0
+      }
+    },
+    "api_failures_total": {
+      "values": {
+        "count": 7,
+        "rate": 0.37658583185435074
+      },
+      "type": "counter",
+      "contains": "default"
+    },
+    "data_received": {
+      "type": "counter",
+      "contains": "data",
+      "values": {
+        "count": 1271157,
+        "rate": 68385.67375178299
+      }
+    },
+    "iterations": {
+      "type": "counter",
+      "contains": "default",
+      "values": {
+        "count": 1,
+        "rate": 0.05379797597919296
+      }
+    },
+    "http_req_duration{expected_response:true}": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "p(95)": 410.47415,
+        "avg": 347.59955490196074,
+        "min": 21.6417,
+        "med": 40.1186,
+        "max": 13026.5808,
+        "p(90)": 197.3243
+      }
+    }
   }
 }

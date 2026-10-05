@@ -1,87 +1,406 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const { spawn } = require('child_process');
+const { decomposeEndpoint, generateDiagnosis, loadRealMetrics } = require('./api_diagnostics.js');
 
 const PORT = 3001;
+const WORKSPACE_ROOT = path.resolve(__dirname, '../../..');
 const REPORTS_DIR = __dirname;
 const SUMMARY_PATH = path.join(REPORTS_DIR, 'grafana_summary.json');
 const CSV_PATH = path.join(REPORTS_DIR, 'grafana_api_metrics.csv');
 const GRAFANA_REPORT_PATH = path.join(REPORTS_DIR, 'grafana_report.html');
+const CREDENTIALS_PATH = path.join(WORKSPACE_ROOT, 'tests', 'data', 'prepespro_credentials.csv');
 
-// Helper: Generate a rich CSV from summary JSON
-function generateDetailedCsv() {
-  if (!fs.existsSync(SUMMARY_PATH)) return;
-  try {
-    const raw = fs.readFileSync(SUMMARY_PATH, 'utf8');
-    const data = JSON.parse(raw);
-    const rows = [
-      ['Endpoint Name', 'Module Group', 'Users Triggered', 'Status Result', 'Pass Count', 'Fail Count', 'Diagnostic Details'].join(',')
-    ];
+// State tracking for active k6 process
+let activeK6Process = null;
+let activeRunState = {
+  status: 'idle', // 'idle' | 'running' | 'completed' | 'failed'
+  script: 'tests/prepespro2_har_load_test.js',
+  vus: 50,
+  duration: '1m',
+  startTime: null,
+  elapsedSec: 0,
+  exitCode: null,
+  outputLogs: [],
+};
 
-    function processGroup(group, groupName = 'Root') {
-      const gName = group.name || groupName;
-      if (group.checks && group.checks.length > 0) {
-        for (const check of group.checks) {
-          const name = check.name || '';
-          const passes = check.passes || 0;
-          const fails = check.fails || 0;
-          const status = fails === 0 ? 'PASS (200 OK)' : 'FAILED (Error / Timeout)';
-          
-          let details = 'OK';
-          if (name.includes('FAILED')) {
-            details = name.split('FAILED')[1] || 'Request Failed / Timeout';
-          } else if (name.includes('OK')) {
-            details = 'Healthy 2xx response';
-          }
+// Memory cache for metrics
+let lastParsedMetrics = {
+  timestamp: new Date().toISOString(),
+  script: 'tests/prepespro2_har_load_test.js',
+  vus: 50,
+  totalRequests: 0,
+  successCount: 0,
+  failCount: 0,
+  successRate: 0,
+  avgDurationMs: 0,
+  p95DurationMs: 0,
+  maxDurationMs: 0,
+  endpoints: [],
+};
 
-          rows.push([
-            `"${name.replace(/"/g, '""')}"`,
-            `"${gName}"`,
-            `"1 VU (Cimi)"`,
-            `"${status}"`,
-            passes,
-            fails,
-            `"${details.replace(/"/g, '""').trim()}"`
-          ].join(','));
-        }
-      }
-      if (group.groups) {
-        for (const sub of group.groups) {
-          processGroup(sub, gName);
-        }
-      }
-    }
+/**
+ * Dynamically Load REAL Metrics from Disk
+ */
+function getLiveMetrics() {
+  const scriptFullPath = path.resolve(WORKSPACE_ROOT, activeRunState.script || 'tests/prepespro2_har_load_test.js');
+  const real = loadRealMetrics(SUMMARY_PATH, scriptFullPath);
+  if (real && real.endpoints && real.endpoints.length > 0) {
+    lastParsedMetrics = {
+      ...lastParsedMetrics,
+      ...real,
+      script: activeRunState.script || 'tests/prepespro2_har_load_test.js',
+    };
+    writeCsvFromMetrics(lastParsedMetrics);
+  }
+  return lastParsedMetrics;
+}
 
-    if (data.root_group) {
-      processGroup(data.root_group);
-    }
+// Parse k6 log outputs to update metrics during live test
+function parseLogOutput(logsArray) {
+  const checkRegex = /(✓|✗)\s+([0-9a-zA-Z_.-]+)\s*->\s*(200 OK|FAILED|HTTP \d+)?\s*(?:\[Status:\s*(\d+),\s*Reason:\s*([^\]]+)\])?\s*(?:\(?(\d+)ms\)?)?/g;
+  const endpoints = [];
+  const logText = logsArray.join('\n');
 
-    fs.writeFileSync(CSV_PATH, rows.join('\n'), 'utf8');
-    console.log(`[CSV] Detailed metrics written to ${CSV_PATH}`);
-  } catch (err) {
-    console.error('[CSV Error]', err);
+  let match;
+  while ((match = checkRegex.exec(logText)) !== null) {
+    const passed = match[1] === '✓';
+    const name = match[2];
+    const statusCode = match[4] ? parseInt(match[4], 10) : (passed ? 200 : 500);
+    const reason = match[5] ? match[5].trim() : (passed ? '200 OK' : 'Failed');
+    const durationMs = match[6] ? parseInt(match[6], 10) : (passed ? 50 : 15000);
+
+    const diag = generateDiagnosis(name, statusCode, reason, durationMs, `https://prepespro.christuniversity.in/.../${name}`);
+
+    endpoints.push({
+      name,
+      cleanName: diag.cleanName,
+      method: name.startsWith('01_') ? 'GET' : 'POST',
+      url: `https://prepespro.christuniversity.in/.../${name}`,
+      group: diag.group,
+      status: statusCode,
+      passed,
+      durationMs,
+      reason,
+      whatIsIt: diag.whatIsIt,
+      whyFailed: diag.whyFailed,
+      solution: diag.solution,
+      severity: diag.severity,
+      hitsTotal: 1,
+      passedHits: passed ? 1 : 0,
+      failedHits: passed ? 0 : 1,
+    });
+  }
+
+  if (endpoints.length > 0) {
+    const success = endpoints.filter(e => e.passed).length;
+    const fails = endpoints.length - success;
+    const totalDuration = endpoints.reduce((acc, cur) => acc + cur.durationMs, 0);
+    const sortedDurations = [...endpoints].map(e => e.durationMs).sort((a, b) => a - b);
+    const p95 = sortedDurations[Math.floor(sortedDurations.length * 0.95)] || 0;
+    const max = sortedDurations[sortedDurations.length - 1] || 0;
+
+    lastParsedMetrics = {
+      timestamp: new Date().toISOString(),
+      script: activeRunState.script,
+      vus: activeRunState.vus,
+      totalRequests: endpoints.length,
+      successCount: success,
+      failCount: fails,
+      successRate: parseFloat(((success / endpoints.length) * 100).toFixed(2)),
+      avgDurationMs: parseFloat((totalDuration / endpoints.length).toFixed(1)),
+      p95DurationMs: p95,
+      maxDurationMs: max,
+      endpoints,
+    };
+    writeCsvFromMetrics(lastParsedMetrics);
   }
 }
 
-// Generate CSV on startup
-generateDetailedCsv();
+// Write enriched CSV report with plain English descriptions
+function writeCsvFromMetrics(metrics) {
+  try {
+    const rows = [
+      ['Sampler Name', 'Endpoint Purpose (What Is It?)', 'HTTP Method', 'Module Group', 'HTTP Status', 'Duration (ms)', 'Result', 'Why It Failed (Plain English)', 'Recommended Solution'].join(',')
+    ];
+    for (const ep of metrics.endpoints) {
+      rows.push([
+        `"${ep.name}"`,
+        `"${(ep.whatIsIt || ep.cleanName || '').replace(/"/g, '""')}"`,
+        `"${ep.method}"`,
+        `"${ep.group}"`,
+        ep.status,
+        ep.durationMs,
+        ep.passed ? '"PASS"' : '"FAIL"',
+        `"${(ep.whyFailed || ep.reason || '').replace(/"/g, '""')}"`,
+        `"${(ep.solution || '').replace(/"/g, '""').replace(/\n/g, ' ')}"`
+      ].join(','));
+    }
+    fs.writeFileSync(CSV_PATH, rows.join('\n'), 'utf8');
+  } catch (e) {
+    console.error('Error writing CSV:', e);
+  }
+}
 
+// Initialize metrics from disk
+getLiveMetrics();
+
+// Read student credentials count and metadata
+function getStudentCredentials() {
+  const studentsPath = path.join(WORKSPACE_ROOT, 'tests', 'data', 'students.csv');
+  const targetPath = fs.existsSync(studentsPath) ? studentsPath : CREDENTIALS_PATH;
+  if (!fs.existsSync(targetPath)) return [];
+  try {
+    const raw = fs.readFileSync(targetPath, 'utf8');
+    const lines = raw.trim().split(/\r?\n/).slice(1);
+    return lines.map(l => {
+      const parts = l.split(',');
+      const course = parts[2]?.trim() || '';
+      return { 
+        username: parts[0]?.trim() || '', 
+        course: course || 'General',
+        role: course ? `${course} Student` : 'Student Tester' 
+      };
+    }).filter(u => u.username);
+  } catch (e) {
+    return [];
+  }
+}
+
+// SSE Clients for live log streaming
+const sseClients = new Set();
+function broadcastLog(line) {
+  activeRunState.outputLogs.push(line);
+  if (activeRunState.outputLogs.length > 500) {
+    activeRunState.outputLogs.shift();
+  }
+  const payload = `data: ${JSON.stringify({ log: line, timestamp: Date.now() })}\n\n`;
+  for (const client of sseClients) {
+    client.write(payload);
+  }
+}
+
+// HTTP Server
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
 
-  // Download handlers
-  if (url.pathname === '/download/report') {
-    const targetFile = fs.existsSync(GRAFANA_REPORT_PATH) ? GRAFANA_REPORT_PATH : SUMMARY_PATH;
-    const filename = fs.existsSync(GRAFANA_REPORT_PATH) ? 'grafana_k6_dashboard_report.html' : 'grafana_summary.json';
-    res.writeHead(200, {
-      'Content-Type': 'application/octet-stream',
-      'Content-Disposition': `attachment; filename="${filename}"`,
-    });
-    return fs.createReadStream(targetFile).pipe(res);
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204);
+    return res.end();
   }
 
+  // 1. SSE Endpoint: /api/stream-logs
+  if (url.pathname === '/api/stream-logs') {
+    res.writeHead(200, {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      Connection: 'keep-alive',
+    });
+    res.write(`data: ${JSON.stringify({ type: 'connected', initialLogs: activeRunState.outputLogs.slice(-100) })}\n\n`);
+    sseClients.add(res);
+
+    req.on('close', () => {
+      sseClients.delete(res);
+    });
+    return;
+  }
+
+  // 2. API Endpoint: GET /api/status
+  if (url.pathname === '/api/status') {
+    const creds = getStudentCredentials();
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    return res.end(JSON.stringify({
+      ...activeRunState,
+      credentialsCount: creds.length,
+      credentialsList: creds,
+      isGrafanaActive: fs.existsSync(GRAFANA_REPORT_PATH),
+    }));
+  }
+
+  // 3. API Endpoint: GET /api/metrics
+  if (url.pathname === '/api/metrics') {
+    const live = getLiveMetrics();
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    return res.end(JSON.stringify(live));
+  }
+
+  // 3b. API Endpoint: POST /api/upload-credentials
+  if (url.pathname === '/api/upload-credentials' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        if (!body || !body.trim()) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          return res.end(JSON.stringify({ error: 'Empty file received' }));
+        }
+
+        let csvText = body;
+        if (body.startsWith('{')) {
+          try {
+            const parsed = JSON.parse(body);
+            if (parsed.content) csvText = parsed.content;
+          } catch (e) {}
+        }
+
+        const dir = path.dirname(CREDENTIALS_PATH);
+        if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+
+        fs.writeFileSync(CREDENTIALS_PATH, csvText.trim(), 'utf8');
+
+        const studentsPath = path.join(dir, 'students.csv');
+        fs.writeFileSync(studentsPath, csvText.trim(), 'utf8');
+
+        const creds = getStudentCredentials();
+        broadcastLog(`\n📥 Ingested new student credentials via Web Portal: ${creds.length} accounts verified`);
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({ 
+          success: true, 
+          count: creds.length, 
+          message: `Successfully ingested ${creds.length} student credentials` 
+        }));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({ error: 'Failed to save credentials: ' + err.message }));
+      }
+    });
+    return;
+  }
+
+  // 4. API Endpoint: POST /api/run-test
+  if (url.pathname === '/api/run-test' && req.method === 'POST') {
+    if (activeRunState.status === 'running') {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: 'A test is already actively executing!' }));
+    }
+
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      let params = {};
+      try { params = JSON.parse(body || '{}'); } catch (e) {}
+
+      const script = params.script || 'tests/prepespro2_har_load_test.js';
+      const vus = parseInt(params.vus || 1, 10);
+      const duration = params.duration || '';
+      const iterations = params.iterations || (duration ? null : vus);
+
+      activeRunState.status = 'running';
+      activeRunState.script = script;
+      activeRunState.vus = vus;
+      activeRunState.duration = duration || `${iterations} iteration(s)`;
+      activeRunState.startTime = Date.now();
+      activeRunState.outputLogs = [];
+      activeRunState.exitCode = null;
+
+      const args = ['run', '-u', `${vus}`];
+      if (duration) {
+        args.push('-d', duration);
+      } else if (iterations) {
+        args.push('-i', `${iterations}`);
+      }
+      args.push(script);
+
+      broadcastLog(`============================================================`);
+      broadcastLog(`🚀 Starting k6 Load Test Execution`);
+      broadcastLog(`• Script     : ${script}`);
+      broadcastLog(`• VUs        : ${vus} Concurrent Virtual User(s)`);
+      broadcastLog(`• Mode       : ${duration ? duration : `${iterations} shared iteration(s)`}`);
+      broadcastLog(`• Command    : k6 ${args.join(' ')}`);
+      broadcastLog(`• Web Engine : Port 5665 ready`);
+      broadcastLog(`============================================================\n`);
+
+      const env = Object.assign({}, process.env, {
+        K6_WEB_DASHBOARD: 'true',
+        K6_WEB_DASHBOARD_PORT: '5665',
+        K6_WEB_DASHBOARD_EXPORT: GRAFANA_REPORT_PATH,
+        VUS: `${vus}`,
+        ITERS: iterations ? `${iterations}` : '1',
+        DURATION: duration || '',
+      });
+
+      const timerInterval = setInterval(() => {
+        if (activeRunState.status === 'running') {
+          activeRunState.elapsedSec = Math.floor((Date.now() - activeRunState.startTime) / 1000);
+        } else {
+          clearInterval(timerInterval);
+        }
+      }, 1000);
+
+      const k6Cmd = process.platform === 'win32' ? 'k6.exe' : 'k6';
+      activeK6Process = spawn(k6Cmd, args, {
+        cwd: WORKSPACE_ROOT,
+        env,
+        shell: true,
+      });
+
+      activeK6Process.stdout.on('data', data => {
+        const lines = data.toString().split('\n');
+        for (const l of lines) {
+          if (l.trim()) broadcastLog(l);
+        }
+      });
+
+      activeK6Process.stderr.on('data', data => {
+        const lines = data.toString().split('\n');
+        for (const l of lines) {
+          if (l.trim()) broadcastLog(`[stderr] ${l}`);
+        }
+      });
+
+      activeK6Process.on('close', code => {
+        clearInterval(timerInterval);
+        activeRunState.status = (code === 0 || code === 99) ? 'completed' : 'failed';
+        activeRunState.exitCode = code;
+        activeRunState.elapsedSec = Math.floor((Date.now() - activeRunState.startTime) / 1000);
+        activeK6Process = null;
+
+        broadcastLog(`\n🏁 Test completed with exit code: ${code}`);
+        broadcastLog(`Analyzing run output and updating telemetry dashboard...`);
+
+        getLiveMetrics();
+        if (!lastParsedMetrics.endpoints || lastParsedMetrics.endpoints.length === 0) {
+          parseLogOutput(activeRunState.outputLogs);
+        }
+      });
+
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: true, message: 'Test started successfully' }));
+    });
+    return;
+  }
+
+  // 5. API Endpoint: POST /api/stop-test
+  if (url.pathname === '/api/stop-test' && req.method === 'POST') {
+    if (activeK6Process) {
+      broadcastLog(`\n⚠️ Force stopping active k6 load test by user request...`);
+      if (process.platform === 'win32') {
+        try {
+          spawn('taskkill', ['/pid', `${activeK6Process.pid}`, '/f', '/t']);
+        } catch (e) {
+          activeK6Process.kill('SIGTERM');
+        }
+      } else {
+        activeK6Process.kill('SIGTERM');
+      }
+      activeRunState.status = 'idle';
+      activeK6Process = null;
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ success: true, message: 'Test terminated' }));
+    }
+    res.writeHead(400, { 'Content-Type': 'application/json' });
+    return res.end(JSON.stringify({ error: 'No test currently running' }));
+  }
+
+  // 6. Download Endpoints
   if (url.pathname === '/download/csv') {
-    generateDetailedCsv();
+    writeCsvFromMetrics(lastParsedMetrics);
     res.writeHead(200, {
       'Content-Type': 'text/csv',
       'Content-Disposition': 'attachment; filename="grafana_api_metrics.csv"',
@@ -89,375 +408,99 @@ const server = http.createServer((req, res) => {
     return fs.createReadStream(CSV_PATH).pipe(res);
   }
 
+  if (url.pathname === '/download/report') {
+    if (fs.existsSync(GRAFANA_REPORT_PATH)) {
+      res.writeHead(200, {
+        'Content-Type': 'text/html',
+        'Content-Disposition': 'attachment; filename="grafana_k6_report.html"',
+      });
+      return fs.createReadStream(GRAFANA_REPORT_PATH).pipe(res);
+    }
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    return res.end('HTML report not yet generated. Please execute a test first.');
+  }
+
   if (url.pathname === '/download/json') {
     res.writeHead(200, {
       'Content-Type': 'application/json',
-      'Content-Disposition': 'attachment; filename="grafana_summary.json"',
+      'Content-Disposition': 'attachment; filename="k6_telemetry_metrics.json"',
     });
-    return fs.createReadStream(SUMMARY_PATH).pipe(res);
+    return res.end(JSON.stringify(lastParsedMetrics, null, 2));
   }
 
-  // Dashboard & Download Portal UI
-  generateDetailedCsv();
-  let summaryData = null;
-  try {
-    if (fs.existsSync(SUMMARY_PATH)) {
-      summaryData = JSON.parse(fs.readFileSync(SUMMARY_PATH, 'utf8'));
-    }
-  } catch (e) {}
-
-  // Parse checks
-  let checksList = [];
-  if (summaryData && summaryData.root_group) {
-    function collectChecks(g, gName = 'General') {
-      const curGroup = g.name || gName;
-      if (g.checks) {
-        for (const c of g.checks) {
-          checksList.push({
-            group: curGroup,
-            name: c.name,
-            passes: c.passes,
-            fails: c.fails,
-            status: c.fails === 0 ? 'SUCCESS' : 'FAILED',
-          });
-        }
-      }
-      if (g.groups) {
-        for (const sub of g.groups) collectChecks(sub, curGroup);
-      }
-    }
-    collectChecks(summaryData.root_group);
+  // 7. Endpoint: Release/Claim 5665 for external k6 runs
+  if (url.pathname === '/api/release-5665') {
+    stopGrafanaPortServer(() => {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ released: true }));
+    });
+    return;
   }
 
-  const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grafana k6 Telemetry & Download Portal</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0b0f19;
-      --card-bg: #111827;
-      --border: #1f2937;
-      --text: #f3f4f6;
-      --text-muted: #9ca3af;
-      --accent: #f97316;
-      --accent-hover: #ea580c;
-      --success: #10b981;
-      --fail: #ef4444;
-      --purple: #8b5cf6;
-      --blue: #3b82f6;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      padding: 2rem;
-      min-height: 100vh;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    .logo-area {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    .badge-grafana {
-      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-      color: white;
-      padding: 0.35rem 0.75rem;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 0.5px;
-    }
-    h1 { font-size: 1.75rem; font-weight: 700; }
-    .subtitle { color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem; }
-    
-    .quick-actions {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.65rem 1.2rem;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      border: 1px solid transparent;
-    }
-    .btn-grafana {
-      background: #f97316;
-      color: white;
-    }
-    .btn-grafana:hover { background: #ea580c; transform: translateY(-1px); }
-    .btn-download {
-      background: #1f2937;
-      color: #f3f4f6;
-      border-color: #374151;
-    }
-    .btn-download:hover { background: #374151; color: white; transform: translateY(-1px); }
-    .btn-csv {
-      background: #065f46;
-      color: #a7f3d0;
-      border-color: #047857;
-    }
-    .btn-csv:hover { background: #047857; color: white; }
+  if (url.pathname === '/api/claim-5665') {
+    startGrafanaPortServer();
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ claimed: true }));
+    return;
+  }
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-    .stat-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .stat-title { color: var(--text-muted); font-size: 0.85rem; font-weight: 500; text-transform: uppercase; }
-    .stat-value { font-size: 1.8rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
-    .stat-sub { font-size: 0.8rem; color: var(--text-muted); }
-
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 2rem;
-    }
-    .card-header {
-      padding: 1.25rem 1.5rem;
-      background: #141c2e;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .card-header h2 { font-size: 1.15rem; font-weight: 600; }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-    }
-    th {
-      background: #0f172a;
-      color: var(--text-muted);
-      text-align: left;
-      padding: 0.85rem 1.25rem;
-      font-weight: 600;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 1px solid var(--border);
-    }
-    td {
-      padding: 0.85rem 1.25rem;
-      border-bottom: 1px solid var(--border);
-    }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: rgba(255,255,255,0.02); }
-
-    .tag-success {
-      background: rgba(16, 185, 129, 0.15);
-      color: #34d399;
-      padding: 0.25rem 0.6rem;
-      border-radius: 4px;
-      font-weight: 600;
-      font-size: 0.75rem;
-      border: 1px solid rgba(16, 185, 129, 0.3);
-    }
-    .tag-fail {
-      background: rgba(239, 68, 68, 0.15);
-      color: #f87171;
-      padding: 0.25rem 0.6rem;
-      border-radius: 4px;
-      font-weight: 600;
-      font-size: 0.75rem;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-    }
-    .tag-user {
-      background: rgba(59, 130, 246, 0.15);
-      color: #60a5fa;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .tag-group {
-      background: rgba(139, 92, 246, 0.15);
-      color: #a78bfa;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.75rem;
-    }
-    .endpoint-code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      color: #e5e7eb;
-    }
-    .diag-fail {
-      color: #f87171;
-      font-size: 0.8rem;
-      margin-top: 0.2rem;
-    }
-    .diag-pass {
-      color: #34d399;
-      font-size: 0.8rem;
-    }
-    footer {
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      padding-top: 1.5rem;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <header>
-      <div class="logo-area">
-        <span class="badge-grafana">GRAFANA k6</span>
-        <div>
-          <h1>Telemetry & Report Center</h1>
-          <div class="subtitle">Real-time metrics, user hit distributions, and failure diagnosis</div>
-        </div>
-      </div>
-      <div class="quick-actions">
-        <a href="http://127.0.0.1:5665" target="_blank" class="btn btn-grafana">
-          📊 Open Live Grafana Dashboard (Port 5665)
-        </a>
-        <a href="/download/csv" class="btn btn-csv">
-          📥 Download Metrics CSV
-        </a>
-        <a href="/download/report" class="btn btn-download">
-          📥 Download Grafana HTML Report
-        </a>
-        <a href="/download/json" class="btn btn-download">
-          📥 Download Raw JSON
-        </a>
-      </div>
-    </header>
-
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-title">Virtual Users</div>
-        <div class="stat-value" style="color: #60a5fa;">1 VU</div>
-        <div class="stat-sub">Authenticated User: Cimi</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-title">Total Endpoints Tested</div>
-        <div class="stat-value">18</div>
-        <div class="stat-sub">Across 4 distinct modules</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-title">Checks Passing Rate</div>
-        <div class="stat-value" style="color: #34d399;">89.5%</div>
-        <div class="stat-sub">16 passed · 2 failed (timeouts)</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-title">Healthy Latency (p95)</div>
-        <div class="stat-value" style="color: #f97316;">367 ms</div>
-        <div class="stat-sub">Healthy API avg: 116 ms</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <h2>API Endpoint Breakdown, User Hit Counts & Failure Details</h2>
-        <span style="font-size: 0.85rem; color: var(--text-muted);">Auto-diagnostics enabled</span>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>API Endpoint</th>
-            <th>Module Group</th>
-            <th>Users Triggered</th>
-            <th>Status</th>
-            <th>Diagnosis / Error Where & Why</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${checksList.map(c => `
-            <tr>
-              <td><span class="endpoint-code">${c.name.split('->')[0].trim()}</span></td>
-              <td><span class="tag-group">${c.group}</span></td>
-              <td><span class="tag-user">1 User (Cimi)</span></td>
-              <td>
-                <span class="${c.status === 'SUCCESS' ? 'tag-success' : 'tag-fail'}">
-                  ${c.status}
-                </span>
-              </td>
-              <td>
-                ${c.status === 'SUCCESS' 
-                  ? `<span class="diag-pass">✓ HTTP 200 OK (${c.name.includes('(') ? c.name.split('(')[1].replace(')', '') : 'Fast response'})</span>`
-                  : `<span class="diag-fail">✗ <strong>Failure:</strong> ${c.name.split('Reason:')[1] ? c.name.split('Reason:')[1].replace(']', '') : 'Server Timeout (>15s) on prep environment'}</span>`
-                }
-              </td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-    </div>
-
-    <footer>
-      Grafana k6 Live Metrics Server · Port 3001 (Portal & Downloads) · Port 5665 (Live Grafana Dashboard)
-    </footer>
-  </div>
-</body>
-</html>`;
-
-  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-  res.end(html);
+  // 8. Render UI from standalone index.html
+  const indexPath = path.join(REPORTS_DIR, 'index.html');
+  if (fs.existsSync(indexPath)) {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    return fs.createReadStream(indexPath).pipe(res);
+  }
+  res.writeHead(404, { 'Content-Type': 'text/plain' });
+  res.end('index.html not found');
 });
+
+// ---------------------------------------------------------------------------
+// Dedicated Persistent Grafana Dashboard Server on Port 5665
+// ---------------------------------------------------------------------------
+let grafanaServer = null;
+
+function startGrafanaPortServer() {
+  if (grafanaServer) return;
+  try {
+    grafanaServer = http.createServer((req, res) => {
+      if (fs.existsSync(GRAFANA_REPORT_PATH)) {
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        return fs.createReadStream(GRAFANA_REPORT_PATH).pipe(res);
+      }
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.end('<!DOCTYPE html><html><body style="background:#111;color:#eee;font-family:sans-serif;padding:2rem;"><h2>📊 Grafana Dashboard Initializing...</h2><p>Please run a load test to generate the report.</p></body></html>');
+    });
+
+    grafanaServer.on('error', (err) => {
+      // Port in use (e.g. k6 is actively using it), don't crash
+      grafanaServer = null;
+    });
+
+    grafanaServer.listen(5665, '127.0.0.1', () => {
+      console.log(`📊 Persistent Grafana Dashboard active on: http://127.0.0.1:5665`);
+    });
+  } catch (e) {
+    grafanaServer = null;
+  }
+}
+
+function stopGrafanaPortServer(callback) {
+  if (grafanaServer) {
+    grafanaServer.close(() => {
+      grafanaServer = null;
+      if (callback) callback();
+    });
+  } else if (callback) {
+    callback();
+  }
+}
 
 server.listen(PORT, () => {
-  console.log(`[Portal] Telemetry & Download Server listening on http://localhost:${PORT}`);
-});
-
-// Dedicated Grafana Live Server on Port 5665
-const GRAFANA_PORT = 5665;
-const grafanaServer = http.createServer((req, res) => {
-  if (fs.existsSync(GRAFANA_REPORT_PATH)) {
-    res.writeHead(200, {
-      'Content-Type': 'text/html; charset=utf-8',
-      'Cache-Control': 'no-cache',
-    });
-    return fs.createReadStream(GRAFANA_REPORT_PATH).pipe(res);
-  } else {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Grafana report not found yet. Run k6 load test first.');
-  }
-});
-
-grafanaServer.listen(GRAFANA_PORT, '127.0.0.1', () => {
-  console.log(`[Grafana] Official Grafana Dashboard active on http://127.0.0.1:${GRAFANA_PORT}`);
+  getLiveMetrics();
+  console.log(`============================================================`);
+  console.log(`⚡ Christ University Enterprise Performance Control Center`);
+  console.log(`📡 Web UI active: http://localhost:${PORT}`);
+  console.log(`============================================================`);
+  startGrafanaPortServer();
 });
 

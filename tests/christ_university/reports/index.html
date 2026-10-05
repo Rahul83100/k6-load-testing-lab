@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Christ University · k6 Enterprise Load Testing Control Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070a12;
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --accent: #f97316;
+      --accent-glow: rgba(249, 115, 22, 0.35);
+      --emerald: #10b981;
+      --crimson: #f43f5e;
+      --amber: #f59e0b;
+      --cyan: #06b6d4;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(249, 115, 22, 0.1) 0px, transparent 50%),
+        radial-gradient(at 50% 100%, rgba(6, 182, 212, 0.08) 0px, transparent 50%);
+      background-attachment: fixed;
+      color: var(--text);
+      min-height: 100vh;
+      padding: 1.5rem 2rem 4rem 2rem;
+    }
+
+    .container { max-width: 1440px; margin: 0 auto; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+    /* Header Nav */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+
+    .brand { display: flex; align-items: center; gap: 1rem; }
+
+    .logo-badge {
+      background: linear-gradient(135deg, #ea580c 0%, #f97316 50%, #fb923c 100%);
+      box-shadow: 0 0 20px var(--accent-glow);
+      color: white;
+      padding: 0.5rem 0.85rem;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .brand-title h1 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-title p {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.9rem;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .status-pill.running {
+      background: rgba(249, 115, 22, 0.15);
+      border-color: rgba(249, 115, 22, 0.4);
+      color: #fb923c;
+      animation: pulseGlow 1.5s infinite;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid transparent;
+      outline: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+      color: white;
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--accent-glow);
+    }
+
+    .btn-ghost {
+      background: rgba(30, 41, 59, 0.6);
+      border-color: var(--card-border);
+      color: var(--text);
+    }
+    .btn-ghost:hover {
+      background: rgba(51, 65, 85, 0.8);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .btn-danger {
+      background: rgba(244, 63, 94, 0.15);
+      border-color: rgba(244, 63, 94, 0.35);
+      color: #fda4af;
+    }
+    .btn-danger:hover {
+      background: #f43f5e;
+      color: white;
+    }
+
+    /* Glass Cards */
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    /* 1-Click Launch Deck */
+    .launch-deck {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 1024px) {
+      .launch-deck { grid-template-columns: 1fr; }
+    }
+
+    .deck-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .deck-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text);
+    }
+
+    .deck-form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-control {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.65rem 0.9rem;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .btn-presets {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .preset-chip {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+
+    .preset-chip:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .preset-chip.active {
+      background: rgba(249, 115, 22, 0.25) !important;
+      border-color: var(--accent) !important;
+      color: #ffedd5 !important;
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    .launch-action-bar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--card-border);
+    }
+
+    .btn-launch-big {
+      flex: 1;
+      padding: 0.9rem 1.75rem;
+      font-size: 1rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.6rem;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+      color: white;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 20px var(--accent-glow);
+      transition: all 0.25s ease;
+    }
+
+    .btn-launch-big:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px var(--accent-glow);
+    }
+
+    .btn-launch-big:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Accounts & SUT Info card */
+    .sut-info-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .info-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      font-size: 0.85rem;
+    }
+
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .info-item span:first-child { color: var(--text-muted); }
+    .info-val { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: #e2e8f0; }
+
+    /* KPI Stats Ribbon */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .kpi-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: currentColor;
+      opacity: 0.8;
+    }
+
+    .kpi-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .kpi-value {
+      font-size: 2rem;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      line-height: 1.1;
+      margin-bottom: 0.35rem;
+    }
+
+    .kpi-sub { font-size: 0.78rem; color: var(--text-dim); }
+
+    /* Charts Section */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 1024px) {
+      .charts-grid { grid-template-columns: 1fr; }
+    }
+
+    .latency-bars-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      padding-top: 0.5rem;
+    }
+
+    .latency-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.82rem;
+    }
+
+    .latency-bar-label {
+      width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-family: 'JetBrains Mono', monospace;
+      color: #cbd5e1;
+    }
+
+    .latency-bar-track {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .latency-bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      padding-left: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      color: white;
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .fill-crimson { background: linear-gradient(90deg, #e11d48, #f43f5e); }
+    .fill-amber { background: linear-gradient(90deg, #d97706, #f59e0b); }
+    .fill-emerald { background: linear-gradient(90deg, #059669, #10b981); }
+
+    .status-visual-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      height: 100%;
+      padding: 1rem 0;
+    }
+
+    .donut-graphic {
+      width: 140px;
+      height: 140px;
+      position: relative;
+    }
+
+    .donut-graphic svg { transform: rotate(-90deg); }
+
+    .donut-center-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .donut-pct {
+      font-size: 1.6rem;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      color: #34d399;
+    }
+
+    .donut-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .donut-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      width: 100%;
+    }
+
+    .legend-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      padding: 0.35rem 0.6rem;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .legend-tag { display: flex; align-items: center; gap: 0.5rem; }
+    .legend-box { width: 10px; height: 10px; border-radius: 3px; }
+
+    /* Live Terminal Console */
+    .terminal-section { margin-bottom: 2rem; }
+
+    .terminal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1.25rem;
+      background: #090e1a;
+      border: 1px solid var(--card-border);
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+
+    .terminal-title {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #94a3b8;
+    }
+
+    .term-dots { display: flex; gap: 5px; }
+    .term-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .term-red { background: #ef4444; }
+    .term-yellow { background: #f59e0b; }
+    .term-green { background: #10b981; }
+
+    .terminal-body {
+      background: #040711;
+      border: 1px solid var(--card-border);
+      border-top: none;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      padding: 1rem 1.25rem;
+      height: 250px;
+      overflow-y: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    .log-line { white-space: pre-wrap; word-break: break-all; }
+    .log-pass { color: #34d399; }
+    .log-fail { color: #f87171; }
+    .log-highlight { color: #38bdf8; }
+    .log-warn { color: #fbbf24; }
+
+    /* Filter & Search Bar */
+    .table-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 0.3rem;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+    }
+
+    .filter-btn {
+      padding: 0.4rem 0.85rem;
+      border-radius: 7px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+    }
+
+    .filter-btn.active { background: var(--accent); color: white; }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.45rem 0.85rem;
+      width: 280px;
+    }
+
+    .search-input {
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 0.85rem;
+      width: 100%;
+      outline: none;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      background: rgba(15, 23, 42, 0.4);
+    }
+
+    th {
+      background: rgba(10, 15, 29, 0.9);
+      color: var(--text-muted);
+      text-align: left;
+      padding: 0.85rem 1.25rem;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      border-bottom: 1px solid var(--card-border);
+      user-select: none;
+    }
+
+    td {
+      padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      vertical-align: middle;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255, 255, 255, 0.025); }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.72rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .tag-2xx {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .tag-4xx {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .tag-5xx {
+      background: rgba(244, 63, 94, 0.15);
+      color: #fda4af;
+      border: 1px solid rgba(244, 63, 94, 0.3);
+    }
+
+    .tag-group {
+      background: rgba(99, 102, 241, 0.12);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      font-size: 0.72rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+    }
+
+    .tag-method {
+      font-weight: 700;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.45rem;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .method-POST { background: #0369a1; color: #bae6fd; }
+    .method-GET { background: #047857; color: #a7f3d0; }
+
+    .duration-cell { display: flex; align-items: center; gap: 0.6rem; }
+    .duration-bar {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      width: 70px;
+      overflow: hidden;
+    }
+    .duration-fill { height: 100%; border-radius: 3px; }
+    .fill-fast { background: #10b981; }
+    .fill-medium { background: #f59e0b; }
+    .fill-slow { background: #f43f5e; }
+
+    /* Slide-out Inspector Drawer */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .drawer-overlay.open { opacity: 1; pointer-events: auto; }
+
+    .drawer {
+      position: fixed;
+      top: 0;
+      right: -580px;
+      width: 580px;
+      max-width: 95vw;
+      height: 100vh;
+      background: #0b1120;
+      border-left: 1px solid var(--card-border);
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6);
+      z-index: 101;
+      transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .drawer.open { right: 0; }
+
+    .drawer-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0f172a;
+    }
+
+    .drawer-title { font-size: 1.15rem; font-weight: 700; }
+
+    .drawer-close {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.15s ease;
+    }
+
+    .drawer-close:hover { background: rgba(255, 255, 255, 0.1); color: white; }
+
+    .drawer-body {
+      padding: 1.5rem;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .detail-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+
+    .detail-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .detail-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      word-break: break-all;
+    }
+
+    .diagnosis-box {
+      border-radius: 10px;
+      padding: 1rem;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .diag-box-success {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+    }
+
+    .diag-box-error {
+      background: rgba(244, 63, 94, 0.1);
+      border: 1px solid rgba(244, 63, 94, 0.3);
+      color: #fda4af;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo-badge">⚡ k6 ENTERPRISE</div>
+        <div class="brand-title">
+          <h1>Christ University Performance Control Center</h1>
+          <p>Centre for Digital Innovation (CDI) · ESPRO Student ERP Telemetry Suite</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div id="statusBadge" class="status-pill">
+          <span class="dot"></span>
+          <span id="statusText">System Ready</span>
+        </div>
+        <a href="http://127.0.0.1:5665" target="_blank" class="btn btn-primary" title="Opens native Grafana Web Dashboard">
+          📊 Native Grafana (:5665)
+        </a>
+        <a href="/download/csv" class="btn btn-ghost">📥 Export CSV</a>
+        <a href="/download/report" class="btn btn-ghost">📄 HTML Report</a>
+      </div>
+    </header>
+
+    <!-- 1-Click Launch Deck -->
+    <div class="launch-deck">
+      <div class="glass-card">
+        <div class="deck-header">
+          <div class="deck-title"><span>🚀 1-Click Load Test Launcher</span></div>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Instant Execution</span>
+        </div>
+
+        <div class="deck-form-grid">
+          <div class="form-group">
+            <label>HAR / Test Script</label>
+            <select id="selectScript" class="form-control">
+              <option value="tests/prepespro2_har_load_test.js">prepespro2 (58 Filtered Endpoints · Student Journey)</option>
+              <option value="tests/prepespro_har_load_test.js">prepespro (64 Filtered Endpoints · Core Portal)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Virtual Users (VUs)</label>
+            <input type="number" id="inputVUs" class="form-control" value="1" min="1" max="1000" oninput="onVUInputChange(this.value)">
+            <div id="vuPresets" class="btn-presets">
+              <span class="preset-chip active" data-vu="1" onclick="selectVU(1, this)">1 VU</span>
+              <span class="preset-chip" data-vu="5" onclick="selectVU(5, this)">5 VUs</span>
+              <span class="preset-chip" data-vu="10" onclick="selectVU(10, this)">10 VUs</span>
+              <span class="preset-chip" data-vu="25" onclick="selectVU(25, this)">25 VUs</span>
+              <span class="preset-chip" data-vu="50" onclick="selectVU(50, this)">50 VUs</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Duration / Mode</label>
+            <input type="text" id="inputDuration" class="form-control" placeholder="e.g. 1m or leave blank for 1 iter" value="" oninput="onDurInputChange(this.value)">
+            <div id="durPresets" class="btn-presets">
+              <span class="preset-chip active" data-dur="" onclick="selectDur('', this)">1 Iteration</span>
+              <span class="preset-chip" data-dur="30s" onclick="selectDur('30s', this)">30s</span>
+              <span class="preset-chip" data-dur="1m" onclick="selectDur('1m', this)">1m</span>
+              <span class="preset-chip" data-dur="3m" onclick="selectDur('3m', this)">3m</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="launch-action-bar">
+          <button id="btnLaunch" class="btn-launch-big" onclick="launchTest()">
+            <span>⚡ Run k6 Load Test Now</span>
+          </button>
+          <button id="btnStop" class="btn btn-danger" style="display: none; padding: 0.9rem 1.5rem;" onclick="stopTest()">
+            <span>🛑 Stop Test</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- SUT Target Info -->
+      <div class="glass-card sut-info-card">
+        <div class="deck-header">
+          <div class="deck-title">🎯 SUT Target & Credentials</div>
+        </div>
+        <ul class="info-list">
+          <li class="info-item">
+            <span>Primary System</span>
+            <span class="info-val">ESPRO & KP Portal</span>
+          </li>
+          <li class="info-item">
+            <span>Active Account</span>
+            <span class="info-val" style="color: #60a5fa;">Cimi (cdi@christ)</span>
+          </li>
+          <li class="info-item">
+            <span>Credential Pool</span>
+            <span class="info-val" id="credPoolCount">5 Accounts Ingested</span>
+          </li>
+          <li class="info-item">
+            <span>API Gateway</span>
+            <span class="info-val">prepespro...:81</span>
+          </li>
+          <li class="info-item">
+            <span>Telemetry Server</span>
+            <span class="info-val" style="color: #34d399;">Port 3001 & 5665</span>
+          </li>
+        </ul>
+
+        <!-- Web Credential Ingestion for 1 Lakh+ Student Accounts -->
+        <div style="margin-top: 0.85rem; padding-top: 0.85rem; border-top: 1px solid var(--card-border);">
+          <input type="file" id="credFileInput" accept=".csv" style="display: none;" onchange="uploadCredentialsFile(this)">
+          <button class="btn btn-ghost" style="width: 100%; justify-content: center; font-size: 0.8rem; border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8;" onclick="document.getElementById('credFileInput').click()">
+            <span>📁 Upload Credentials CSV (1 Lakh+)</span>
+          </button>
+          <div id="uploadStatusMsg" style="font-size: 0.75rem; text-align: center; margin-top: 0.4rem; color: #34d399; display: none;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI Metric Ribbon -->
+    <div class="kpi-grid">
+      <div class="kpi-card" style="color: #10b981;">
+        <div class="kpi-title">Success Rate (2xx)</div>
+        <div class="kpi-value" id="kpiSuccessRate">86.7%</div>
+        <div class="kpi-sub" id="kpiPassSub">52 passed · 8 failed</div>
+      </div>
+      <div class="kpi-card" style="color: #f97316;">
+        <div class="kpi-title">Latency (p95)</div>
+        <div class="kpi-value" id="kpiP95">510 ms</div>
+        <div class="kpi-sub" id="kpiAvgSub">Average: 295.3 ms</div>
+      </div>
+      <div class="kpi-card" style="color: #06b6d4;">
+        <div class="kpi-title">Slowest Bottleneck</div>
+        <div class="kpi-value" id="kpiMax">10.82 s</div>
+        <div class="kpi-sub">getPublishedClassesByYear</div>
+      </div>
+      <div class="kpi-card" style="color: #f43f5e;">
+        <div class="kpi-title">Failures & 4xx/5xx</div>
+        <div class="kpi-value" id="kpiFailures">8</div>
+        <div class="kpi-sub">5x 404s · 3x 400s · 0x 5xx</div>
+      </div>
+      <div class="kpi-card" style="color: #8b5cf6;">
+        <div class="kpi-title">Total Endpoints</div>
+        <div class="kpi-value" id="kpiTotal">60</div>
+        <div class="kpi-sub">Across 4 distinct modules</div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-grid">
+      <div class="glass-card">
+        <div class="deck-header">
+          <div class="deck-title">⏱️ Latency Distribution & Bottleneck APIs (ms)</div>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Top Slowest Responses</span>
+        </div>
+        <div id="latencyBarsContainer" class="latency-bars-list">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <div class="deck-header">
+          <div class="deck-title">📊 HTTP Status Breakdown</div>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Health Ratio</span>
+        </div>
+        <div id="statusVisualContainer" class="status-visual-container">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Terminal Console -->
+    <div class="terminal-section">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <div class="term-dots">
+            <span class="term-dot term-red"></span>
+            <span class="term-dot term-yellow"></span>
+            <span class="term-dot term-green"></span>
+          </div>
+          <span>k6-live-execution.log</span>
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="filter-btn" onclick="clearLogs()">Clear Console</button>
+        </div>
+      </div>
+      <div id="terminalBody" class="terminal-body">
+        <div class="log-line log-highlight">⚡ Ready to run tests. Click 'Run k6 Load Test Now' above or launch from PowerShell.</div>
+      </div>
+    </div>
+
+    <!-- Sampler Table Section -->
+    <div class="glass-card">
+      <div class="table-toolbar">
+        <div class="filter-tabs">
+          <button class="filter-btn active" onclick="setFilter('all', this)">All APIs (<span id="countAll">60</span>)</button>
+          <button class="filter-btn" onclick="setFilter('pass', this)">Passed 2xx (<span id="countPass">52</span>)</button>
+          <button class="filter-btn" onclick="setFilter('fail', this)">Failed 4xx/5xx (<span id="countFail">8</span>)</button>
+          <button class="filter-btn" onclick="setFilter('slow', this)">Slow (>1s) (<span id="countSlow">3</span>)</button>
+        </div>
+
+        <div class="search-box">
+          <span style="color: var(--text-muted);">🔍</span>
+          <input type="text" id="searchInput" class="search-input" placeholder="Filter by endpoint name..." onkeyup="renderTable()">
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Sampler Endpoint</th>
+              <th>Method</th>
+              <th>Module Group</th>
+              <th>HTTP Status</th>
+              <th>Response Duration</th>
+              <th>Diagnosis / Cause</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide-Out Inspector Drawer -->
+  <div id="drawerOverlay" class="drawer-overlay" onclick="closeDrawer()"></div>
+  <div id="inspectorDrawer" class="drawer">
+    <div class="drawer-header">
+      <div>
+        <div class="drawer-title" id="drawerSamplerName">Endpoint Details</div>
+        <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 0.2rem;" id="drawerCleanName">Christ University ERP Endpoint</div>
+      </div>
+      <button class="drawer-close" onclick="closeDrawer()">✕</button>
+    </div>
+    <div class="drawer-body">
+      <!-- Status & Health Diagnostic Banner -->
+      <div id="drawerDiagBox" class="diagnosis-box"></div>
+
+      <!-- Section 1: What is this API? (Plain English Purpose) -->
+      <div class="detail-card" style="border-left: 3px solid #38bdf8; background: rgba(15, 23, 42, 0.75);">
+        <div class="detail-label" style="color: #38bdf8; display: flex; align-items: center; gap: 0.4rem; font-weight: 700;">
+          <span>📘</span> WHAT IS THIS API? (FEATURE PURPOSE)
+        </div>
+        <div style="font-size: 0.88rem; color: #f1f5f9; line-height: 1.55; margin-top: 0.4rem;" id="drawerWhatIsIt"></div>
+        <div style="margin-top: 0.65rem; display: flex; gap: 0.5rem; align-items: center;">
+          <span style="font-size: 0.72rem; color: #94a3b8;">University Module:</span>
+          <span class="tag-group" id="drawerGroup"></span>
+        </div>
+      </div>
+
+      <!-- Section 2: Why Did It Fail? (Simple Non-Technical Reason) -->
+      <div class="detail-card" style="border-left: 3px solid #f43f5e; background: rgba(30, 15, 23, 0.7);" id="drawerFailSection">
+        <div class="detail-label" style="color: #f87171; display: flex; align-items: center; gap: 0.4rem; font-weight: 700;">
+          <span>⚠️</span> WHY DID IT FAIL? (ROOT CAUSE)
+        </div>
+        <div style="font-size: 0.88rem; color: #fecdd3; line-height: 1.55; margin-top: 0.4rem;" id="drawerWhyFailed"></div>
+      </div>
+
+      <!-- Section 3: What is the Solution? (Actionable Steps in Few Sentences) -->
+      <div class="detail-card" style="border-left: 3px solid #10b981; background: rgba(6, 30, 20, 0.7);">
+        <div class="detail-label" style="color: #34d399; display: flex; align-items: center; gap: 0.4rem; font-weight: 700;">
+          <span>💡</span> WHAT IS THE SOLUTION? (REMEDIATION)
+        </div>
+        <div style="font-size: 0.85rem; color: #e2e8f0; line-height: 1.6; margin-top: 0.4rem; white-space: pre-line;" id="drawerSolution"></div>
+      </div>
+
+      <!-- Section 4: Real Performance & Telemetry Numbers -->
+      <div class="detail-card">
+        <div class="detail-label" style="margin-bottom: 0.6rem; color: #94a3b8;">📊 REAL TEST TELEMETRY (ACCURATE METRICS)</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div style="background: rgba(0,0,0,0.25); padding: 0.5rem 0.75rem; border-radius: 6px;">
+            <div style="font-size: 0.7rem; color: #94a3b8; text-transform: uppercase;">HTTP Status</div>
+            <div class="detail-code" id="drawerStatus" style="font-weight: 700; margin-top: 0.2rem; font-size: 0.95rem;"></div>
+          </div>
+          <div style="background: rgba(0,0,0,0.25); padding: 0.5rem 0.75rem; border-radius: 6px;">
+            <div style="font-size: 0.7rem; color: #94a3b8; text-transform: uppercase;">Response Duration</div>
+            <div class="detail-code" id="drawerDuration" style="font-weight: 700; margin-top: 0.2rem; font-size: 0.95rem;"></div>
+          </div>
+          <div style="background: rgba(0,0,0,0.25); padding: 0.5rem 0.75rem; border-radius: 6px;">
+            <div style="font-size: 0.7rem; color: #94a3b8; text-transform: uppercase;">Total Requests Tested</div>
+            <div class="detail-code" id="drawerHitsTotal" style="margin-top: 0.2rem;"></div>
+          </div>
+          <div style="background: rgba(0,0,0,0.25); padding: 0.5rem 0.75rem; border-radius: 6px;">
+            <div style="font-size: 0.7rem; color: #94a3b8; text-transform: uppercase;">Pass vs Fail Hits</div>
+            <div class="detail-code" id="drawerPassFailHits" style="margin-top: 0.2rem;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 5: HTTP Method & Target URL -->
+      <div class="detail-card">
+        <div class="detail-label" style="color: #94a3b8;">🌐 TECHNICAL ROUTE & URL</div>
+        <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.4rem; margin-top: 0.3rem;">
+          <span class="tag-method" id="drawerMethod"></span>
+          <span style="font-size: 0.75rem; color: #94a3b8;">Endpoint Path</span>
+        </div>
+        <div class="detail-code" id="drawerUrl" style="word-break: break-all; background: rgba(0,0,0,0.3); padding: 0.4rem 0.6rem; border-radius: 6px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var rawMetrics = null;
+    var currentFilter = 'all';
+
+    function selectVU(val, el) {
+      document.getElementById('inputVUs').value = val;
+      var chips = document.querySelectorAll('#vuPresets .preset-chip');
+      chips.forEach(function(c) { c.classList.remove('active'); });
+      if (el) {
+        el.classList.add('active');
+      } else {
+        var target = document.querySelector('#vuPresets .preset-chip[data-vu="' + val + '"]');
+        if (target) target.classList.add('active');
+      }
+    }
+
+    function onVUInputChange(val) {
+      var num = parseInt(val, 10);
+      var chips = document.querySelectorAll('#vuPresets .preset-chip');
+      chips.forEach(function(c) {
+        if (parseInt(c.getAttribute('data-vu'), 10) === num) {
+          c.classList.add('active');
+        } else {
+          c.classList.remove('active');
+        }
+      });
+    }
+
+    function selectDur(val, el) {
+      document.getElementById('inputDuration').value = val;
+      var chips = document.querySelectorAll('#durPresets .preset-chip');
+      chips.forEach(function(c) { c.classList.remove('active'); });
+      if (el) {
+        el.classList.add('active');
+      } else {
+        var target = document.querySelector('#durPresets .preset-chip[data-dur="' + val + '"]');
+        if (target) target.classList.add('active');
+      }
+    }
+
+    function onDurInputChange(val) {
+      var clean = val.trim().toLowerCase();
+      var chips = document.querySelectorAll('#durPresets .preset-chip');
+      chips.forEach(function(c) {
+        if (c.getAttribute('data-dur') === clean) {
+          c.classList.add('active');
+        } else {
+          c.classList.remove('active');
+        }
+      });
+    }
+
+    function setFilter(filter, el) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-tabs .filter-btn').forEach(function(btn) { btn.classList.remove('active'); });
+      if (el) el.classList.add('active');
+      renderTable();
+    }
+
+    function clearLogs() {
+      document.getElementById('terminalBody').innerHTML = '';
+    }
+
+    function appendLog(line) {
+      var term = document.getElementById('terminalBody');
+      var div = document.createElement('div');
+      div.className = 'log-line';
+      if (line.indexOf('✓') !== -1) div.classList.add('log-pass');
+      else if (line.indexOf('✗') !== -1 || line.indexOf('FAILED') !== -1) div.classList.add('log-fail');
+      else if (line.indexOf('🚀') !== -1 || line.indexOf('Starting') !== -1) div.classList.add('log-highlight');
+      else if (line.indexOf('WARN') !== -1) div.classList.add('log-warn');
+      div.textContent = line;
+      term.appendChild(div);
+      term.scrollTop = term.scrollHeight;
+    }
+
+    async function launchTest() {
+      var script = document.getElementById('selectScript').value;
+      var vus = parseInt(document.getElementById('inputVUs').value, 10);
+      var duration = document.getElementById('inputDuration').value.trim();
+
+      document.getElementById('btnLaunch').disabled = true;
+      document.getElementById('btnLaunch').innerHTML = '<span>⚡ Executing Test...</span>';
+      document.getElementById('btnStop').style.display = 'inline-flex';
+
+      try {
+        var res = await fetch('/api/run-test', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ script: script, vus: vus, duration: duration })
+        });
+        var data = await res.json();
+        if (data.error) alert(data.error);
+      } catch (err) {
+        alert('Failed to connect to test server: ' + err.message);
+      }
+    }
+
+    async function stopTest() {
+      try {
+        await fetch('/api/stop-test', { method: 'POST' });
+      } catch (e) {}
+    }
+
+    async function uploadCredentialsFile(inputEl) {
+      if (!inputEl.files || !inputEl.files[0]) return;
+      var file = inputEl.files[0];
+      var statusEl = document.getElementById('uploadStatusMsg');
+      statusEl.style.display = 'block';
+      statusEl.style.color = '#fbbf24';
+      statusEl.textContent = '⏳ Ingesting ' + file.name + '...';
+
+      var reader = new FileReader();
+      reader.onload = async function(e) {
+        try {
+          var csvText = e.target.result;
+          var res = await fetch('/api/upload-credentials', {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain' },
+            body: csvText
+          });
+          var data = await res.json();
+          if (data.success) {
+            statusEl.style.color = '#34d399';
+            statusEl.textContent = '✓ ' + (data.count).toLocaleString() + ' student accounts ingested!';
+            document.getElementById('credPoolCount').textContent = (data.count).toLocaleString() + ' Accounts Ingested';
+          } else {
+            statusEl.style.color = '#f87171';
+            statusEl.textContent = '✗ ' + (data.error || 'Upload failed');
+          }
+        } catch (err) {
+          statusEl.style.color = '#f87171';
+          statusEl.textContent = '✗ Upload error: ' + err.message;
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function initLogStream() {
+      var evtSource = new EventSource('/api/stream-logs');
+      evtSource.onmessage = function(e) {
+        try {
+          var data = JSON.parse(e.data);
+          if (data.initialLogs) {
+            data.initialLogs.forEach(function(l) { appendLog(l); });
+          } else if (data.log) {
+            appendLog(data.log);
+          }
+        } catch (err) {}
+      };
+    }
+
+    async function pollState() {
+      try {
+        var statusRes = await fetch('/api/status');
+        var state = await statusRes.json();
+
+        var badge = document.getElementById('statusBadge');
+        var text = document.getElementById('statusText');
+        var btnLaunch = document.getElementById('btnLaunch');
+        var btnStop = document.getElementById('btnStop');
+
+        if (state.status === 'running') {
+          badge.className = 'status-pill running';
+          text.textContent = '⚡ Running Test (' + state.elapsedSec + 's)';
+          btnLaunch.disabled = true;
+          btnLaunch.innerHTML = '<span>⚡ Executing (' + state.elapsedSec + 's)...</span>';
+          btnStop.style.display = 'inline-flex';
+        } else {
+          badge.className = 'status-pill';
+          text.textContent = state.status === 'completed' ? '✓ Completed' : 'System Ready';
+          btnLaunch.disabled = false;
+          btnLaunch.innerHTML = '<span>⚡ Run k6 Load Test Now</span>';
+          btnStop.style.display = 'none';
+        }
+
+        if (state.credentialsCount) {
+          document.getElementById('credPoolCount').textContent = state.credentialsCount + ' Accounts Ingested';
+        }
+      } catch (e) {}
+
+      try {
+        var metricsRes = await fetch('/api/metrics');
+        rawMetrics = await metricsRes.json();
+        updateDashboard(rawMetrics);
+      } catch (e) {}
+    }
+
+    function updateDashboard(m) {
+      if (!m || !m.endpoints) return;
+
+      document.getElementById('kpiSuccessRate').textContent = m.successRate + '%';
+      document.getElementById('kpiPassSub').textContent = m.successCount + ' passed · ' + m.failCount + ' failed';
+      document.getElementById('kpiP95').textContent = m.p95DurationMs + ' ms';
+      document.getElementById('kpiAvgSub').textContent = 'Average: ' + m.avgDurationMs + ' ms';
+      document.getElementById('kpiMax').textContent = (m.maxDurationMs / 1000).toFixed(2) + ' s';
+      document.getElementById('kpiFailures').textContent = m.failCount;
+      document.getElementById('kpiTotal').textContent = m.totalRequests;
+
+      var slowCount = m.endpoints.filter(function(e) { return e.durationMs >= 1000; }).length;
+      document.getElementById('countAll').textContent = m.totalRequests;
+      document.getElementById('countPass').textContent = m.successCount;
+      document.getElementById('countFail').textContent = m.failCount;
+      document.getElementById('countSlow').textContent = slowCount;
+
+      renderVisualCharts(m);
+      renderTable();
+    }
+
+    function renderVisualCharts(m) {
+      var sortedByLatency = m.endpoints.slice().sort(function(a, b) { return b.durationMs - a.durationMs; }).slice(0, 7);
+      var maxMs = Math.max(1, sortedByLatency[0] ? sortedByLatency[0].durationMs : 1000);
+      var barsContainer = document.getElementById('latencyBarsContainer');
+
+      barsContainer.innerHTML = sortedByLatency.map(function(ep) {
+        var pct = Math.max(8, Math.min(100, (ep.durationMs / maxMs) * 100));
+        var fillClass = ep.durationMs >= 5000 ? 'fill-crimson' : (ep.durationMs >= 1000 ? 'fill-amber' : 'fill-emerald');
+        var displayTime = ep.durationMs >= 1000 ? (ep.durationMs / 1000).toFixed(2) + 's' : ep.durationMs + 'ms';
+
+        return '<div class="latency-bar-row">' +
+          '<div class="latency-bar-label" title="' + ep.name + '">' + ep.name + '</div>' +
+          '<div class="latency-bar-track">' +
+            '<div class="latency-bar-fill ' + fillClass + '" style="width:' + pct + '%;">' +
+              displayTime +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+
+      var status2xx = m.endpoints.filter(function(e) { return e.status >= 200 && e.status < 300; }).length;
+      var status4xx = m.endpoints.filter(function(e) { return e.status >= 400 && e.status < 500; }).length;
+      var status5xx = m.endpoints.filter(function(e) { return e.status >= 500; }).length;
+      var total = m.endpoints.length || 1;
+
+      var pct2xx = ((status2xx / total) * 100).toFixed(1);
+      var pct4xx = ((status4xx / total) * 100).toFixed(1);
+      var pct5xx = ((status5xx / total) * 100).toFixed(1);
+
+      var radius = 54;
+      var circumference = 2 * Math.PI * radius;
+      var dash2xx = (status2xx / total) * circumference;
+      var dash4xx = (status4xx / total) * circumference;
+
+      var visualContainer = document.getElementById('statusVisualContainer');
+      visualContainer.innerHTML = 
+        '<div class="donut-graphic">' +
+          '<svg width="140" height="140" viewBox="0 0 140 140">' +
+            '<circle cx="70" cy="70" r="' + radius + '" fill="transparent" stroke="rgba(255,255,255,0.06)" stroke-width="16" />' +
+            '<circle cx="70" cy="70" r="' + radius + '" fill="transparent" stroke="#10b981" stroke-width="16" ' +
+              'stroke-dasharray="' + dash2xx + ' ' + circumference + '" stroke-dashoffset="0" />' +
+            '<circle cx="70" cy="70" r="' + radius + '" fill="transparent" stroke="#f59e0b" stroke-width="16" ' +
+              'stroke-dasharray="' + dash4xx + ' ' + circumference + '" stroke-dashoffset="-' + dash2xx + '" />' +
+          '</svg>' +
+          '<div class="donut-center-text">' +
+            '<div class="donut-pct">' + pct2xx + '%</div>' +
+            '<div class="donut-label">Success</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="donut-legend">' +
+          '<div class="legend-item">' +
+            '<div class="legend-tag"><div class="legend-box" style="background:#10b981;"></div><span>2xx Success</span></div>' +
+            '<span class="font-mono" style="font-weight:700; color:#34d399;">' + status2xx + ' (' + pct2xx + '%)</span>' +
+          '</div>' +
+          '<div class="legend-item">' +
+            '<div class="legend-tag"><div class="legend-box" style="background:#f59e0b;"></div><span>4xx Client Error</span></div>' +
+            '<span class="font-mono" style="font-weight:700; color:#fbbf24;">' + status4xx + ' (' + pct4xx + '%)</span>' +
+          '</div>' +
+          '<div class="legend-item">' +
+            '<div class="legend-tag"><div class="legend-box" style="background:#f43f5e;"></div><span>5xx Server Error</span></div>' +
+            '<span class="font-mono" style="font-weight:700; color:#fda4af;">' + status5xx + ' (' + pct5xx + '%)</span>' +
+          '</div>' +
+        '</div>';
+    }
+
+    function renderTable() {
+      if (!rawMetrics || !rawMetrics.endpoints) return;
+      var tbody = document.getElementById('tableBody');
+      var search = document.getElementById('searchInput').value.toLowerCase();
+
+      var list = rawMetrics.endpoints.filter(function(ep) {
+        if (currentFilter === 'pass' && !ep.passed) return false;
+        if (currentFilter === 'fail' && ep.passed) return false;
+        if (currentFilter === 'slow' && ep.durationMs < 1000) return false;
+        if (search && ep.name.toLowerCase().indexOf(search) === -1 && 
+            (!ep.cleanName || ep.cleanName.toLowerCase().indexOf(search) === -1) && 
+            ep.group.toLowerCase().indexOf(search) === -1) return false;
+        return true;
+      });
+
+      tbody.innerHTML = list.map(function(ep) {
+        var maxRef = 5000;
+        var pct = Math.min(100, Math.max(5, (ep.durationMs / maxRef) * 100));
+        var fillClass = ep.durationMs < 500 ? 'fill-fast' : (ep.durationMs < 2000 ? 'fill-medium' : 'fill-slow');
+        var tagClass = ep.status >= 200 && ep.status < 300 ? 'tag-2xx' : (ep.status >= 400 && ep.status < 500 ? 'tag-4xx' : 'tag-5xx');
+
+        var shortReason = '';
+        if (ep.passed) {
+          shortReason = ep.durationMs > 1000 ? '✓ Passed (Slow: ' + ep.durationMs + 'ms)' : '✓ Validated (200 OK)';
+        } else {
+          if (ep.whyFailed) {
+            shortReason = '✗ ' + ep.whyFailed.split(':')[0];
+          } else {
+            shortReason = '✗ ' + (ep.reason || 'Failed');
+          }
+        }
+
+        return '<tr>' +
+          '<td>' +
+            '<div class="font-mono" style="font-weight: 600; color: #f8fafc;">' + ep.name + '</div>' +
+            (ep.cleanName ? '<div style="font-size: 0.73rem; color: #94a3b8; margin-top: 2px;">' + ep.cleanName + '</div>' : '') +
+          '</td>' +
+          '<td><span class="tag-method method-' + ep.method + '">' + ep.method + '</span></td>' +
+          '<td><span class="tag-group">' + ep.group + '</span></td>' +
+          '<td><span class="tag ' + tagClass + '">' + ep.status + ' ' + (ep.passed ? 'OK' : 'ERR') + '</span></td>' +
+          '<td>' +
+            '<div class="duration-cell">' +
+              '<span class="font-mono" style="min-width: 50px;">' + ep.durationMs + 'ms</span>' +
+              '<div class="duration-bar"><div class="duration-fill ' + fillClass + '" style="width:' + pct + '%;"></div></div>' +
+            '</div>' +
+          '</td>' +
+          '<td style="color: ' + (ep.passed ? '#34d399' : '#f87171') + '; font-size: 0.8rem; max-width: 250px;">' +
+            shortReason +
+          '</td>' +
+          '<td>' +
+            '<button class="btn btn-ghost" style="padding: 0.25rem 0.65rem; font-size: 0.75rem; font-weight: 600;" onclick="openDrawerByName(\'' + ep.name + '\')">Inspect</button>' +
+          '</td>' +
+        '</tr>';
+      }).join('');
+    }
+
+    function openDrawerByName(epName) {
+      if (!rawMetrics || !rawMetrics.endpoints) return;
+      var ep = rawMetrics.endpoints.find(function(e) { return e.name === epName; });
+      if (!ep) return;
+
+      document.getElementById('drawerSamplerName').textContent = ep.name;
+      document.getElementById('drawerCleanName').textContent = ep.cleanName ? ep.cleanName : 'Christ University ERP Endpoint';
+      document.getElementById('drawerUrl').textContent = ep.url;
+      var methodEl = document.getElementById('drawerMethod');
+      methodEl.className = 'tag-method method-' + ep.method;
+      methodEl.textContent = ep.method;
+      document.getElementById('drawerStatus').textContent = ep.status + ' (' + (ep.passed ? 'Passed' : 'Failed') + ')';
+      document.getElementById('drawerDuration').textContent = ep.durationMs + ' ms';
+      document.getElementById('drawerGroup').textContent = ep.group || 'General';
+      document.getElementById('drawerHitsTotal').textContent = (ep.hitsTotal || 1) + ' attempts';
+      document.getElementById('drawerPassFailHits').textContent = (ep.passedHits !== undefined ? ep.passedHits : (ep.passed ? 1 : 0)) + ' passed · ' + (ep.failedHits !== undefined ? ep.failedHits : (ep.passed ? 0 : 1)) + ' failed';
+
+      document.getElementById('drawerWhatIsIt').textContent = ep.whatIsIt || ('This endpoint handles backend university operations for ' + ep.name + '.');
+      document.getElementById('drawerWhyFailed').textContent = ep.whyFailed || (ep.passed ? '✓ No failure detected. Server returned HTTP 200 OK.' : ep.reason);
+      document.getElementById('drawerSolution').textContent = ep.solution || (ep.passed ? 'Optimal performance. Endpoint operating normally within SLA.' : 'Verify user permissions and request headers.');
+
+      var diagBox = document.getElementById('drawerDiagBox');
+      var failSec = document.getElementById('drawerFailSection');
+
+      if (ep.passed) {
+        diagBox.className = 'diagnosis-box diag-box-success';
+        diagBox.innerHTML = '<strong>✓ Healthy API Response (HTTP ' + ep.status + '):</strong> ' +
+          (ep.durationMs > 1000 
+            ? 'Endpoint completed successfully, but duration exceeded 1 second (' + (ep.durationMs / 1000).toFixed(2) + 's).' 
+            : 'Endpoint completed successfully within allowable SLA thresholds (<500ms).');
+        failSec.style.display = 'none';
+      } else {
+        diagBox.className = 'diagnosis-box diag-box-error';
+        diagBox.innerHTML = '<strong>✗ Failure Detected (HTTP ' + ep.status + '):</strong> ' + 
+          (ep.whyFailed ? ep.whyFailed.split(':')[0] : ep.reason);
+        failSec.style.display = 'block';
+      }
+
+      document.getElementById('drawerOverlay').classList.add('open');
+      document.getElementById('inspectorDrawer').classList.add('open');
+    }
+
+    function openDrawer(index) {
+      if (!rawMetrics || !rawMetrics.endpoints) return;
+      var ep = rawMetrics.endpoints[index];
+      if (ep) openDrawerByName(ep.name);
+    }
+
+    function closeDrawer() {
+      document.getElementById('drawerOverlay').classList.remove('open');
+      document.getElementById('inspectorDrawer').classList.remove('open');
+    }
+
+    // Init
+    initLogStream();
+    pollState();
+    setInterval(pollState, 2500);
+  </script>
+</body>
+</html>

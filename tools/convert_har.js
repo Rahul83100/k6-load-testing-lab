@@ -35,9 +35,21 @@ const har = JSON.parse(harRaw);
 const entries = (har.log && har.log.entries) || [];
 console.log(`[Parser] Total entries in HAR: ${entries.length}`);
 
-// Filter out irrelevant third-party static assets
-const ignoredExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.woff', '.woff2', '.ttf', '.ico', '.css'];
-const ignoredDomains = ['fonts.googleapis.com', 'fonts.gstatic.com', 'cdnjs.cloudflare.com', 'google-analytics.com'];
+// Filter out third-party static assets and external bot/captcha services
+const ignoredExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.woff', '.woff2', '.ttf', '.ico', '.css', '.map'];
+const ignoredDomains = [
+  'fonts.googleapis.com', 
+  'fonts.gstatic.com', 
+  'cdnjs.cloudflare.com', 
+  'google-analytics.com',
+  'www.google.com',
+  'google.com',
+  'recaptcha.net',
+  'gstatic.com',
+  'fontawesome.com',
+  'kit.fontawesome.com',
+  'ka-f.fontawesome.com',
+];
 
 const validEntries = entries.filter((entry) => {
   const urlStr = entry.request.url;
@@ -58,25 +70,36 @@ let script = `import http from 'k6/http';
 import { check, sleep, group } from 'k6';
 import { SharedArray } from 'k6/data';
 import { Counter, Rate, Trend } from 'k6/metrics';
-import { textSummary } from 'https://jslib.k6.io/k6-summary/0.0.1/index.js';
+import { textSummary } from './lib/k6-summary.js';
 
 // ---------------------------------------------------------------------------
-// 1. Account Credentials Loading (Distributed 1-to-1 among VUs)
+// 1. Account Credentials Loading (Supports 100,000+ CSV Records)
 // ---------------------------------------------------------------------------
-const credentials = new SharedArray('prepespro_credentials', function () {
+const credentials = new SharedArray('student_credentials', function () {
+  let file;
+  const targetPath = __ENV.CREDENTIALS_FILE || './data/students.csv';
   try {
-    const file = open('./data/prepespro_credentials.csv');
-    const lines = file.trim().split('\\n').slice(1);
+    file = open(targetPath);
+  } catch (e) {
+    try {
+      file = open('./data/prepespro_credentials.csv');
+    } catch (e2) {
+      return [{ username: '2420001@christuniversity.in', password: 'Student@123', course: 'GENERAL' }];
+    }
+  }
+  try {
+    const lines = file.trim().split(/\\r?\\n/).slice(1);
     const parsed = lines.map((line) => {
       const parts = line.split(',');
       return {
         username: parts[0] ? parts[0].trim() : '',
         password: parts[1] ? parts[1].trim() : '',
+        course: parts[2] ? parts[2].trim() : 'GENERAL',
       };
     }).filter(c => c.username && c.password);
-    return parsed.length > 0 ? parsed : [{ username: 'Cimi', password: 'Cdi@christ2026' }];
+    return parsed.length > 0 ? parsed : [{ username: '2420001@christuniversity.in', password: 'Student@123', course: 'GENERAL' }];
   } catch (e) {
-    return [{ username: 'Cimi', password: 'Cdi@christ2026' }];
+    return [{ username: '2420001@christuniversity.in', password: 'Student@123', course: 'GENERAL' }];
   }
 });
 
@@ -96,7 +119,8 @@ export const apiDuration = new Trend('api_response_duration', true);
 
 export const options = {
   vus: __ENV.VUS ? parseInt(__ENV.VUS, 10) : 1,
-  iterations: __ENV.ITERS ? parseInt(__ENV.ITERS, 10) : 1,
+  iterations: __ENV.DURATION ? undefined : (__ENV.ITERS ? parseInt(__ENV.ITERS, 10) : (__ENV.VUS ? parseInt(__ENV.VUS, 10) : 1)),
+  duration: __ENV.DURATION || undefined,
   insecureSkipTLSVerify: true,
   thresholds: {
     http_req_duration: ['p(95)<5000'],
@@ -104,18 +128,26 @@ export const options = {
   },
 };
 
-let currentToken = '';
+// Realistic think-time pacing (prevents synthetic lockstep bursts)
+function thinkTime(minSec = 1, maxSec = 3) {
+  if (__ENV.NO_THINK_TIME === 'true') return;
+  const pause = Math.random() * (maxSec - minSec) + minSec;
+  sleep(pause);
+}
 
-function executeApiCall(endpointName, method, url, payload, headers, timeoutStr = '15s') {
+function executeApiCall(endpointName, method, url, payload, headers, timeoutStr = '15s', session = null) {
   const vuId = \`VU_\${__VU}\`;
   const credIndex = credentials.length > 0 ? (__VU - 1) % credentials.length : 0;
-  const username = (credentials.length > 0 && credentials[credIndex]) 
-    ? credentials[credIndex].username 
-    : vuId;
+  const student = (credentials.length > 0 && credentials[credIndex]) 
+    ? credentials[credIndex] 
+    : { username: vuId, course: 'GENERAL' };
 
   const reqHeaders = Object.assign({}, headers);
-  if (currentToken) {
-    reqHeaders['Authorization'] = \`Bearer \${currentToken}\`;
+  if (session && session.token) {
+    reqHeaders['Authorization'] = \`Bearer \${session.token}\`;
+    if (session.campusIds) reqHeaders['__campus_ids'] = session.campusIds;
+    reqHeaders['x_jwt_id'] = '1';
+    reqHeaders['x_jwt_type'] = 'EMP';
   }
 
   const params = {
@@ -123,7 +155,8 @@ function executeApiCall(endpointName, method, url, payload, headers, timeoutStr 
     tags: {
       name: endpointName,
       endpoint: endpointName,
-      user: username,
+      user: student.username,
+      course: student.course || 'GENERAL',
       vu: vuId,
     },
     timeout: timeoutStr,
@@ -180,9 +213,16 @@ export default function () {
   const credIndex = credentials.length > 0 ? (__VU - 1) % credentials.length : 0;
   const userCred = (credentials.length > 0 && credentials[credIndex]) 
     ? credentials[credIndex] 
-    : { username: 'Cimi', password: 'Cdi@christ2026' };
+    : { username: 'test_student', password: 'password', course: 'GENERAL' };
 
-  group('HAR_User_Journey', function () {
+  // VU session state: dynamic auth tokens and campus contexts
+  const session = {
+    token: '',
+    campusIds: '2,4,1,5,6,3,7,8',
+    loginTime: Date.now(),
+  };
+
+  group('Student_Journey', function () {
 `;
 
 let hasAuthHandled = false;
@@ -219,19 +259,26 @@ validEntries.forEach((entry, idx) => {
     script += `      loginReCaptcha: '',\n`;
     script += `    });\n`;
     script += `    const authHeaders = ${JSON.stringify(headerObj)};\n`;
-    script += `    let authRes = executeApiCall('${endpointName}', 'POST', '${url}', loginPayload, authHeaders, '15s');\n`;
+    script += `    let authRes = executeApiCall('${endpointName}', 'POST', '${url}', loginPayload, authHeaders, '15s', session);\n`;
     script += `    let token = '';\n`;
+    script += `    let campusIds = '2,4,1,5,6,3,7,8';\n`;
     script += `    try {\n`;
     script += `      const authData = JSON.parse(authRes.body);\n`;
     script += `      token = authData.token || '';\n`;
-    script += `    } catch (e) {}\n`;
-    script += `    if (!token && userCred.username !== 'Cimi') {\n`;
-    script += `      const fbPayload = JSON.stringify({ loginId: 'Cimi', loginPassword: 'Cdi@christ2026', loginReCaptcha: '' });\n`;
-    script += `      authRes = executeApiCall('${endpointName}_Fallback', 'POST', '${url}', fbPayload, authHeaders, '15s');\n`;
-    script += `      try { token = JSON.parse(authRes.body).token || ''; } catch (e) {}\n`;
-    script += `    }\n`;
-    script += `    currentToken = token;\n`;
-    script += `    sleep(0.5);\n\n`;
+    script += `      if (authData.campusIds) campusIds = authData.campusIds;\n`;
+    script += `    } catch (e) {}\n\n`;
+    script += `    const isLoginOk = authRes.status === 200 && Boolean(token);\n`;
+    script += `    check(authRes, {\n`;
+    script += `      '${endpointName} -> Student Authenticated (200 OK)': () => isLoginOk,\n`;
+    script += `    });\n\n`;
+    script += `    if (!isLoginOk) {\n`;
+    script += `      // Authentication failed for this student - skip remainder of journey without faking credentials\n`;
+    script += `      thinkTime(1, 2);\n`;
+    script += `      return;\n`;
+    script += `    }\n\n`;
+    script += `    session.token = token;\n`;
+    script += `    session.campusIds = campusIds;\n`;
+    script += `    thinkTime(1, 2);\n\n`;
     return;
   }
 
@@ -246,8 +293,8 @@ validEntries.forEach((entry, idx) => {
   }
 
   script += `    // Request #${idx + 1}: ${method} ${u.pathname}\n`;
-  script += `    executeApiCall('${endpointName}', '${method}', '${url}', ${postData}, ${JSON.stringify(headerObj)}, '15s');\n`;
-  script += `    sleep(0.5);\n\n`;
+  script += `    executeApiCall('${endpointName}', '${method}', '${url}', ${postData}, ${JSON.stringify(headerObj)}, '15s', session);\n`;
+  script += `    thinkTime(1, 3);\n\n`;
 });
 
 script += `  });

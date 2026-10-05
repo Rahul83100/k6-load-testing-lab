@@ -22,7 +22,8 @@ param(
 
     [string]$Duration = "",
     [string]$Script = "",
-    [string]$ScriptPath = ""
+    [string]$ScriptPath = "",
+    [string]$Csv = ""
 )
 
 Write-Host "============================================================" -ForegroundColor Cyan
@@ -38,7 +39,7 @@ if (-not $serverRunning) {
 }
 
 # 2. Discover all available HAR recordings in har_files/
-$harDir = Join-Path $PSScriptRoot "har_files"
+$harDir = if ($PSScriptRoot) { Join-Path $PSScriptRoot "har_files" } else { "har_files" }
 $allHars = @(Get-ChildItem -Path $harDir -Filter "*.har" -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending)
 
 # 3. Resolve target HAR / Script
@@ -61,9 +62,9 @@ if (-not [string]::IsNullOrWhiteSpace($ScriptPath)) {
         $targetHarFile = Get-Item $Har
     } else {
         # Search by filename or version keyword in har_files
-        $matched = $allHars | Where-Object { 
+        $matched = @($allHars | Where-Object { 
             $_.Name -like "*$Har*" -or $_.BaseName -like "*$Har*"
-        }
+        })
         if ($matched.Count -ge 1) {
             $targetHarFile = $matched[0]
         } else {
@@ -72,32 +73,37 @@ if (-not [string]::IsNullOrWhiteSpace($ScriptPath)) {
     }
 }
 
-# If still not resolved, prompt developer with an interactive list of all HAR files found
+# If still not resolved, check default or prompt
 if ($null -eq $targetHarFile -and [string]::IsNullOrWhiteSpace($targetScriptFile)) {
     if ($allHars.Count -eq 0) {
         Write-Host "[Error] No .har files found in $harDir. Please drop your recording there." -ForegroundColor Red
         exit 1
     }
 
-    Write-Host "`nDiscovered HAR Recordings in har_files/:" -ForegroundColor Yellow
-    for ($i = 0; $i -lt $allHars.Count; $i++) {
-        $h = $allHars[$i]
-        $tag = if ($i -eq 0) { " [LATEST]" } else { "" }
-        $sizeKb = [math]::Round($h.Length / 1KB, 1)
-        Write-Host "  [$($i+1)] $($h.Name) (${sizeKb} KB)$tag"
-    }
-
-    $promptChoice = Read-Host "`nSelect a HAR recording [1-$($allHars.Count), or enter name/version, Default: 1]"
-    if ([string]::IsNullOrWhiteSpace($promptChoice) -or $promptChoice -eq "1") {
+    # If running non-interactively or with VUs set, pick latest
+    if ($VUs -gt 0 -or [Console]::IsInputRedirected) {
         $targetHarFile = $allHars[0]
-    } elseif ($promptChoice -match '^\d+$' -and [int]$promptChoice -le $allHars.Count) {
-        $targetHarFile = $allHars[[int]$promptChoice - 1]
     } else {
-        $matched = $allHars | Where-Object { $_.Name -like "*$promptChoice*" }
-        if ($matched.Count -ge 1) {
-            $targetHarFile = $matched[0]
-        } else {
+        Write-Host "`nDiscovered HAR Recordings in har_files/:" -ForegroundColor Yellow
+        for ($i = 0; $i -lt $allHars.Count; $i++) {
+            $h = $allHars[$i]
+            $tag = if ($i -eq 0) { " [LATEST]" } else { "" }
+            $sizeKb = [math]::Round($h.Length / 1KB, 1)
+            Write-Host "  [$($i+1)] $($h.Name) (${sizeKb} KB)$tag"
+        }
+
+        $promptChoice = Read-Host "`nSelect a HAR recording [1-$($allHars.Count), or enter name/version, Default: 1]"
+        if ([string]::IsNullOrWhiteSpace($promptChoice) -or $promptChoice -eq "1") {
             $targetHarFile = $allHars[0]
+        } elseif ($promptChoice -match '^\d+$' -and [int]$promptChoice -le $allHars.Count) {
+            $targetHarFile = $allHars[[int]$promptChoice - 1]
+        } else {
+            $m = @($allHars | Where-Object { $_.Name -like "*$promptChoice*" })
+            if ($m.Count -ge 1) {
+                $targetHarFile = $m[0]
+            } else {
+                $targetHarFile = $allHars[0]
+            }
         }
     }
 }
@@ -135,21 +141,13 @@ if ($targetHarFile -ne $null) {
     }
 }
 
-# 5. Prompt for VUs if not supplied
+# 5. Default VUs if not supplied
 if ($VUs -le 0) {
-    $vuInput = Read-Host "Enter number of Virtual Users (VUs) to simulate [Default: 1]"
-    if ([string]::IsNullOrWhiteSpace($vuInput)) {
-        $VUs = 1
+    if (-not [Console]::IsInputRedirected) {
+        $vuInput = Read-Host "Enter number of Virtual Users (VUs) to simulate [Default: 1]"
+        $VUs = if ([string]::IsNullOrWhiteSpace($vuInput)) { 1 } else { [int]$vuInput }
     } else {
-        $VUs = [int]$vuInput
-    }
-}
-
-# 6. Prompt for Duration if not supplied
-if ([string]::IsNullOrWhiteSpace($Duration)) {
-    $durInput = Read-Host "Enter test duration (e.g. 30s, 1m, 5m) or press Enter for 1 iteration per VU [Default: 1 iteration per VU]"
-    if (-not [string]::IsNullOrWhiteSpace($durInput)) {
-        $Duration = $durInput
+        $VUs = 1
     }
 }
 
@@ -162,6 +160,23 @@ Write-Host " • Real Accounts   : tests/data/prepespro_credentials.csv (Auto-Di
 Write-Host " • Grafana Engine  : Active (Port 5665)"
 Write-Host " • Download Portal : Active (Port 3001)"
 Write-Host "------------------------------------------------------------`n" -ForegroundColor Gray
+
+# Resolve custom CSV credentials if specified
+$csvEnvPath = "./data/students.csv"
+if (-not [string]::IsNullOrWhiteSpace($Csv)) {
+    if (Test-Path $Csv) {
+        $csvEnvPath = $Csv
+    } elseif (Test-Path "tests/data/$Csv") {
+        $csvEnvPath = "./data/$Csv"
+    } else {
+        $csvEnvPath = $Csv
+    }
+    Write-Host " • Custom CSV File : $csvEnvPath"
+}
+$env:CREDENTIALS_FILE = $csvEnvPath
+$env:VUS = "$VUs"
+$env:DURATION = if ($Duration) { "$Duration" } else { "" }
+$env:ITERS = if ($Duration) { "" } else { "$VUs" }
 
 # 7. Configure environment for Grafana export
 $env:K6_WEB_DASHBOARD = "true"
@@ -177,8 +192,14 @@ if ($Duration) {
 }
 $k6Args += "$targetScriptFile"
 
+# Temporarily release port 5665 from report_server so k6 can bind its live web dashboard
+try { Invoke-RestMethod -Uri "http://localhost:3001/api/release-5665" -Method Post -TimeoutSec 2 -ErrorAction SilentlyContinue | Out-Null } catch {}
+
 Write-Host "[Running] k6 $($k6Args -join ' ')...`n" -ForegroundColor Cyan
 & k6.exe $k6Args
+
+# Reclaim port 5665 so it persistently serves the exported Grafana report even after k6 finishes
+try { Invoke-RestMethod -Uri "http://localhost:3001/api/claim-5665" -Method Post -TimeoutSec 2 -ErrorAction SilentlyContinue | Out-Null } catch {}
 
 # 9. Refresh CSV & Summary
 Write-Host "`n[Post-Processing] Generating updated metrics and downloads..." -ForegroundColor Gray
