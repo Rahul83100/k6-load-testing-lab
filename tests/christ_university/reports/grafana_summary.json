@@ -1,435 +1,175 @@
 {
   "root_group": {
-    "checks": [],
     "name": "",
     "path": "",
     "id": "d41d8cd98f00b204e9800998ecf8427e",
     "groups": [
-        {
-          "name": "Student_Journey",
-          "path": "::Student_Journey",
-          "id": "438425337825d97aa93e585d620e6421",
-          "groups": [],
-          "checks": [
-              {
-                "path": "::Student_Journey::01_config.json -> 200 OK (80ms)",
-                "id": "075b110da4084771573822ca8e0177b4",
-                "passes": 1,
-                "fails": 0,
-                "name": "01_config.json -> 200 OK (80ms)"
-              },
-              {
-                "name": "02_Auth -> 200 OK (132ms)",
-                "path": "::Student_Journey::02_Auth -> 200 OK (132ms)",
-                "id": "f71eae9eaa5877360beb25f79be36599",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "c3c208fa9c8d253414c19a0c5c0cf308",
-                "passes": 1,
-                "fails": 0,
-                "name": "02_Auth -> Student Authenticated (200 OK)",
-                "path": "::Student_Journey::02_Auth -> Student Authenticated (200 OK)"
-              },
-              {
-                "path": "::Student_Journey::03_status.json -> FAILED [Status: 400, Reason: HTTP 400]",
-                "id": "ae4e730eca0caed779deff28317a87aa",
-                "passes": 0,
-                "fails": 1,
-                "name": "03_status.json -> FAILED [Status: 400, Reason: HTTP 400]"
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "04_checkUserRegisterOrNot -> 200 OK (37ms)",
-                "path": "::Student_Journey::04_checkUserRegisterOrNot -> 200 OK (37ms)",
-                "id": "bbd3751576aeae3840706e32ed9ade65"
-              },
-              {
-                "path": "::Student_Journey::05_getLatestReleasePoster -> 200 OK (71ms)",
-                "id": "9262c3d0b6c5ce53b9969f0b19ee83a9",
-                "passes": 1,
-                "fails": 0,
-                "name": "05_getLatestReleasePoster -> 200 OK (71ms)"
-              },
-              {
-                "name": "06_getSystemMenus -> 200 OK (1466ms)",
-                "path": "::Student_Journey::06_getSystemMenus -> 200 OK (1466ms)",
-                "id": "38b0f973291ab7b8a86ad2780594eb5b",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "07_GetScreens -> 200 OK (47ms)",
-                "path": "::Student_Journey::07_GetScreens -> 200 OK (47ms)",
-                "id": "b1b8940d083ce7b9c21e9c549e33af37",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "08_getFontByErpUserId -> 200 OK (36ms)",
-                "path": "::Student_Journey::08_getFontByErpUserId -> 200 OK (36ms)",
-                "id": "587b33f31877b38e762bb6e878913820",
-                "passes": 1
-              },
-              {
-                "name": "09_getErpNotifications -> 200 OK (82ms)",
-                "path": "::Student_Journey::09_getErpNotifications -> 200 OK (82ms)",
-                "id": "2d543dc1bbb64106905a5dacc03a39a5",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "10_getUserCampus -> 200 OK (33ms)",
-                "path": "::Student_Journey::10_getUserCampus -> 200 OK (33ms)",
-                "id": "fae2062385446683e928b2d78ee8d41a",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "a3d0146cddb7ad13d498d5757d5b9cab",
-                "passes": 1,
-                "fails": 0,
-                "name": "11_getIsAiEnabled -> 200 OK (31ms)",
-                "path": "::Student_Journey::11_getIsAiEnabled -> 200 OK (31ms)"
-              },
-              {
-                "name": "12_getFavouriteAndRecentList -> 200 OK (33ms)",
-                "path": "::Student_Journey::12_getFavouriteAndRecentList -> 200 OK (33ms)",
-                "id": "3277eda73d28df11ceb41fbde0640ff6",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "13_saveOrDeleteFavouriteAndRecent -> 200 OK (56ms)",
-                "path": "::Student_Journey::13_saveOrDeleteFavouriteAndRecent -> 200 OK (56ms)",
-                "id": "a8eb70d05429301082d6444395c62de5",
-                "passes": 1
-              },
-              {
-                "name": "14_getFavouriteAndRecentList -> 200 OK (33ms)",
-                "path": "::Student_Journey::14_getFavouriteAndRecentList -> 200 OK (33ms)",
-                "id": "9260112ddb31fb6e4516faa563beec27",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::Student_Journey::15_getAcademicYearNew -> 200 OK (37ms)",
-                "id": "1e8cccbb732d91d02f7663fb753ad4fd",
-                "passes": 1,
-                "fails": 0,
-                "name": "15_getAcademicYearNew -> 200 OK (37ms)"
-              },
-              {
-                "name": "16_getCampusesByUserPrivilegeNew -> 200 OK (61ms)",
-                "path": "::Student_Journey::16_getCampusesByUserPrivilegeNew -> 200 OK (61ms)",
-                "id": "3389d83588941130e8c53e8bb8dc4ff2",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "17_getEmpIdByUserId -> 200 OK (34ms)",
-                "path": "::Student_Journey::17_getEmpIdByUserId -> 200 OK (34ms)",
-                "id": "eaf3d77b82629cab50dcb4fa342f3978",
-                "passes": 1
-              },
-              {
-                "id": "d061f51c7ca87a8a2202aef15cd885d6",
-                "passes": 1,
-                "fails": 0,
-                "name": "18_privilegeEnabledForIPMStaff -> 200 OK (31ms)",
-                "path": "::Student_Journey::18_privilegeEnabledForIPMStaff -> 200 OK (31ms)"
-              },
-              {
-                "name": "19_privilegeEnabledForHOD -> 200 OK (37ms)",
-                "path": "::Student_Journey::19_privilegeEnabledForHOD -> 200 OK (37ms)",
-                "id": "b5470ef4b53622a3cd91e3cb29e96bad",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "fails": 0,
-                "name": "20_privilegeEnabledForFaculty -> 200 OK (32ms)",
-                "path": "::Student_Journey::20_privilegeEnabledForFaculty -> 200 OK (32ms)",
-                "id": "44426209b6d4473adce3a7056325015e",
-                "passes": 1
-              },
-              {
-                "name": "21_getDepartmentByUser -> 200 OK (34ms)",
-                "path": "::Student_Journey::21_getDepartmentByUser -> 200 OK (34ms)",
-                "id": "277a74a5c258c33e1767fe6390629365",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "22_getSessionType -> 200 OK (34ms)",
-                "path": "::Student_Journey::22_getSessionType -> 200 OK (34ms)",
-                "id": "47a5099a6c9c314fe1eff62f06f1bcfc"
-              },
-              {
-                "name": "23_getEmpsByDepartment -> FAILED [Status: 404, Reason: HTTP 404]",
-                "path": "::Student_Journey::23_getEmpsByDepartment -> FAILED [Status: 404, Reason: HTTP 404]",
-                "id": "abc2d6e2e7cf8a15169f6199a2c391db",
-                "passes": 0,
-                "fails": 1
-              },
-              {
-                "name": "24_getAllTeachingAndNonTeachingEmployee -> 200 OK (278ms)",
-                "path": "::Student_Journey::24_getAllTeachingAndNonTeachingEmployee -> 200 OK (278ms)",
-                "id": "89c5c947f2eb432c63ce904c10041573",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "25_getClassOrCourseView -> FAILED [Status: 404, Reason: HTTP 404]",
-                "path": "::Student_Journey::25_getClassOrCourseView -> FAILED [Status: 404, Reason: HTTP 404]",
-                "id": "51d913469d42339f9b7d151932811cb9",
-                "passes": 0,
-                "fails": 1
-              },
-              {
-                "name": "26_getViewTimeTableData -> FAILED [Status: 404, Reason: HTTP 404]",
-                "path": "::Student_Journey::26_getViewTimeTableData -> FAILED [Status: 404, Reason: HTTP 404]",
-                "id": "3c97fd6e05be582252394ca653b8efa1",
-                "passes": 0,
-                "fails": 1
-              },
-              {
-                "name": "27_getAllTeachingAndNonTeachingEmployee -> 200 OK (198ms)",
-                "path": "::Student_Journey::27_getAllTeachingAndNonTeachingEmployee -> 200 OK (198ms)",
-                "id": "eb0c7058d8d9c6eae6b5d1f541905e54",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "9e156cb957f38b258edeed2f49cbf235",
-                "passes": 0,
-                "fails": 1,
-                "name": "28_getClassOrCourseView -> FAILED [Status: 404, Reason: HTTP 404]",
-                "path": "::Student_Journey::28_getClassOrCourseView -> FAILED [Status: 404, Reason: HTTP 404]"
-              },
-              {
-                "passes": 0,
-                "fails": 1,
-                "name": "29_getViewTimeTableData -> FAILED [Status: 404, Reason: HTTP 404]",
-                "path": "::Student_Journey::29_getViewTimeTableData -> FAILED [Status: 404, Reason: HTTP 404]",
-                "id": "b8b4d572c8a9040511f58466bb6d3563"
-              },
-              {
-                "id": "86c4ccee43609f230308c4336c7ac3e1",
-                "passes": 1,
-                "fails": 0,
-                "name": "30_saveOrDeleteFavouriteAndRecent -> 200 OK (55ms)",
-                "path": "::Student_Journey::30_saveOrDeleteFavouriteAndRecent -> 200 OK (55ms)"
-              },
-              {
-                "fails": 0,
-                "name": "31_getFavouriteAndRecentList -> 200 OK (34ms)",
-                "path": "::Student_Journey::31_getFavouriteAndRecentList -> 200 OK (34ms)",
-                "id": "67a5db4bbdf9e0f6811e7b3179228d0d",
-                "passes": 1
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "32_isHighPrivilege -> 200 OK (33ms)",
-                "path": "::Student_Journey::32_isHighPrivilege -> 200 OK (33ms)",
-                "id": "22ee92c5b5d58f5f5fd878d71fe209bb"
-              },
-              {
-                "fails": 0,
-                "name": "33_getAcademicYear -> 200 OK (111ms)",
-                "path": "::Student_Journey::33_getAcademicYear -> 200 OK (111ms)",
-                "id": "fadf633ad08d987100a7c0abd1e58a43",
-                "passes": 1
-              },
-              {
-                "name": "34_getHostel -> 200 OK (209ms)",
-                "path": "::Student_Journey::34_getHostel -> 200 OK (209ms)",
-                "id": "d5a68f96e856699e78c455bf392ab28a",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "35_saveOrDeleteFavouriteAndRecent -> 200 OK (57ms)",
-                "path": "::Student_Journey::35_saveOrDeleteFavouriteAndRecent -> 200 OK (57ms)",
-                "id": "1274bc3f1193fe71b699122979ba0b0e",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "36_getDataByUserId -> 200 OK (64ms)",
-                "path": "::Student_Journey::36_getDataByUserId -> 200 OK (64ms)",
-                "id": "01bc1cdbc495736f75eb1f2b60fabc63"
-              },
-              {
-                "id": "176e94e84796f898177aa39bebbfe7a5",
-                "passes": 1,
-                "fails": 0,
-                "name": "37_getFavouriteAndRecentList -> 200 OK (35ms)",
-                "path": "::Student_Journey::37_getFavouriteAndRecentList -> 200 OK (35ms)"
-              },
-              {
-                "name": "38_saveOrDeleteFavouriteAndRecent -> 200 OK (56ms)",
-                "path": "::Student_Journey::38_saveOrDeleteFavouriteAndRecent -> 200 OK (56ms)",
-                "id": "3c7ce459609121bf42e3ba86baffe227",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "39_getBatchYear -> 200 OK (40ms)",
-                "path": "::Student_Journey::39_getBatchYear -> 200 OK (40ms)",
-                "id": "ed88077da20d38eb8da95c391e5d13f2"
-              },
-              {
-                "name": "40_getCampus -> 200 OK (53ms)",
-                "path": "::Student_Journey::40_getCampus -> 200 OK (53ms)",
-                "id": "7c9c2080c8f88f6ee24c34f13b7e1af7",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "41_getFavouriteAndRecentList -> 200 OK (37ms)",
-                "path": "::Student_Journey::41_getFavouriteAndRecentList -> 200 OK (37ms)",
-                "id": "cc9d17f1cbb3356a6cb9d873a7cb6832",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "name": "42_getBatchYear -> 200 OK (41ms)",
-                "path": "::Student_Journey::42_getBatchYear -> 200 OK (41ms)",
-                "id": "bb7b2520007394a7dde04d73e53e41bc",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "43_getCampus -> 200 OK (50ms)",
-                "path": "::Student_Journey::43_getCampus -> 200 OK (50ms)",
-                "id": "ea61422b3257cddb111ae630b970ba65"
-              },
-              {
-                "name": "44_getBatchYear -> 200 OK (37ms)",
-                "path": "::Student_Journey::44_getBatchYear -> 200 OK (37ms)",
-                "id": "8671da1726e88e59d69adb1881dc4ee7",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::Student_Journey::45_getCampus -> 200 OK (51ms)",
-                "id": "6374bd8806809d0e7d8cbc5ec2ea5d72",
-                "passes": 1,
-                "fails": 0,
-                "name": "45_getCampus -> 200 OK (51ms)"
-              },
-              {
-                "name": "46_status.json -> FAILED [Status: 400, Reason: HTTP 400]",
-                "path": "::Student_Journey::46_status.json -> FAILED [Status: 400, Reason: HTTP 400]",
-                "id": "e2b11e8e5a14d034c15efc3ee4eb9f09",
-                "passes": 0,
-                "fails": 1
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "47_getBatchYear -> 200 OK (38ms)",
-                "path": "::Student_Journey::47_getBatchYear -> 200 OK (38ms)",
-                "id": "b7b4e8a8497b056fe255843a7bad4217"
-              },
-              {
-                "name": "48_getCampus -> 200 OK (51ms)",
-                "path": "::Student_Journey::48_getCampus -> 200 OK (51ms)",
-                "id": "534f2766fdeb69be6e1d881d3f93136b",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::Student_Journey::49_saveOrDeleteFavouriteAndRecent -> 200 OK (67ms)",
-                "id": "144b4248a805f865088770313a503025",
-                "passes": 1,
-                "fails": 0,
-                "name": "49_saveOrDeleteFavouriteAndRecent -> 200 OK (67ms)"
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "50_privilegeEnabledForAdmin -> 200 OK (35ms)",
-                "path": "::Student_Journey::50_privilegeEnabledForAdmin -> 200 OK (35ms)",
-                "id": "dec081026c43b4f12c4f1a3b9093c824"
-              },
-              {
-                "fails": 0,
-                "name": "51_getFavouriteAndRecentList -> 200 OK (34ms)",
-                "path": "::Student_Journey::51_getFavouriteAndRecentList -> 200 OK (34ms)",
-                "id": "fdcb5173a6897c709e94e9671ebce9e0",
-                "passes": 1
-              },
-              {
-                "passes": 1,
-                "fails": 0,
-                "name": "52_getAcademicYearNew -> 200 OK (35ms)",
-                "path": "::Student_Journey::52_getAcademicYearNew -> 200 OK (35ms)",
-                "id": "39a7d6a050309a79589d449f78517491"
-              },
-              {
-                "name": "53_getUserLocation -> 200 OK (35ms)",
-                "path": "::Student_Journey::53_getUserLocation -> 200 OK (35ms)",
-                "id": "799ba780843be55104c82b655f80cda6",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "id": "c32125cf53f505e6bba39497a0cc4897",
-                "passes": 1,
-                "fails": 0,
-                "name": "54_getAllFacultyByYear -> 200 OK (544ms)",
-                "path": "::Student_Journey::54_getAllFacultyByYear -> 200 OK (544ms)"
-              },
-              {
-                "path": "::Student_Journey::55_getPublishedClassesByYear -> 200 OK (13028ms)",
-                "id": "0bfef442df1a61479f52f2cf3650684e",
-                "passes": 1,
-                "fails": 0,
-                "name": "55_getPublishedClassesByYear -> 200 OK (13028ms)"
-              },
-              {
-                "name": "56_getBatchYear -> 200 OK (40ms)",
-                "path": "::Student_Journey::56_getBatchYear -> 200 OK (40ms)",
-                "id": "4ffb813b0423cc8748679de29c9ca138",
-                "passes": 1,
-                "fails": 0
-              },
-              {
-                "path": "::Student_Journey::57_getCampus -> 200 OK (48ms)",
-                "id": "c2c6f00a538e3ecf0e3cbc399cbff911",
-                "passes": 1,
-                "fails": 0,
-                "name": "57_getCampus -> 200 OK (48ms)"
-              },
-              {
-                "name": "58_getDepartmentByLocation -> 200 OK (47ms)",
-                "path": "::Student_Journey::58_getDepartmentByLocation -> 200 OK (47ms)",
-                "id": "6110cc4de3aa77e69acee38a1d483956",
-                "passes": 1,
-                "fails": 0
-              }
-            ]
-        }
-      ]
+      {
+        "groups": [],
+        "checks": [
+            {
+              "fails": 1,
+              "name": "01_authenticate -> FAILED [Status: 0, Reason: Timeout]",
+              "path": "::Student_Journey::01_authenticate -> FAILED [Status: 0, Reason: Timeout]",
+              "id": "741885ed9578fb1575a96761f386e583",
+              "passes": 0
+            },
+            {
+              "passes": 1,
+              "fails": 0,
+              "name": "02_endpoint -> 200 OK (88ms)",
+              "path": "::Student_Journey::02_endpoint -> 200 OK (88ms)",
+              "id": "b22d16ccd90704bcc94e9648d255d8e4"
+            },
+            {
+              "name": "03_config.js -> 200 OK (22ms)",
+              "path": "::Student_Journey::03_config.js -> 200 OK (22ms)",
+              "id": "ba2c6fea9a7d908bc5cf6cac2ccbedb4",
+              "passes": 1,
+              "fails": 0
+            },
+            {
+              "fails": 0,
+              "name": "04_index.C_ni27Tb.js -> 200 OK (22ms)",
+              "path": "::Student_Journey::04_index.C_ni27Tb.js -> 200 OK (22ms)",
+              "id": "643df7c831ebe52d4efa1698d18f0c18",
+              "passes": 1
+            },
+            {
+              "passes": 1,
+              "fails": 0,
+              "name": "05_index.BZ4km8gr.js -> 200 OK (64ms)",
+              "path": "::Student_Journey::05_index.BZ4km8gr.js -> 200 OK (64ms)",
+              "id": "1b505d200cc6ced5b7e703ab4d24ba3f"
+            },
+            {
+              "path": "::Student_Journey::06_desiredPostLoginRedirectUrl.-AbHTvC5.js -> 200 OK (24ms)",
+              "id": "a560317111d570269774952fee7fbdf0",
+              "passes": 1,
+              "fails": 0,
+              "name": "06_desiredPostLoginRedirectUrl.-AbHTvC5.js -> 200 OK (24ms)"
+            },
+            {
+              "fails": 0,
+              "name": "07_urlSearchParams.CpA8CwXx.js -> 200 OK (24ms)",
+              "path": "::Student_Journey::07_urlSearchParams.CpA8CwXx.js -> 200 OK (24ms)",
+              "id": "c1499b3eca3da43f9c83e61a7e25ca28",
+              "passes": 1
+            },
+            {
+              "fails": 0,
+              "name": "08_getServerDateNow.ClXIBgLt.js -> 200 OK (22ms)",
+              "path": "::Student_Journey::08_getServerDateNow.ClXIBgLt.js -> 200 OK (22ms)",
+              "id": "355e37e131c2731c4a88bec43ae92b4b",
+              "passes": 1
+            },
+            {
+              "path": "::Student_Journey::09_main.DhjOLAEc.js -> 200 OK (298ms)",
+              "id": "82982294362b3ee02900f8afb220e512",
+              "passes": 1,
+              "fails": 0,
+              "name": "09_main.DhjOLAEc.js -> 200 OK (298ms)"
+            },
+            {
+              "path": "::Student_Journey::10_config.js -> FAILED [Status: 405, Reason: HTTP 405]",
+              "id": "434c26545a13499fbc5826f40715acb0",
+              "passes": 0,
+              "fails": 1,
+              "name": "10_config.js -> FAILED [Status: 405, Reason: HTTP 405]"
+            },
+            {
+              "name": "11_AuthProvider.CKJrTQKL.js -> 200 OK (22ms)",
+              "path": "::Student_Journey::11_AuthProvider.CKJrTQKL.js -> 200 OK (22ms)",
+              "id": "57446d8eb73d22f1c43a70763eecd850",
+              "passes": 1,
+              "fails": 0
+            },
+            {
+              "name": "12_oidcConfig.C_l2ZOmt.js -> 200 OK (23ms)",
+              "path": "::Student_Journey::12_oidcConfig.C_l2ZOmt.js -> 200 OK (23ms)",
+              "id": "49dbaec90a12b339bde850621985fc59",
+              "passes": 1,
+              "fails": 0
+            },
+            {
+              "passes": 0,
+              "fails": 1,
+              "name": "13_token -> FAILED [Status: 0, Reason: Timeout]",
+              "path": "::Student_Journey::13_token -> FAILED [Status: 0, Reason: Timeout]",
+              "id": "22d65a4328a8803ed776d481238f930c"
+            },
+            {
+              "fails": 1,
+              "name": "14_token -> FAILED [Status: 0, Reason: Timeout]",
+              "path": "::Student_Journey::14_token -> FAILED [Status: 0, Reason: Timeout]",
+              "id": "8e6a2d9a2833b78b86adcbb53f1a7323",
+              "passes": 0
+            },
+            {
+              "path": "::Student_Journey::15_WebProtectedRoute.C9tii17f.js -> 200 OK (23ms)",
+              "id": "85a966f88aee23c3e04316eb09b4c871",
+              "passes": 1,
+              "fails": 0,
+              "name": "15_WebProtectedRoute.C9tii17f.js -> 200 OK (23ms)"
+            },
+            {
+              "name": "16_web.e4q-deYh.js -> 200 OK (23ms)",
+              "path": "::Student_Journey::16_web.e4q-deYh.js -> 200 OK (23ms)",
+              "id": "68332ac5047437486d93730e142f5ea9",
+              "passes": 1,
+              "fails": 0
+            },
+            {
+              "path": "::Student_Journey::17_Home.e0dEAAPO.js -> 200 OK (64ms)",
+              "id": "e9b8262a32a1f7c00f6dc7ca4c2e6778",
+              "passes": 1,
+              "fails": 0,
+              "name": "17_Home.e0dEAAPO.js -> 200 OK (64ms)"
+            },
+            {
+              "name": "18_ArrowForward.BC6QlcYb.js -> 200 OK (23ms)",
+              "path": "::Student_Journey::18_ArrowForward.BC6QlcYb.js -> 200 OK (23ms)",
+              "id": "12cb83dffd22c8fc5a05b7c2437506b5",
+              "passes": 1,
+              "fails": 0
+            },
+            {
+              "path": "::Student_Journey::19_CheckCircleOutline.CQhB3KzZ.js -> 200 OK (22ms)",
+              "id": "66afcbd448eabada0ee9c0cd7bcbc7c0",
+              "passes": 1,
+              "fails": 0,
+              "name": "19_CheckCircleOutline.CQhB3KzZ.js -> 200 OK (22ms)"
+            },
+            {
+              "name": "20_Stack.D02NRK7j.js -> 200 OK (22ms)",
+              "path": "::Student_Journey::20_Stack.D02NRK7j.js -> 200 OK (22ms)",
+              "id": "37bcf5e891e647718e2692cda8c5f2b5",
+              "passes": 1,
+              "fails": 0
+            },
+            {
+              "path": "::Student_Journey::21_styled.BOuGvz6l.js -> 200 OK (21ms)",
+              "id": "e8fe87811c7f1dc24f1ae184bc487aa3",
+              "passes": 1,
+              "fails": 0,
+              "name": "21_styled.BOuGvz6l.js -> 200 OK (21ms)"
+            },
+            {
+              "name": "22_useThemeProps.BkuzUr3T.js -> 200 OK (22ms)",
+              "path": "::Student_Journey::22_useThemeProps.BkuzUr3T.js -> 200 OK (22ms)",
+              "id": "ef55f5fa858b31998b0161312ea268b5",
+              "passes": 1,
+              "fails": 0
+            }
+          ],
+        "name": "Student_Journey",
+        "path": "::Student_Journey",
+        "id": "438425337825d97aa93e585d620e6421"
+      }
+    ],
+    "checks": []
   },
   "options": {
-    "noColor": false,
     "summaryTrendStats": [
       "avg",
       "min",
@@ -438,102 +178,174 @@
       "p(90)",
       "p(95)"
     ],
-    "summaryTimeUnit": ""
+    "summaryTimeUnit": "",
+    "noColor": false
   },
   "state": {
-    "isStdOutTTY": false,
-    "isStdErrTTY": false,
-    "testRunDurationMs": 18588.0599
+    "isStdOutTTY": true,
+    "isStdErrTTY": true,
+    "testRunDurationMs": 52278.2323
   },
   "metrics": {
-    "http_req_waiting": {
-      "type": "trend",
-      "contains": "time",
+    "http_req_failed": {
+      "type": "rate",
+      "contains": "default",
       "values": {
-        "avg": 306.238925862069,
-        "min": 21.6417,
-        "med": 40.03905,
-        "max": 13024.9971,
-        "p(90)": 135.38598000000002,
-        "p(95)": 232.40622499999978
-      }
-    },
-    "http_req_sending": {
-      "type": "trend",
-      "contains": "time",
-      "values": {
-        "max": 1.6999,
-        "p(90)": 0.18982000000000007,
-        "p(95)": 0.53887,
-        "avg": 0.08404482758620689,
-        "min": 0,
-        "med": 0
+        "rate": 0.18181818181818182,
+        "passes": 4,
+        "fails": 18
       }
     },
     "checks": {
       "type": "rate",
       "contains": "default",
       "values": {
-        "rate": 0.8813559322033898,
-        "passes": 52,
-        "fails": 7
+        "fails": 4,
+        "rate": 0.8181818181818182,
+        "passes": 18
       }
     },
-    "rate_status_2xx": {
-      "type": "rate",
-      "contains": "default",
+    "http_req_sending": {
+      "type": "trend",
+      "contains": "time",
       "values": {
-        "fails": 7,
-        "rate": 0.8793103448275862,
-        "passes": 51
+        "min": 0,
+        "med": 0,
+        "max": 1.1234,
+        "p(90)": 0.8598600000000003,
+        "p(95)": 0.993325,
+        "avg": 0.22385454545454547
       }
     },
     "http_req_blocked": {
       "type": "trend",
       "contains": "time",
       "values": {
-        "p(90)": 0,
-        "p(95)": 59.29143999999999,
-        "avg": 5.032731034482758,
+        "avg": 2.9387772727272723,
         "min": 0,
         "med": 0,
-        "max": 91.048
+        "max": 64.6531,
+        "p(90)": 0,
+        "p(95)": 0
       }
+    },
+    "http_req_connecting": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "avg": 1.0514636363636365,
+        "min": 0,
+        "med": 0,
+        "max": 23.1322,
+        "p(90)": 0,
+        "p(95)": 0
+      }
+    },
+    "api_failures_total": {
+      "type": "counter",
+      "contains": "default",
+      "values": {
+        "count": 4,
+        "rate": 0.07651368120187951
+      }
+    },
+    "rate_status_4xx": {
+      "values": {
+        "rate": 0.045454545454545456,
+        "passes": 1,
+        "fails": 21
+      },
+      "type": "rate",
+      "contains": "default"
+    },
+    "http_req_duration{expected_response:true}": {
+      "values": {
+        "avg": 42.30376111111112,
+        "min": 21.3853,
+        "med": 22.4104,
+        "max": 298.6599,
+        "p(90)": 64.07045,
+        "p(95)": 99.27165999999966
+      },
+      "type": "trend",
+      "contains": "time"
+    },
+    "data_received": {
+      "values": {
+        "count": 1478071,
+        "rate": 28273.163321935812
+      },
+      "type": "counter",
+      "contains": "data"
     },
     "http_req_tls_handshaking": {
       "type": "trend",
       "contains": "time",
       "values": {
-        "avg": 2.934237931034483,
         "min": 0,
         "med": 0,
-        "max": 52.9962,
+        "max": 38.4492,
         "p(90)": 0,
-        "p(95)": 32.55545999999998
+        "p(95)": 0,
+        "avg": 1.747690909090909
+      }
+    },
+    "data_sent": {
+      "type": "counter",
+      "contains": "data",
+      "values": {
+        "rate": 122.21147729970204,
+        "count": 6389
+      }
+    },
+    "rate_status_timeout": {
+      "values": {
+        "passes": 3,
+        "fails": 19,
+        "rate": 0.13636363636363635
+      },
+      "type": "rate",
+      "contains": "default"
+    },
+    "api_users_triggered": {
+      "type": "counter",
+      "contains": "default",
+      "values": {
+        "count": 22,
+        "rate": 0.42082524661033727
       }
     },
     "http_req_duration": {
-      "type": "trend",
       "contains": "time",
       "values": {
-        "p(95)": 317.73573499999964,
-        "avg": 314.47003275862073,
-        "min": 21.6417,
-        "med": 40.391850000000005,
-        "max": 13026.5808,
-        "p(90)": 186.10855000000006
+        "avg": 35.57311818181819,
+        "min": 0,
+        "med": 22.203,
+        "max": 298.6599,
+        "p(90)": 60.01439000000008,
+        "p(95)": 64.084425
       },
       "thresholds": {
         "p(95)<5000": {
           "ok": true
         }
+      },
+      "type": "trend"
+    },
+    "vus": {
+      "type": "gauge",
+      "contains": "default",
+      "values": {
+        "min": 1,
+        "max": 1,
+        "value": 1
       }
     },
     "api_success_rate": {
       "values": {
-        "rate": 0.8793103448275862,
-        "passes": 51,
-        "fails": 7
+        "rate": 0.8181818181818182,
+        "passes": 18,
+        "fails": 4
       },
       "thresholds": {
         "rate>0.80": {
@@ -543,195 +355,92 @@
       "type": "rate",
       "contains": "default"
     },
-    "http_req_receiving": {
-      "type": "trend",
-      "contains": "time",
-      "values": {
-        "min": 0,
-        "med": 0.29955,
-        "max": 173.0507,
-        "p(90)": 0.9160800000000001,
-        "p(95)": 62.61134499999998,
-        "avg": 8.147062068965518
-      }
-    },
-    "api_hits_total": {
-      "type": "counter",
-      "contains": "default",
-      "values": {
-        "count": 58,
-        "rate": 3.1202826067931917
-      }
-    },
     "http_reqs": {
       "type": "counter",
       "contains": "default",
       "values": {
-        "count": 58,
-        "rate": 3.1202826067931917
+        "count": 22,
+        "rate": 0.42082524661033727
       }
     },
-    "rate_status_4xx": {
-      "values": {
-        "rate": 0.1206896551724138,
-        "passes": 7,
-        "fails": 51
-      },
-      "type": "rate",
-      "contains": "default"
-    },
-    "vus_max": {
-      "type": "gauge",
-      "contains": "default",
-      "values": {
-        "min": 1,
-        "max": 1,
-        "value": 1
-      }
-    },
-    "api_users_triggered": {
-      "type": "counter",
-      "contains": "default",
-      "values": {
-        "rate": 3.1202826067931917,
-        "count": 58
-      }
-    },
-    "group_duration": {
-      "contains": "time",
-      "values": {
-        "avg": 18587.2642,
-        "min": 18587.2642,
-        "med": 18587.2642,
-        "max": 18587.2642,
-        "p(90)": 18587.2642,
-        "p(95)": 18587.2642
-      },
-      "type": "trend"
-    },
-    "data_sent": {
-      "type": "counter",
-      "contains": "data",
-      "values": {
-        "count": 89174,
-        "rate": 4797.380709968554
-      }
-    },
-    "iteration_duration": {
-      "contains": "time",
-      "values": {
-        "min": 18587.3431,
-        "med": 18587.3431,
-        "max": 18587.3431,
-        "p(90)": 18587.3431,
-        "p(95)": 18587.3431,
-        "avg": 18587.3431
-      },
-      "type": "trend"
-    },
-    "rate_status_5xx": {
-      "type": "rate",
-      "contains": "default",
-      "values": {
-        "passes": 0,
-        "fails": 58,
-        "rate": 0
-      }
-    },
-    "vus": {
-      "values": {
-        "value": 1,
-        "min": 1,
-        "max": 1
-      },
-      "type": "gauge",
-      "contains": "default"
-    },
-    "api_response_duration": {
+    "http_req_receiving": {
       "type": "trend",
       "contains": "time",
       "values": {
-        "med": 40.391850000000005,
-        "max": 13026.5808,
-        "p(90)": 186.10855000000006,
-        "p(95)": 317.73573499999964,
-        "avg": 314.47003275862073,
-        "min": 21.6417
-      }
-    },
-    "http_req_connecting": {
-      "contains": "time",
-      "values": {
-        "avg": 1.9158931034482758,
-        "min": 0,
-        "med": 0,
-        "max": 38.0518,
-        "p(90)": 0,
-        "p(95)": 21.965899999999994
-      },
-      "type": "trend"
-    },
-    "http_req_failed": {
-      "type": "rate",
-      "contains": "default",
-      "values": {
-        "rate": 0.1206896551724138,
-        "passes": 7,
-        "fails": 51
+        "med": 0.04255,
+        "max": 255.6778,
+        "p(90)": 18.970780000000044,
+        "p(95)": 21.903154999999998,
+        "avg": 13.735127272727267,
+        "min": 0
       }
     },
     "api_failure_rate": {
       "type": "rate",
       "contains": "default",
       "values": {
-        "rate": 0.1206896551724138,
-        "passes": 7,
-        "fails": 51
+        "rate": 0.18181818181818182,
+        "passes": 4,
+        "fails": 18
       }
     },
-    "rate_status_timeout": {
-      "type": "rate",
+    "vus_max": {
+      "type": "gauge",
       "contains": "default",
       "values": {
-        "fails": 58,
-        "rate": 0,
-        "passes": 0
+        "value": 1,
+        "min": 1,
+        "max": 1
       }
     },
-    "api_failures_total": {
-      "values": {
-        "count": 7,
-        "rate": 0.37658583185435074
-      },
-      "type": "counter",
-      "contains": "default"
-    },
-    "data_received": {
-      "type": "counter",
-      "contains": "data",
-      "values": {
-        "count": 1271157,
-        "rate": 68385.67375178299
-      }
-    },
-    "iterations": {
-      "type": "counter",
-      "contains": "default",
-      "values": {
-        "count": 1,
-        "rate": 0.05379797597919296
-      }
-    },
-    "http_req_duration{expected_response:true}": {
+    "http_req_waiting": {
       "type": "trend",
       "contains": "time",
       "values": {
-        "p(95)": 410.47415,
-        "avg": 347.59955490196074,
-        "min": 21.6417,
-        "med": 40.1186,
-        "max": 13026.5808,
-        "p(90)": 197.3243
+        "avg": 21.614136363636366,
+        "min": 0,
+        "med": 21.797449999999998,
+        "max": 42.9821,
+        "p(90)": 40.19996000000004,
+        "p(95)": 42.201285
+      }
+    },
+    "api_hits_total": {
+      "type": "counter",
+      "contains": "default",
+      "values": {
+        "count": 22,
+        "rate": 0.42082524661033727
+      }
+    },
+    "rate_status_2xx": {
+      "type": "rate",
+      "contains": "default",
+      "values": {
+        "rate": 0.8181818181818182,
+        "passes": 18,
+        "fails": 4
+      }
+    },
+    "rate_status_5xx": {
+      "type": "rate",
+      "contains": "default",
+      "values": {
+        "rate": 0,
+        "passes": 0,
+        "fails": 22
+      }
+    },
+    "api_response_duration": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "avg": 326.7094818181818,
+        "min": 21.1409,
+        "med": 22.5018,
+        "max": 2138,
+        "p(90)": 1947.765990000004,
+        "p(95)": 2135.75
       }
     }
   }
